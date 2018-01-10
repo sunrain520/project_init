@@ -42,6 +42,7 @@
 	           	/login_login	 			= anon
 	           	/app**/** 					= anon
 	           	/weixin/** 					= anon
+	           	/file/** 					= anon
 	           	/**							= authc
 				</value>
 			</property>

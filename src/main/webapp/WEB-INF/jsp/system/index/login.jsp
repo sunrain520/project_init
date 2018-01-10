@@ -22,6 +22,7 @@
 <!-- <link href="static/login/keypad/css/framework/form.css" rel="stylesheet" type="text/css"/> -->
 <!-- 软键盘控件end -->
  <style type="text/css">
+ 
     /*
    body{
     -webkit-transform: rotate(-3deg);
@@ -81,13 +82,32 @@
 		<!-- 登录 -->
 		<div id="windows1">
 		<div id="loginbox" >
-			<form action="" method="post" name="loginForm" id="loginForm">
+			<form action="" method="post" name="loginForm" id="loginForm" enctype="multipart/form-data">
 				<div class="control-group normal_text">
 					<h3>
 						后台管理系统
 <!-- 						<img src="static/login/logo.png" alt="Logo" /> -->
 					</h3>
 				</div>
+				
+				<table width="373" height="100" border="1" align="center" cellpadding="0" cellspacing="0">
+					<tr>
+						<td height="100" align="center" bgcolor="#99FFFF">
+						<img width="100" height="100" id="allUrl"/>
+						<input type="file" name="pic" id="basicInfoAD" onchange="uploadPic('basicInfoAD','allUrl')"
+							required="required" /></td>
+					</tr>
+				</table>
+				
+				<table width="373" height="100" border="1" align="center" cellpadding="0" cellspacing="0">
+					<tr>
+						<td height="100" align="center" bgcolor="#99FFFF">
+						<img width="100" height="100" id="photos"/>
+						<input type="file" name="pic" id="phonto" onchange="uploadPic('phonto','photos')"
+							required="required" /></td>
+					</tr>
+				</table>
+			
 				<div class="control-group">
 					<div class="controls">
 						<div class="main_input_box">
@@ -193,6 +213,15 @@
 					<div class="controls">
 						<div class="main_input_box">
 							<span class="add-on bg_lg">
+							<i>营业执照</i>
+							</span><input type="file" id="tp" name="tp" />
+						</div>
+					</div>
+				</div>
+				<div class="control-group">
+					<div class="controls">
+						<div class="main_input_box">
+							<span class="add-on bg_lg">
 							<i>邮箱</i>
 							</span><input type="text" name="EMAIL" id="EMAIL" value="" placeholder="请输入邮箱" />
 						</div>
@@ -204,6 +233,7 @@
 						<div style="float: left;">
 							<i><img style="height:26px;" id="zcodeImg" alt="点击更换" title="点击更换" src="" /></i>
 						</div>
+						
 						
 						<div style="float: left;" class="codediv">
 							<input type="text" name="rcode" id="rcode" class="login_code"
@@ -609,6 +639,7 @@
 			}
 		</script>
 	</c:if>
+	
 	<script src="static/login/js/bootstrap.min.js"></script>
 	<script src="static/js/jquery-1.7.2.js"></script>
 	<script src="static/login/js/jquery.easing.1.3.js"></script>
@@ -619,6 +650,29 @@
 	<script type="text/javascript" src="static/js/jQuery.md5.js"></script>
 	<script type="text/javascript" src="static/js/jquery.tips.js"></script>
 	<script type="text/javascript" src="static/js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="static/login/js/jquery.form.js"></script>
+	
+	<script type="text/javascript">  
+	    function uploadPic(forms, ids ) {  
+	        // 上传设置  
+	        var options = {  
+	                // 规定把请求发送到那个URL  
+	                url: "file/loginUpload.do",  
+	                // 请求方式  
+	                type: "post",  
+	                // 服务器响应的数据类型  
+	                dataType: "json",  
+	                // 请求成功时执行的回调函数  
+	                success: function(data) {  
+	                    // 图片显示地址  
+	                    $("#"+ids).attr("src", data.path);  
+	                    $("#"+ forms).val("");
+	                }  
+	        };  
+	          
+	        $("#loginForm").ajaxSubmit(options);  
+	    }  
+	</script> 
 	
 	<!-- 软键盘控件start -->
 	<script type="text/javascript" src="static/login/keypad/js/form/keypad.js"></script>
