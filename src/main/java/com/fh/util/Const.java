@@ -44,7 +44,7 @@ public class Const {
 	 * APP Constants
 	 */
 	//系统用户注册接口_请求协议参数)
-	public static final String[] SYSUSER_REGISTERED_PARAM_ARRAY = new String[]{"USERNAME","PASSWORD","NAME","EMAIL","rcode"};
+	public static final String[] SYSUSER_REGISTERED_PARAM_ARRAY = new String[]{"username","password","name","email","rcode"};
 	public static final String[] SYSUSER_REGISTERED_VALUE_ARRAY = new String[]{"用户名","密码","姓名","邮箱","验证码"};
 	
 	//app根据用户名获取会员信息接口_请求协议中的参数

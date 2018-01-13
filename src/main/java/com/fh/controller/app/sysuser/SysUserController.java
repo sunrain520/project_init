@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.fh.controller.base.BaseController;
 import com.fh.service.system.fhlog.FHlogManager;
 import com.fh.service.system.user.UserManager;
@@ -52,7 +53,7 @@ public class SysUserController extends BaseController {
 		pd = this.getPageData();
 		String result = "00";
 		try{
-			if(Tools.checkKey("USERNAME", pd.getString("FKEY"))){	//检验请求key值是否合法
+			if(Tools.checkKey("username", pd.getString("FKEY"))){	//检验请求key值是否合法
 				if(AppUtil.checkParam("registerSysUser", pd)){		//检查参数
 					
 					Session session = Jurisdiction.getSession();
@@ -60,7 +61,7 @@ public class SysUserController extends BaseController {
 					String rcode = pd.getString("rcode");
 					if(Tools.notEmpty(sessionCode) && sessionCode.equalsIgnoreCase(rcode)){				//判断登录验证码
 						pd.put("USER_ID", this.get32UUID());	//ID 主键
-						pd.put("ROLE_ID", "fhadminzhuche");	//角色ID fhadminzhuche 为注册用户
+						pd.put("ROLE_ID", "fhadminzhuche");		//角色ID fhadminzhuche 为注册用户
 						pd.put("NUMBER", "");					//编号
 						pd.put("PHONE", "");					//手机号
 						pd.put("BZ", "注册用户");				//备注
@@ -69,10 +70,11 @@ public class SysUserController extends BaseController {
 						pd.put("STATUS", "0");					//状态
 						pd.put("SKIN", "default");
 						pd.put("RIGHTS", "");		
-						pd.put("PASSWORD", new SimpleHash("SHA-1", pd.getString("USERNAME"), pd.getString("PASSWORD")).toString());	//密码加密
+						pd.put("PASSWORD", new SimpleHash("SHA-1", pd.getString("username"), pd.getString("password")).toString());	//密码加密
+						System.out.println(JSON.toJSONString(pd));
 						if(null == userService.findByUsername(pd)){	//判断用户名是否存在
 							userService.saveU(pd); 					//执行保存
-							FHLOG.save(pd.getString("USERNAME"), "新注册");
+							FHLOG.save(pd.getString("username"), "新注册");
 						}else{
 							result = "04"; 	//用户名已存在
 						}

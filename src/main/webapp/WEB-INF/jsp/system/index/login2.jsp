@@ -134,7 +134,7 @@
 						<div class="main_input_box">
 							<span class="add-on bg_ly">
 							<i><img height="37" src="static/login/suo.png" /></i>
-							</span><input type="password" name="password2" id="password2" placeholder="请输入密码" class="keypad" keypadMode="full" allowKeyboard="true" value=""/>
+							</span><input type="password" name="password" id="password" placeholder="请输入密码" class="keypad" keypadMode="full" allowKeyboard="true" value=""/>
 						</div>
 					</div>
 				</div>
@@ -279,17 +279,16 @@
 							</span>
 							<a href="javascript:;" class="upload">
 								<img  class="images" width="20%" height="15%" id="license_pic" src="static/login/image.png" style="margin-top: -20px;"/>
-								<input class="change" type="file" multiple="multiple" name="pic" id="license" onchange="uploadPic('license','license_pic')" style="width: 100%;opacity: 0;"/>
+								<input class="change" type="file" multiple="multiple" name="license" id="license" onchange="uploadPic('license','license_pic')" style="width: 60%;opacity: 0;"/>
 							</a>
-							<input type="hidden" name = "license" id = "license_v" value="">
+							
 							<span class="add-on bg_lg">
 							<i>法人身份证</i>
 							</span>
 							<a href="javascript:;" class="upload">
 								<img  class="images" width="20%" height="15%" id="legal_no_pic" src="static/login/image.png" style="margin-top: -20px;"/>
-								<input class="change" type="file" multiple="multiple" name="pic" id="legal_no" onchange="uploadPic('legal_no','legal_no_pic')" style="width: 100%;opacity: 0;"/>
+								<input class="change" type="file" multiple="multiple" name="legal_no" id="legal_no" onchange="uploadPic('legal_no','legal_no_pic')" style="width: 60%;opacity: 0;"/>
 							</a>
-							<input type="hidden" name = "legal_no"  id = "legal_no_v"  value="">
 						</div>
 					</div>
 				</div>
@@ -358,10 +357,8 @@
 							</span>
 							<a href="javascript:;" class="upload">
 								<img  class="images" width="20%" height="15%" id="billing_pic" src="static/login/image.png" style="margin-top: -60px;"/>
-								<input class="change" type="file" multiple="multiple" name="pic" id="billing" 
-								onchange="uploadPic('billing','billing_pic')" style="margin-top: -30px;width: 100%;heopacity: 0;"/>
+								<input class="change" type="file" multiple="multiple" name="billing" id="billing" onchange="uploadPic('billing','billing_pic')" style="width: 60%;opacity: 0;"/>
 							</a>
-							<input type="hidden" name = "billing" id="billing_v" value="">
 						</div>
 					</div>
 				</div>
@@ -419,7 +416,7 @@
 		function severCheck(){
 			if(check()){
 				var loginname = $("#loginname").val();
-				var password = $("#password2").val();
+				var password = $("#password").val();
 				var code = "qq313596790fh"+loginname+",fh,"+password+"QQ978336446fh"+",fh,"+$("#code").val();
 				$.ajax({
 					type: "POST",
@@ -598,41 +595,41 @@
 		
 	//注册
 	function rcheck(){
-		if($("#username").val()==""){
-			$("#username").tips({
+		if($("#USERNAME").val()==""){
+			$("#USERNAME").tips({
 				side:3,
 	            msg:'输入用户名',
 	            bg:'#AE81FF',
 	            time:2
 	        });
-			$("#username").focus();
-			$("#username").val('');
+			$("#USERNAME").focus();
+			$("#USERNAME").val('');
 			return false;
 		}else{
-			$("#username").val(jQuery.trim($('#username').val()));
+			$("#USERNAME").val(jQuery.trim($('#USERNAME').val()));
 		}
-		if($("#password").val()==""){
-			$("#password").tips({
+		if($("#PASSWORD").val()==""){
+			$("#PASSWORD").tips({
 				side:3,
 	            msg:'输入密码',
 	            bg:'#AE81FF',
 	            time:2
 	        });
-			$("#password").focus();
+			$("#PASSWORD").focus();
 			return false;
 		}
-		if( !CheckPassWord($("#password").val())){
-			$("#password").tips({
+		if( !CheckPassWord($("#PASSWORD").val())){
+			$("#PASSWORD").tips({
 				side:3,
 	            msg:'必须包含数字字母且不少于6位',
 	            bg:'#AE81FF',
 	            time:2
 	        });
-			$("#password").focus();
+			$("#PASSWORD").focus();
 			return false;
 		}
 		
-		if($("#password").val()!=$("#chkpwd").val()){
+		if($("#PASSWORD").val()!=$("#chkpwd").val()){
 			$("#chkpwd").tips({
 				side:3,
 	            msg:'两次密码不相同',
@@ -652,23 +649,23 @@
 			$("#name").focus();
 			return false;
 		}
-		if($("#email").val()==""){
-			$("#email").tips({
+		if($("#EMAIL").val()==""){
+			$("#EMAIL").tips({
 				side:3,
 	            msg:'输入邮箱',
 	            bg:'#AE81FF',
 	            time:3
 	        });
-			$("#email").focus();
+			$("#EMAIL").focus();
 			return false;
-		}else if(!ismail($("#email").val())){
-			$("#email").tips({
+		}else if(!ismail($("#EMAIL").val())){
+			$("#EMAIL").tips({
 				side:3,
 	            msg:'邮箱格式不正确',
 	            bg:'#AE81FF',
 	            time:3
 	        });
-			$("#email").focus();
+			$("#EMAIL").focus();
 			return false;
 		}
 		if ($("#rcode").val() == "") {
@@ -688,12 +685,10 @@
 	function register(){
 		if(rcheck()){
 			var nowtime = date2str(new Date(),"yyyyMMdd");
-			
-			
 			$.ajax({
 				type: "POST",
 				url: 'appSysUser/registerSysUser.do',
-		    	data: {username:$("#username").val(),password:$("#password").val(),name:$("#name").val(),email:$("#email").val(),rcode:$("#rcode").val(),FKEY:$.md5('username'+nowtime+',fh,'),tm:new Date().getTime()},
+		    	data: {USERNAME:$("#USERNAME").val(),PASSWORD:$("#PASSWORD").val(),NAME:$("#name").val(),EMAIL:$("#EMAIL").val(),rcode:$("#rcode").val(),FKEY:$.md5('USERNAME'+nowtime+',fh,'),tm:new Date().getTime()},
 				dataType:'json',
 				cache: false,
 				success: function(data){
@@ -708,14 +703,14 @@
 						});
 						changeCode1();
 					}else if("04" == data.result){
-						$("#username").tips({
+						$("#USERNAME").tips({
 							side : 1,
 							msg : "用户名已存在",
 							bg : '#FF5080',
 							time : 15
 						});
 						showfh();
-						$("#username").focus();
+						$("#USERNAME").focus();
 					}else if("06" == data.result){
 						$("#rcode").tips({
 							side : 1,
@@ -806,10 +801,8 @@
 	                // 请求成功时执行的回调函数  
 	                success: function(data) {  
 	                    // 图片显示地址  
-	                    console.log("#"+ forms+"_v");
 	                    $("#"+ids).attr("src", data.path);  
 	                    $("#"+ forms).val("");
-	                    $("#"+ forms+"_v").attr("value",data.real_path)
 	                }  
 	        };  
 	          

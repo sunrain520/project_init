@@ -52,8 +52,9 @@ public class FileController {
 			String originalFilename = pic.getOriginalFilename();
 			System.out.println(originalFilename);
 
+			String id = UuidUtil.get32UUID();
 			// 文件名使用当前时间
-			String name = UuidUtil.get32UUID();
+			String name = id;
 
 			// 获取上传图片的扩展名(jpg/png/...)
 			String extension = FilenameUtils.getExtension(originalFilename);
@@ -73,7 +74,6 @@ public class FileController {
 			// 上传图片
 			pic.transferTo(new File(url));
 
-			String id = UuidUtil.get32UUID();
 			PageData pd = new PageData();
 			pd.put("PICTURES_ID", id); // 主键
 			pd.put("TITLE", "图片"); // 标题
@@ -89,6 +89,7 @@ public class FileController {
 			// 将图片上传到本地
 			jsonObject.put("path", path);
 			jsonObject.put("id", id);
+			jsonObject.put("real_path", DateUtil.getDays() + "/" + name + "." + extension);
 
 			return jsonObject.toString();
 		} catch (Exception e) {
