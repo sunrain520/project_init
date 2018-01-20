@@ -688,12 +688,10 @@
 	function register(){
 		if(rcheck()){
 			var nowtime = date2str(new Date(),"yyyyMMdd");
-			
-			
 			$.ajax({
 				type: "POST",
 				url: 'appSysUser/registerSysUser.do',
-		    	data: {username:$("#username").val(),password:$("#password").val(),name:$("#name").val(),email:$("#email").val(),rcode:$("#rcode").val(),FKEY:$.md5('username'+nowtime+',fh,'),tm:new Date().getTime()},
+		    	data: {type:2,username:$("#username").val(),password:$("#password").val(),name:$("#name").val(),email:$("#email").val(),rcode:$("#rcode").val(),FKEY:$.md5('username'+nowtime+',fh,'),tm:new Date().getTime()},
 				dataType:'json',
 				cache: false,
 				success: function(data){

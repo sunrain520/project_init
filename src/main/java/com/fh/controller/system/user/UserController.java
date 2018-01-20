@@ -23,8 +23,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSON;
 import com.fh.controller.base.BaseController;
 import com.fh.entity.Page;
+import com.fh.entity.system.Dictionaries;
 import com.fh.entity.system.Role;
 import com.fh.service.system.fhlog.FHlogManager;
 import com.fh.service.system.menu.MenuManager;
@@ -84,6 +86,12 @@ public class UserController extends BaseController {
 		if(lastLoginEnd != null && !"".equals(lastLoginEnd)){
 			pd.put("lastLoginEnd", lastLoginEnd+" 00:00:00");
 		} 
+		
+		String type = pd.getString("type");
+		if(type != null && !"".equals(type)){
+			pd.put("TYPE", type);
+		} 
+		
 		page.setPd(pd);
 		List<PageData>	userList = userService.listUsers(page);	//列出用户列表
 		pd.put("ROLE_ID", "1");
@@ -95,6 +103,37 @@ public class UserController extends BaseController {
 		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
 		return mv;
 	}
+	
+	
+	/**获取连级数据
+	 * @return
+	 */
+	@RequestMapping(value="/getlistUsers")
+	@ResponseBody
+	public Object getlistUsers(Page page){
+		Map<String,Object> map = new HashMap<String,Object>();
+		String errInfo = "success";
+		PageData pd = new PageData();
+		try{
+			pd = this.getPageData();
+			
+			String type = pd.getString("TYPE");
+			if(type != null && !"".equals(type)){
+				pd.put("TYPE", type);
+			} 
+			
+			page.setPd(pd);
+			List<PageData>	userList = userService.listUsers(page);	//列出用户列表
+			
+			map.put("list", userList);	
+		} catch(Exception e){
+			errInfo = "error";
+			logger.error(e.toString(), e);
+		}
+		map.put("result", errInfo);				//返回结果
+		return AppUtil.returnObject(new PageData(), map);
+	}
+
 	
 	/**删除用户
 	 * @param out

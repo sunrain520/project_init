@@ -33,6 +33,7 @@
 						
 						<!-- 检索  -->
 						<form action="user/listUsers.do" method="post" name="userForm" id="userForm">
+						<input type="hidden" name="type" id = "type" value="${pd.TYPE }" />
 						<table style="margin-top:5px;">
 							<tr>
 								<td>
@@ -203,7 +204,7 @@
 					<table style="width:100%;">
 						<tr>
 							<td style="vertical-align:top;">
-								<c:if test="${QX.add == 1 }">
+								<c:if test="${QX.add == 1 && pd.TYPE == 1}">
 								<a class="btn btn-mini btn-success" onclick="add();">新增</a>
 								</c:if>
 								<c:if test="${QX.FHSMS == 1 }"><a title="批量发送站内信" class="btn btn-mini btn-info" onclick="makeAll('确定要给选中的用户发送站内信吗?');"><i class="ace-icon fa fa-envelope-o bigger-120"></i></a></c:if>
@@ -261,6 +262,8 @@ function searchs(){
 	$("#userForm").submit();
 }
 
+var type = $("#type").val();
+
 //删除
 function delUser(userId,msg){
 	bootbox.confirm("确定要删除["+msg+"]吗?", function(result) {
@@ -281,8 +284,8 @@ function add(){
 	 diag.Drag=true;
 	 diag.Title ="新增";
 	 diag.URL = '<%=basePath%>user/goAddU.do';
-	 diag.Width = 469;
-	 diag.Height = 580;
+	 diag.Width = 600;
+	 diag.Height = 415;
 	 diag.CancelEvent = function(){ //关闭事件
 		 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 			 if('${page.currentPage}' == '0'){
@@ -308,6 +311,7 @@ function editUser(user_id){
 	 diag.Height = 415;
 	 diag.CancelEvent = function(){ //关闭事件
 		 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
+			 
 			nextPage(${page.currentPage});
 		}
 		diag.close();

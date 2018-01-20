@@ -68,6 +68,7 @@ public class SysUserController extends BaseController {
 						pd.put("LAST_LOGIN", "");				//最后登录时间
 						pd.put("IP", "");						//IP
 						pd.put("STATUS", "0");					//状态
+						pd.put("TYPE", pd.getString("type"));					//状态
 						pd.put("SKIN", "default");
 						pd.put("RIGHTS", "");		
 						pd.put("PASSWORD", new SimpleHash("SHA-1", pd.getString("username"), pd.getString("password")).toString());	//密码加密

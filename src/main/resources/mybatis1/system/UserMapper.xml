@@ -56,6 +56,7 @@
 		LAST_LOGIN,
 		IP,
 		STATUS,
+		TYPE,
 		BZ,
 		SKIN,
 		EMAIL,
@@ -75,6 +76,7 @@
 		#{LAST_LOGIN},
 		#{IP},
 		#{STATUS},
+		#{TYPE},
 		#{BZ},
 		#{SKIN},
 		#{EMAIL},
@@ -186,6 +188,9 @@
 					 or
 					 u.PHONE LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
 				)
+		</if>
+		<if test="pd.TYPE != null and pd.TYPE != ''"><!-- 角色检索 -->
+			and u.TYPE=#{pd.TYPE} 
 		</if>
 		<if test="pd.ROLE_ID != null and pd.ROLE_ID != ''"><!-- 角色检索 -->
 			and u.ROLE_ID=#{pd.ROLE_ID} 
@@ -378,5 +383,4 @@
 		<include refid="tableName"></include>
 	</select>
 	
-	<!-- fh313596790qq(青苔) -->
 </mapper>
