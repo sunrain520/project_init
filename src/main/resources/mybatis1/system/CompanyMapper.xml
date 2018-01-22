@@ -1,34 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="PrincipalMapper">
+<mapper namespace="CompanyMapper">
 	
 	<!--表名 -->
 	<sql id="tableName">
-		TB_PRINCIPAL
+		TB_COMPANY
 	</sql>
 	
 	<!-- 字段 -->
 	<sql id="Field">
-		PROVINCE_ID,	
+		COMPANY_NAME,	
+		CREDIT_CODE,	
+		REGISTERED_CAPITAL,	
+		ADDR,	
+		WEB_SITES,	
 		PROVINCE_NAME,	
-		AREA_ID,	
-		AREA_NAME,	
-		USER_ID,	
-		USER_NAME,	
-		PHONE,	
-		PRINCIPAL_ID
+		PROVINCE_ID,	
+		LICENSE,	
+		BUSINESS_SCOPE,	
+		BILLING,	
+		LEGAL_PERSON,	
+		LEGAL_PHONE,	
+		LEGAL_NO,	
+		CREATE_TIME,	
+		COMPANY_ID
 	</sql>
 	
 	<!-- 字段值 -->
 	<sql id="FieldValue">
-		#{PROVINCE_ID},	
+		#{COMPANY_NAME},	
+		#{CREDIT_CODE},	
+		#{REGISTERED_CAPITAL},	
+		#{ADDR},	
+		#{WEB_SITES},	
 		#{PROVINCE_NAME},	
-		#{AREA_ID},	
-		#{AREA_NAME},	
-		#{USER_ID},	
-		#{USER_NAME},	
-		#{PHONE},	
-		#{PRINCIPAL_ID}
+		#{PROVINCE_ID},	
+		#{LICENSE},	
+		#{BUSINESS_SCOPE},	
+		#{BILLING},	
+		#{LEGAL_PERSON},	
+		#{LEGAL_PHONE},	
+		#{LEGAL_NO},	
+		#{CREATE_TIME},	
+		#{COMPANY_ID}
 	</sql>
 	
 	<!-- 新增-->
@@ -47,7 +61,7 @@
 		delete from
 		<include refid="tableName"></include>
 		where 
-			PRINCIPAL_ID = #{PRINCIPAL_ID}
+			COMPANY_ID = #{COMPANY_ID}
 	</delete>
 	
 	<!-- 修改 -->
@@ -55,16 +69,23 @@
 		update
 		<include refid="tableName"></include>
 		set 
+			COMPANY_NAME = #{COMPANY_NAME},
+			CREDIT_CODE = #{CREDIT_CODE},
+			REGISTERED_CAPITAL = #{REGISTERED_CAPITAL},
+			ADDR = #{ADDR},
+			WEB_SITES = #{WEB_SITES},
 			PROVINCE_NAME = #{PROVINCE_NAME},
-			AREA_NAME = #{AREA_NAME},
-			USER_NAME = #{USER_NAME},
 			PROVINCE_ID = #{PROVINCE_ID},
-			PHONE = #{PHONE},
-			AREA_ID = #{AREA_ID},
-			USER_ID = #{USER_ID},
-		PRINCIPAL_ID = PRINCIPAL_ID
+			LICENSE = #{LICENSE},
+			BUSINESS_SCOPE = #{BUSINESS_SCOPE},
+			BILLING = #{BILLING},
+			LEGAL_PERSON = #{LEGAL_PERSON},
+			LEGAL_PHONE = #{LEGAL_PHONE},
+			LEGAL_NO = #{LEGAL_NO},
+			CREATE_TIME = #{CREATE_TIME},
+		COMPANY_ID = COMPANY_ID
 		where 
-		PRINCIPAL_ID = #{PRINCIPAL_ID}
+		COMPANY_ID = #{COMPANY_ID}
 	</update>
 	
 	<!-- 通过ID获取数据 -->
@@ -74,7 +95,7 @@
 		from 
 		<include refid="tableName"></include>
 		where 
-			PRINCIPAL_ID = #{PRINCIPAL_ID}
+			COMPANY_ID = #{COMPANY_ID}
 	</select>
 	
 	<!-- 列表 -->
@@ -109,7 +130,7 @@
 		delete from
 		<include refid="tableName"></include>
 		where 
-			PRINCIPAL_ID in
+			COMPANY_ID in
 		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
                  #{item}
 		</foreach>

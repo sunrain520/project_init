@@ -48,11 +48,15 @@
 							
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">对接人:</td>
-								<td >
-								 	<select id="user" name="USER_ID" onchange="changeUser(this.value)" style="width: 120px;">
-								 		<option>请选择</option>                       
-                      				</select>
-                      				<input type="hidden" name="USER_NAME" id="USER_NAME">
+								<td id="juese">
+								<select class="chosen-select form-control" name="USER_ID" id="user" onchange="changeUser(this.value)"  style="vertical-align:top;" style="width: 98%;" >
+								<option value="请选择"></option>
+								<c:forEach items="${userList}" var="user">
+									<option value="${ pd.USER_ID }"  phone="${user.PHONE}"
+									<c:if test="${user.USER_ID == pd.USER_ID}">selected</c:if> >${user.USERNAME }</option>
+								</c:forEach>
+								</select>
+								<input type="hidden" name="USER_NAME" id="USER_NAME">
 								</td>
 							</tr>
 							
@@ -111,23 +115,23 @@
 				});
 			});
 			
-			//初始第一级
-			$(function() {
-				$.ajax({
-					type: "POST",
-					url: '<%=basePath%>user/getlistUsers.do?TYPE=1&tm='+new Date().getTime(),
-			    	data: {TYPE:1},
-					dataType:'json',
-					cache: false,
-					success: function(data){
-						$("#user").html('<option>请选择</option>');
-						 $.each(data.list, function(i, dvar){
-								$("#user").append("<option value="+dvar.USER_ID+">"+dvar.USERNAME+"</option>");
-								$("#user").append("<input type='hidden' id="+dvar.USER_ID+" value = "+dvar.PHONE +" >");
-						 });
-					}
-				});
-			});
+// 			//初始第一级
+// 			$(function() {
+// 				$.ajax({
+// 					type: "POST",
+<%-- 					url: '<%=basePath%>user/getlistUsers.do?TYPE=1&tm='+new Date().getTime(), --%>
+// 			    	data: {TYPE:1},
+// 					dataType:'json',
+// 					cache: false,
+// 					success: function(data){
+// 						$("#user").html('<option>请选择</option>');
+// 						 $.each(data.list, function(i, dvar){
+// 								$("#user").append("<option value="+dvar.USER_ID+">"+dvar.USERNAME+"</option>");
+// 								$("#user").append("<input type='hidden' id="+dvar.USER_ID+" value = "+dvar.PHONE +" >");
+// 						 });
+// 					}
+// 				});
+// 			});
 			
 			//第一级值改变事件(初始第二级)
 			function change1(value){

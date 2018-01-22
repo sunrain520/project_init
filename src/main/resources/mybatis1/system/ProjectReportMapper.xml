@@ -1,34 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="PrincipalMapper">
+<mapper namespace="ProjectReportMapper">
 	
 	<!--表名 -->
 	<sql id="tableName">
-		TB_PRINCIPAL
+		TB_PROJECTREPORT
 	</sql>
 	
 	<!-- 字段 -->
 	<sql id="Field">
-		PROVINCE_ID,	
-		PROVINCE_NAME,	
+		PROJECT_NAME,	
+		REPORT_TIME,	
+		PROJECT_MSG,	
+		CUSTOMER,	
 		AREA_ID,	
 		AREA_NAME,	
+		PROVINCE_ID,	
+		PROVINCE_NAME,	
+		INDUSTRY_ID,	
+		INDUSTRY_NAME,	
+		STATUS_ID,	
+		STATUS_NAME,	
+		BUDGET,	
+		CONTEND,	
+		BID_TIME,	
+		MODEL,	
+		NUM,	
+		DUTY_NAME,	
+		PHONE,	
+		REMARK,	
 		USER_ID,	
 		USER_NAME,	
-		PHONE,	
-		PRINCIPAL_ID
+		PROJECTREPORT_ID
 	</sql>
 	
 	<!-- 字段值 -->
 	<sql id="FieldValue">
-		#{PROVINCE_ID},	
-		#{PROVINCE_NAME},	
+		#{PROJECT_NAME},	
+		#{REPORT_TIME},	
+		#{PROJECT_MSG},	
+		#{CUSTOMER},	
 		#{AREA_ID},	
 		#{AREA_NAME},	
+		#{PROVINCE_ID},	
+		#{PROVINCE_NAME},	
+		#{INDUSTRY_ID},	
+		#{INDUSTRY_NAME},	
+		#{STATUS_ID},	
+		#{STATUS_NAME},	
+		#{BUDGET},	
+		#{CONTEND},	
+		#{BID_TIME},	
+		#{MODEL},	
+		#{NUM},	
+		#{DUTY_NAME},	
+		#{PHONE},	
+		#{REMARK},	
 		#{USER_ID},	
 		#{USER_NAME},	
-		#{PHONE},	
-		#{PRINCIPAL_ID}
+		#{PROJECTREPORT_ID}
 	</sql>
 	
 	<!-- 新增-->
@@ -47,7 +77,7 @@
 		delete from
 		<include refid="tableName"></include>
 		where 
-			PRINCIPAL_ID = #{PRINCIPAL_ID}
+			PROJECTREPORT_ID = #{PROJECTREPORT_ID}
 	</delete>
 	
 	<!-- 修改 -->
@@ -55,16 +85,30 @@
 		update
 		<include refid="tableName"></include>
 		set 
-			PROVINCE_NAME = #{PROVINCE_NAME},
-			AREA_NAME = #{AREA_NAME},
-			USER_NAME = #{USER_NAME},
-			PROVINCE_ID = #{PROVINCE_ID},
-			PHONE = #{PHONE},
+			PROJECT_NAME = #{PROJECT_NAME},
+			PROJECT_MSG = #{PROJECT_MSG},
+			CUSTOMER = #{CUSTOMER},
 			AREA_ID = #{AREA_ID},
+			AREA_NAME = #{AREA_NAME},
+			PROVINCE_ID = #{PROVINCE_ID},
+			PROVINCE_NAME = #{PROVINCE_NAME},
+			INDUSTRY_ID = #{INDUSTRY_ID},
+			INDUSTRY_NAME = #{INDUSTRY_NAME},
+			STATUS_ID = #{STATUS_ID},
+			STATUS_NAME = #{STATUS_NAME},
+			BUDGET = #{BUDGET},
+			CONTEND = #{CONTEND},
+			BID_TIME = #{BID_TIME},
+			MODEL = #{MODEL},
+			NUM = #{NUM},
+			DUTY_NAME = #{DUTY_NAME},
+			PHONE = #{PHONE},
+			REMARK = #{REMARK},
 			USER_ID = #{USER_ID},
-		PRINCIPAL_ID = PRINCIPAL_ID
+			USER_NAME = #{USER_NAME},
+		PROJECTREPORT_ID = PROJECTREPORT_ID
 		where 
-		PRINCIPAL_ID = #{PRINCIPAL_ID}
+		PROJECTREPORT_ID = #{PROJECTREPORT_ID}
 	</update>
 	
 	<!-- 通过ID获取数据 -->
@@ -74,7 +118,7 @@
 		from 
 		<include refid="tableName"></include>
 		where 
-			PRINCIPAL_ID = #{PRINCIPAL_ID}
+			PROJECTREPORT_ID = #{PROJECTREPORT_ID}
 	</select>
 	
 	<!-- 列表 -->
@@ -109,7 +153,7 @@
 		delete from
 		<include refid="tableName"></include>
 		where 
-			PRINCIPAL_ID in
+			PROJECTREPORT_ID in
 		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
                  #{item}
 		</foreach>

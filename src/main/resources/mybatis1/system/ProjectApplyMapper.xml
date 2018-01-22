@@ -1,34 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="PrincipalMapper">
+<mapper namespace="ProjectApplyMapper">
 	
 	<!--表名 -->
 	<sql id="tableName">
-		TB_PRINCIPAL
+		TB_PROJECTAPPLY
 	</sql>
 	
 	<!-- 字段 -->
 	<sql id="Field">
-		PROVINCE_ID,	
-		PROVINCE_NAME,	
-		AREA_ID,	
-		AREA_NAME,	
 		USER_ID,	
-		USER_NAME,	
+		FILE_TYPE,	
+		PROJECT_NAME,	
+		PROJECT_ID,	
+		NUM,	
+		ADDRESSEE,	
 		PHONE,	
-		PRINCIPAL_ID
+		ADDR,	
+		FILE_LIST,	
+		CREATE_TIME,	
+		PROJECTAPPLY_ID
 	</sql>
 	
 	<!-- 字段值 -->
 	<sql id="FieldValue">
-		#{PROVINCE_ID},	
-		#{PROVINCE_NAME},	
-		#{AREA_ID},	
-		#{AREA_NAME},	
 		#{USER_ID},	
-		#{USER_NAME},	
+		#{FILE_TYPE},	
+		#{PROJECT_NAME},	
+		#{PROJECT_ID},	
+		#{NUM},	
+		#{ADDRESSEE},	
 		#{PHONE},	
-		#{PRINCIPAL_ID}
+		#{ADDR},	
+		#{FILE_LIST},	
+		#{CREATE_TIME},	
+		#{PROJECTAPPLY_ID}
 	</sql>
 	
 	<!-- 新增-->
@@ -47,7 +53,7 @@
 		delete from
 		<include refid="tableName"></include>
 		where 
-			PRINCIPAL_ID = #{PRINCIPAL_ID}
+			PROJECTAPPLY_ID = #{PROJECTAPPLY_ID}
 	</delete>
 	
 	<!-- 修改 -->
@@ -55,16 +61,19 @@
 		update
 		<include refid="tableName"></include>
 		set 
-			PROVINCE_NAME = #{PROVINCE_NAME},
-			AREA_NAME = #{AREA_NAME},
-			USER_NAME = #{USER_NAME},
-			PROVINCE_ID = #{PROVINCE_ID},
-			PHONE = #{PHONE},
-			AREA_ID = #{AREA_ID},
 			USER_ID = #{USER_ID},
-		PRINCIPAL_ID = PRINCIPAL_ID
+			FILE_TYPE = #{FILE_TYPE},
+			PROJECT_NAME = #{PROJECT_NAME},
+			PROJECT_ID = #{PROJECT_ID},
+			NUM = #{NUM},
+			ADDRESSEE = #{ADDRESSEE},
+			PHONE = #{PHONE},
+			ADDR = #{ADDR},
+			FILE_LIST = #{FILE_LIST},
+			CREATE_TIME = #{CREATE_TIME},
+		PROJECTAPPLY_ID = PROJECTAPPLY_ID
 		where 
-		PRINCIPAL_ID = #{PRINCIPAL_ID}
+		PROJECTAPPLY_ID = #{PROJECTAPPLY_ID}
 	</update>
 	
 	<!-- 通过ID获取数据 -->
@@ -74,7 +83,7 @@
 		from 
 		<include refid="tableName"></include>
 		where 
-			PRINCIPAL_ID = #{PRINCIPAL_ID}
+			PROJECTAPPLY_ID = #{PROJECTAPPLY_ID}
 	</select>
 	
 	<!-- 列表 -->
@@ -109,7 +118,7 @@
 		delete from
 		<include refid="tableName"></include>
 		where 
-			PRINCIPAL_ID in
+			PROJECTAPPLY_ID in
 		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
                  #{item}
 		</foreach>
