@@ -163,7 +163,8 @@
 			function changeUser(value){
 				var text = $("#user").find("option:selected").text(); //获取Select选择的Text 
 				$("#USER_NAME").attr("value",text);
-				$("#PHONE").attr("value",$("#"+value+"").val());
+				var phone = $("#user").find("option:selected").attr("phone")
+				$("#PHONE").attr("value",phone);
 			}
 			
 		//保存
