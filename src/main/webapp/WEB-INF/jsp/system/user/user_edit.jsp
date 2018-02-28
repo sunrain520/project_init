@@ -63,7 +63,7 @@
 											<td style="width:79px;text-align: right;padding-top: 13px;">用户名:</td>
 											<td><input type="text" name="USERNAME" id="loginname" value="${pd.USERNAME }" maxlength="32" placeholder="这里输入用户名" title="用户名" style="width:98%;"/></td>
 											<td style="width:79px;text-align: right;padding-top: 13px;">编号:</td>
-											<td><input type="text" name="NUMBER" id="NUMBER" value="${pd.NUMBER }" maxlength="32" placeholder="这里输入编号" title="编号" onblur="hasN('${pd.USERNAME }')" style="width:98%;"/></td>
+											<td><input type="text" name="NUMBER" id="NUMBER" value="${pd.USER_ID }" maxlength="32" placeholder="编号自动生成" title="编号" onblur="hasN('${pd.USERNAME }')" style="width:98%;" disabled="disabled"/></td>
 										</tr>
 										<tr>
 											<td style="width:79px;text-align: right;padding-top: 13px;">密码:</td>
@@ -163,18 +163,9 @@
 			$("#loginname").val(jQuery.trim($('#loginname').val()));
 		}
 		
-		if($("#NUMBER").val()==""){
-			$("#NUMBER").tips({
-				side:3,
-	            msg:'输入编号',
-	            bg:'#AE81FF',
-	            time:3
-	        });
-			$("#NUMBER").focus();
-			return false;
-		}else{
-			$("#NUMBER").val($.trim($("#NUMBER").val()));
-		}
+		
+		$("#NUMBER").val("");
+		
 		if($("#user_id").val()=="" && $("#password").val()==""){
 			$("#password").tips({
 				side:3,
@@ -208,7 +199,6 @@
 		}
 		var myreg = /^(((13[0-9]{1})|159)+\d{8})$/;
 		if($("#PHONE").val()==""){
-			
 			$("#PHONE").tips({
 				side:3,
 	            msg:'输入手机号',

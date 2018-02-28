@@ -74,6 +74,7 @@
 									<th class="center">编号</th>
 									<th class="center">用户名</th>
 									<th class="center">姓名</th>
+									<c:if test="${pd.TYPE == 2 }"><th class="center">所属公司</th></c:if>
 									<th class="center">角色</th>
 									<th class="center">状态</th>
 									<th class="center"><i class="ace-icon fa fa-envelope-o"></i>邮箱</th>
@@ -97,9 +98,10 @@
 												<c:if test="${user.USERNAME == 'admin'}"><label><input type='checkbox' disabled="disabled" class="ace" /><span class="lbl"></span></label></c:if>
 											</td>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
-											<td class="center">${user.NUMBER }</td>
+											<td class="center">${user.USER_ID }</td>
 											<td class="center"><a onclick="viewUser('${user.USERNAME}')" style="cursor:pointer;">${user.USERNAME }</a></td>
 											<td class="center">${user.NAME }</td>
+											<c:if test="${pd.TYPE == 2 }"><td class="center" ><a onclick="viewCompany('${user.USER_ID}')" style="cursor:pointer;">${user.COMPANY_NAME }</a></td></c:if>
 											<td class="center">${user.ROLE_NAME }</td>
 											<td style="width: 60px;" class="center">
 												<c:if test="${user.STATUS == '0' }"><span class="label label-info arrowed-in">待审核</span></c:if>
@@ -307,7 +309,7 @@ function editUser(user_id){
 	 diag.Drag=true;
 	 diag.Title ="资料";
 	 diag.URL = '<%=basePath%>user/goEditU.do?USER_ID='+user_id;
-	 diag.Width = 600;
+	 diag.Width = 700;
 	 diag.Height = 415;
 	 diag.CancelEvent = function(){ //关闭事件
 		 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){

@@ -5,9 +5,9 @@ import com.fh.entity.Page;
 import com.fh.util.PageData;
 
 /** 
- * 说明： 公司注册信息接口
+ * 说明： 注册公司接口
  * 创建人：kuang 767375210
- * 创建时间：2018-01-20
+ * 创建时间：2018-02-24
  * @version
  */
 public interface CompanyManager{

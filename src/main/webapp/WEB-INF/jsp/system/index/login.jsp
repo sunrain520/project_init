@@ -69,6 +69,36 @@
 	.main_input_box{
 /* 		text-align:left !important; */
 	}
+	
+	select {
+/* 	    background-color: #fff; */
+/* 	    border: 1px solid #ccc; */
+	    height: 38px;
+	    border: 0px;
+	    display: inline-block;
+	    width: 54%;
+	    line-height: 28px;
+	    margin-bottom: 3px;
+	    margin-left: -4px;
+	}
+	#logo, #loginbox {
+    width: 50%;
+    }
+    
+    #loginbox .control-group {
+    padding: 10px 0;
+    margin-bottom: 0px;
+    width: 50%;
+    float: left;
+	}
+	#loginbox .main_input_box input {
+		width: 50%;
+	}
+	
+	#loginbox .controls {
+    padding: 0 0px;
+	}
+	
   </style>
   <script>
   		//window.setTimeout(showfh,3000); 
@@ -114,7 +144,7 @@
 		<div id="windows1">
 		<div id="loginbox" >
 			<form action="" method="post" name="loginForm1" id="loginForm1" >
-				<div class="control-group normal_text">
+				<div class="control-group normal_text" style="width: 100%">
 					<h3>
 						后台管理系统
 <!-- 						<img src="static/login/logo.png" alt="Logo" /> -->
@@ -161,27 +191,27 @@
 								style="height:16px; padding-top:4px;margin-left: 10px;" />
 						</div>
 						
-						<c:if test="${pd.isZhuce == 'yes' }">
+<%-- 						<c:if test="${pd.isZhuce == 'yes' }"> --%>
 						<span class="pull-right" style="padding-right:3%;"><a href="javascript:changepage(1);" class="btn btn-success">注册</a></span>
-						</c:if>
+<%-- 						</c:if> --%>
 						<span class="pull-right"><a onclick="severCheck();" class="flip-link btn btn-info" id="to-recover">登录</a></span>
 					</div>
 				</div>
 			</form>
-			<div class="controls">
+			<div class="controls" style="position:fixed;bottom:0;left:0;right:0;">
 				<div class="main_input_box">
-					<font color="white"><span id="nameerr">Copyright@2017  版权所有</span></font>
+					<font color="white"><span id="nameerr">Copyright@2018  版权所有</span></font>
 				</div>
 			</div>
 		</div>
 		</div>
 		<!-- 注册 -->
 		<div id="windows2" style="display: none;">
-		<div id="loginbox">
+		<div id="loginbox" style="margin-top: 1%;">
 			<form action="" method="post" name="loginForm" id="loginForm" enctype="multipart/form-data">
-				<div class="control-group normal_text">
+				<div class="control-group normal_text" style="width: 100%">
 					<h3>
-						后台管理系统
+						用户注册
 <!-- 						<img src="static/login/logo.png" alt="Logo" /> -->
 					</h3>
 				</div>
@@ -237,7 +267,16 @@
 						<div class="main_input_box">
 							<span class="add-on bg_lg">
 							<i><img height="37" src="static/login/user.png" /></i>
-							</span><input type="text" name="province" id="province" value="" placeholder="请输入公司所属省份" />
+							</span>
+<!-- 							<input type="text" name="province" id="province" value="" placeholder="请输入公司所属省份" /> -->
+							
+								
+								<select class="chosen-select form-control" name="province" id="province" onchange="changeProvince(this.value)" >
+								<option value="">请选择公司所属省份</option>
+								<c:forEach items="${province}" var="temp">
+									<option value="${temp.DICTIONARIES_ID}" >${temp.NAME }</option>
+								</c:forEach>
+								</select>
 						</div>
 					</div>
 				</div>
@@ -271,28 +310,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="control-group">
-					<div class="controls" >
-						<div class="main_input_box" >
-							<span class="add-on bg_lg">
-							<i>营业执照</i>
-							</span>
-							<a href="javascript:;" class="upload">
-								<img  class="images" width="20%" height="15%" id="license_pic" src="static/login/image.png" style="margin-top: -20px;"/>
-								<input class="change" type="file" multiple="multiple" name="pic" id="license" onchange="uploadPic('license','license_pic')" style="width: 100%;opacity: 0;"/>
-							</a>
-							<input type="hidden" name = "license" id = "license_v" value="">
-							<span class="add-on bg_lg">
-							<i>法人身份证</i>
-							</span>
-							<a href="javascript:;" class="upload">
-								<img  class="images" width="20%" height="15%" id="legal_no_pic" src="static/login/image.png" style="margin-top: -20px;"/>
-								<input class="change" type="file" multiple="multiple" name="pic" id="legal_no" onchange="uploadPic('legal_no','legal_no_pic')" style="width: 100%;opacity: 0;"/>
-							</a>
-							<input type="hidden" name = "legal_no"  id = "legal_no_v"  value="">
-						</div>
-					</div>
-				</div>
+				
 				<div class="control-group">
 					<div class="controls">
 						<div class="main_input_box">
@@ -341,7 +359,30 @@
 					</div>
 				</div>
 				
-				<div class="control-group">
+			
+				<div class="control-group" style="width: 50%">
+					<div class="controls" >
+						<div class="main_input_box" >
+							<span class="add-on bg_lg">
+							<i>营业执照</i>
+							</span>
+							<a href="javascript:;" class="upload">
+								<img  class="images" width="20%" height="15%" id="license_pic" src="static/login/image.png" style="margin-top: -20px;"/>
+								<input class="change" type="file" multiple="multiple" name="pic" id="license" onchange="uploadPic('license','license_pic')" style="width: 100%;opacity: 0;"/>
+							</a>
+							<input type="hidden" name = "license" id = "license_v" value="">
+							<span class="add-on bg_lg">
+							<i>法人身份证</i>
+							</span>
+							<a href="javascript:;" class="upload">
+								<img  class="images" width="20%" height="15%" id="legal_no_pic" src="static/login/image.png" style="margin-top: -20px;"/>
+								<input class="change" type="file" multiple="multiple" name="pic" id="legal_no" onchange="uploadPic('legal_no','legal_no_pic')" style="width: 100%;opacity: 0;"/>
+							</a>
+							<input type="hidden" name = "legal_no"  id = "legal_no_v"  value="">
+						</div>
+					</div>
+				</div>
+					<div class="control-group">
 					<div class="controls">
 						<div class="main_input_box">
 							<span class="add-on bg_ly">
@@ -350,11 +391,11 @@
 						</div>
 					</div>
 				</div>
-				<div class="control-group">
+				<div class="control-group" style="width: 50%">
 					<div class="controls" >
 						<div class="main_input_box" >
 							<span class="add-on bg_lg">
-							<i>盖章的开票信息</i>
+							<i>盖章开票信息</i>
 							</span>
 							<a href="javascript:;" class="upload">
 								<img  class="images" width="20%" height="15%" id="billing_pic" src="static/login/image.png" style="margin-top: -60px;"/>
@@ -384,9 +425,9 @@
 					</div>
 				</div>
 			</form>
-			<div class="controls">
+			<div class="controls" style="position:fixed;bottom:0;left:0;right:0;">
 				<div class="main_input_box">
-					<font color="white"><span id="nameerr">Copyright@2017  版权所有</span></font>
+					<font color="white"><span id="nameerr">Copyright@2018  版权所有</span></font>
 				</div>
 			</div>
 		</div>
@@ -598,68 +639,174 @@
 		
 	//注册
 	function rcheck(){
-		if($("#username").val()==""){
-			$("#username").tips({
+		
+		if($("#company_name").val()==""){
+			$("#company_name").tips({
 				side:3,
-	            msg:'输入用户名',
+	            msg:'请输入公司名称',
 	            bg:'#AE81FF',
 	            time:2
 	        });
-			$("#username").focus();
-			$("#username").val('');
+			$("#company_name").focus();
+			$("#company_name").val('');
 			return false;
 		}else{
-			$("#username").val(jQuery.trim($('#username').val()));
-		}
-		if($("#password").val()==""){
-			$("#password").tips({
-				side:3,
-	            msg:'输入密码',
-	            bg:'#AE81FF',
-	            time:2
-	        });
-			$("#password").focus();
-			return false;
-		}
-		if( !CheckPassWord($("#password").val())){
-			$("#password").tips({
-				side:3,
-	            msg:'必须包含数字字母且不少于6位',
-	            bg:'#AE81FF',
-	            time:2
-	        });
-			$("#password").focus();
-			return false;
+			$("#company_name").val(jQuery.trim($('#company_name').val()));
 		}
 		
-		if($("#password").val()!=$("#chkpwd").val()){
-			$("#chkpwd").tips({
+		if($("#credit_code").val()==""){
+			$("#credit_code").tips({
 				side:3,
-	            msg:'两次密码不相同',
+	            msg:'请输入统一社会信用代码',
+	            bg:'#AE81FF',
+	            time:2
+	        });
+			$("#credit_code").focus();
+			$("#credit_code").val('');
+			return false;
+		}else{
+			$("#credit_code").val(jQuery.trim($('#credit_code').val()));
+		}
+		
+		if($("#registered_capital").val()==""){
+			$("#registered_capital").tips({
+				side:3,
+				msg:'请输入公司注册资本',
+				bg:'#AE81FF',
+				time:2
+			});
+			$("#registered_capital").focus();
+			$("#registered_capital").val('');
+			return false;
+		}else{
+			$("#registered_capital").val(jQuery.trim($('#registered_capital').val()));
+		}
+				
+		if($("#addr").val()==""){
+			$("#addr").tips({
+				side:3,
+				msg:'请输入公司办公地址',
+				bg:'#AE81FF',
+				time:2
+			});
+			$("#addr").focus();
+			$("#addr").val('');
+			return false;
+		}else{
+			$("#addr").val(jQuery.trim($('#addr').val()));
+		}
+		
+		if($("#web_sites").val()==""){
+			$("#web_sites").tips({
+				side:3,
+				msg:'请输入公司网站',
+				bg:'#AE81FF',
+				time:2
+			});
+			$("#web_sites").focus();
+			$("#web_sites").val('');
+			return false;
+		}else{
+			$("#web_sites").val(jQuery.trim($('#web_sites').val()));
+		}
+		
+		if($("#province").val()=="" || $("#province").val()==0){
+			$("#province").tips({
+				side:3,
+				msg:'请输入公司所属省份',
+				bg:'#AE81FF',
+				time:2
+			});
+			$("#province").focus();
+			$("#province").val('');
+			return false;
+		}else{
+			$("#province").val(jQuery.trim($('#province').val()));
+		}
+				
+		if($("#business_scope").val()==""){
+			$("#business_scope").tips({
+				side:3,
+				msg:'请输入公司经营范围',
+				bg:'#AE81FF',
+				time:2
+			});
+			$("#business_scope").focus();
+			$("#business_scope").val('');
+			return false;
+		}else{
+			$("#business_scope").val(jQuery.trim($('#business_scope').val()));
+		}
+				
+		if($("#legal_person").val()==""){
+			$("#legal_person").tips({
+				side:3,
+				msg:'请输入法人姓名',
+				bg:'#AE81FF',
+				time:2
+			});
+			$("#legal_person").focus();
+			$("#legal_person").val('');
+			return false;
+		}else{
+			$("#legal_person").val(jQuery.trim($('#legal_person').val()));
+		}
+		var myreg = /^(((13[0-9]{1})|159)+\d{8})$/;
+		 if($("#legal_phone").val() !="" && $("#legal_phone").val().length != 11 && !myreg.test($("#legal_phone").val())){
+			$("#legal_phone").tips({
+				side:3,
+	            msg:'手机号格式不正确',
 	            bg:'#AE81FF',
 	            time:3
 	        });
-			$("#chkpwd").focus();
+			$("#legal_phone").focus();
 			return false;
 		}
+				
 		if($("#name").val()==""){
 			$("#name").tips({
 				side:3,
-	            msg:'输入姓名',
+				msg:'请输入联系人姓名',
+				bg:'#AE81FF',
+				time:2
+			});
+			$("#name").focus();
+			$("#name").val('');
+			return false;
+		}else{
+			$("#name").val(jQuery.trim($('#name').val()));
+		}
+				
+		if($("#phone").val()==""){
+			$("#phone").tips({
+				side:3,
+				msg:'请输入联系人手机',
+				bg:'#AE81FF',
+				time:2
+			});
+			$("#phone").focus();
+			$("#phone").val('');
+			return false;
+		}else if($("#phone").val().length != 11 && !myreg.test($("#phone").val())){
+			$("#phone").tips({
+				side:3,
+	            msg:'手机号格式不正确',
 	            bg:'#AE81FF',
 	            time:3
 	        });
-			$("#name").focus();
+			$("#phone").focus();
 			return false;
 		}
+				
 		if($("#email").val()==""){
 			$("#email").tips({
 				side:3,
-	            msg:'输入邮箱',
-	            bg:'#AE81FF',
-	            time:3
-	        });
+				msg:'请输入联系人邮箱',
+				bg:'#AE81FF',
+				time:2
+			});
 			$("#email").focus();
+			$("#email").val('');
 			return false;
 		}else if(!ismail($("#email").val())){
 			$("#email").tips({
@@ -670,7 +817,93 @@
 	        });
 			$("#email").focus();
 			return false;
+		}else{
+			$("#email").val(jQuery.trim($('#email').val()));
 		}
+		
+		if($("#username").val()==""){
+			$("#username").tips({
+				side:3,
+				msg:'请输入用户名',
+				bg:'#AE81FF',
+				time:2
+			});
+			$("#username").focus();
+			$("#username").val('');
+			return false;
+		}else{
+			$("#username").val(jQuery.trim($('#username').val()));
+		}
+		
+		if($("#PASSWORD").val()==""){
+			$("#PASSWORD").tips({
+				side:3,
+	            msg:'输入密码',
+	            bg:'#AE81FF',
+	            time:2
+	        });
+			$("#PASSWORD").focus();
+			return false;
+		}
+		if( !CheckPassWord($("#PASSWORD").val())){
+			$("#PASSWORD").tips({
+				side:3,
+	            msg:'必须包含数字字母且不少于6位',
+	            bg:'#AE81FF',
+	            time:2
+	        });
+			$("#PASSWORD").focus();
+			return false;
+		}
+		
+		if($("#PASSWORD").val()!=$("#chkpwd").val()){
+			$("#chkpwd").tips({
+				side:3,
+	            msg:'两次密码不相同',
+	            bg:'#AE81FF',
+	            time:3
+	        });
+			$("#chkpwd").focus();
+			return false;
+		}
+		
+		if($("#license_v").val()==""){
+			$("#license_pic").tips({
+				side:3,
+				msg:'请上传营业执照',
+				bg:'#AE81FF',
+				time:2
+			});
+			$("#license_pic").focus();
+			$("#license_v").val('');
+			return false;
+		}
+		
+		if($("#legal_no_v").val()==""){
+			$("#legal_no_pic").tips({
+				side:3,
+				msg:'请上传法人身份证',
+				bg:'#AE81FF',
+				time:2
+			});
+			$("#legal_no_pic").focus();
+			$("#legal_no_v").val('');
+			return false;
+		}
+		
+		if($("#billing_v").val()==""){
+			$("#billing_pic").tips({
+				side:3,
+				msg:'请上传盖章开票信息',
+				bg:'#AE81FF',
+				time:2
+			});
+			$("#billing_pic").focus();
+			$("#billing_v").val('');
+			return false;
+		}
+		
+		
 		if ($("#rcode").val() == "") {
 			$("#rcode").tips({
 				side : 1,
@@ -688,10 +921,34 @@
 	function register(){
 		if(rcheck()){
 			var nowtime = date2str(new Date(),"yyyyMMdd");
+			var data = {
+					type:2,
+					COMPANY_NAME:$("#company_name").val(),
+					CREDIT_CODE:$("#credit_code").val(),
+					REGISTERED_CAPITAL:$("#registered_capital").val(),
+					ADDR:$("#addr").val(),
+					WEB_SITES:$("#web_sites").val(),
+					PROVINCE_ID:$("#province").val(),
+					PROVINCE_NAME:$("#province").find("option:selected").text(),
+					BUSINESS_SCOPE:$("#business_scope").val(),
+					LEGAL_PERSON:$("#legal_person").val(),
+					LEGAL_PHONE:$("#legal_phone").val(),
+					LICENSE:$("#license_v").val(),
+					LEGAL_NO:$("#legal_no_v").val(),
+					NAME:$("#name").val(),
+					PHONE:$("#phone").val(),
+					EMAIL:$("#email").val(),
+					USERNAME:$("#username").val(),
+					PASSWORD:$("#PASSWORD").val(),
+					BILLING:$("#billing_v").val(),
+					rcode:$("#rcode").val(),
+					FKEY:$.md5('username'+nowtime+',fh,'),
+					tm:new Date().getTime()
+					};
 			$.ajax({
 				type: "POST",
 				url: 'appSysUser/registerSysUser.do',
-		    	data: {type:2,username:$("#username").val(),password:$("#password").val(),name:$("#name").val(),email:$("#email").val(),rcode:$("#rcode").val(),FKEY:$.md5('username'+nowtime+',fh,'),tm:new Date().getTime()},
+		    	data: data,
 				dataType:'json',
 				cache: false,
 				success: function(data){

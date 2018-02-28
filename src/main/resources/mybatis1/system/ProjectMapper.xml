@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ProjectMapper">
+	
+	<!--表名 -->
+	<sql id="tableName">
+		TB_PROJECT
+	</sql>
+	
+	<!-- 字段 -->
+	<sql id="Field">
+		PROJECT_NAME,	
+		DETAILS,	
+		CLIENT,	
+		PROVINCE_ID,	
+		PROVINCE_NAME,	
+		AREA_ID,	
+		AREA_NAME,	
+		BUSINESS_ID,	
+		BUSINESS_NAME,	
+		PROJECT_TYPE,	
+		BUDGET,	
+		OPPONENT,	
+		BID_TIME,	
+		MODEL_ID,	
+		MODEL_NAME,	
+		BID_NUM,	
+		LEADER_NAME,	
+		LEADER_PHONE,	
+		BZ,	
+		CREATE_TIME,
+		USER_ID,	
+		USERNAME,	
+		PROJECT_ID
+	</sql>
+	
+	<!-- 字段值 -->
+	<sql id="FieldValue">
+		#{PROJECT_NAME},	
+		#{DETAILS},	
+		#{CLIENT},	
+		#{PROVINCE_ID},	
+		#{PROVINCE_NAME},	
+		#{AREA_ID},	
+		#{AREA_NAME},	
+		#{BUSINESS_ID},	
+		#{BUSINESS_NAME},	
+		#{PROJECT_TYPE},	
+		#{BUDGET},	
+		#{OPPONENT},	
+		#{BID_TIME},	
+		#{MODEL_ID},	
+		#{MODEL_NAME},	
+		#{BID_NUM},	
+		#{LEADER_NAME},	
+		#{LEADER_PHONE},	
+		#{BZ},	
+		now(),	
+		#{USER_ID},	
+		#{USERNAME},
+		#{PROJECT_ID}
+	</sql>
+	
+	<!-- 新增-->
+	<insert id="save" parameterType="pd">
+		insert into 
+	<include refid="tableName"></include>
+		(
+	<include refid="Field"></include>
+		) values (
+	<include refid="FieldValue"></include>
+		)
+	</insert>
+	
+	<!-- 删除-->
+	<delete id="delete" parameterType="pd">
+		delete from
+		<include refid="tableName"></include>
+		where 
+			PROJECT_ID = #{PROJECT_ID}
+	</delete>
+	
+	<!-- 修改 -->
+	<update id="edit" parameterType="pd">
+		update
+		<include refid="tableName"></include>
+		set 
+			DETAILS = #{DETAILS},
+			CLIENT = #{CLIENT},
+			PROVINCE_ID = #{PROVINCE_ID},
+			PROVINCE_NAME = #{PROVINCE_NAME},
+			AREA_ID = #{AREA_ID},
+			AREA_NAME = #{AREA_NAME},
+			BUSINESS_ID = #{BUSINESS_ID},
+			BUSINESS_NAME = #{BUSINESS_NAME},
+			PROJECT_TYPE = #{PROJECT_TYPE},
+			BUDGET = #{BUDGET},
+			OPPONENT = #{OPPONENT},
+			BID_TIME = #{BID_TIME},
+			MODEL_ID = #{MODEL_ID},
+			MODEL_NAME = #{MODEL_NAME},
+			BID_NUM = #{BID_NUM},
+			LEADER_NAME = #{LEADER_NAME},
+			LEADER_PHONE = #{LEADER_PHONE},
+			BZ = #{BZ},
+		PROJECT_ID = PROJECT_ID
+		where 
+		PROJECT_ID = #{PROJECT_ID}
+	</update>
+	
+	<!-- 通过ID获取数据 -->
+	<select id="findById" parameterType="pd" resultType="pd">
+		select 
+		<include refid="Field"></include>
+		from 
+		<include refid="tableName"></include>
+		where 
+			PROJECT_ID = #{PROJECT_ID}
+	</select>
+	
+	<!-- 列表 -->
+	<select id="datalistPage" parameterType="page" resultType="pd">
+		select
+		<include refid="Field"></include>
+		from 
+		<include refid="tableName"></include>
+		where 1=1
+		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
+			and
+				(
+					PROJECT_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+					 or 
+					PROVINCE_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
+				)
+		</if>
+		<if test="pd.lastStart!= null and pd.lastStart != ''">
+			and CREATE_TIME &gt;= #{pd.lastStart}
+		</if>
+		<if test="pd.lastEnd!= null and pd.lastEnd != ''">
+			and CREATE_TIME &lt;= #{pd.lastEnd}
+		</if>
+		order by CREATE_TIME desc
+	</select>
+	
+	<!-- 列表 -->
+	<select id="datalistProject" parameterType="page" resultType="pd">
+		select
+		PROJECT_ID,PROJECT_NAME
+		from 
+		<include refid="tableName"></include>
+		where 1=1
+		<if test="pd.USER_ID!= null and pd.USER_ID != ''">
+			and USER_ID = #{pd.USER_ID}
+		</if>
+		order by CREATE_TIME desc
+	</select>
+	
+	<!-- 列表(全部) -->
+	<select id="listAll" parameterType="pd" resultType="pd">
+		select
+		<include refid="Field"></include>
+		from 
+		<include refid="tableName"></include>
+	</select>
+	
+	<!-- 批量删除 -->
+	<delete id="deleteAll" parameterType="String">
+		delete from
+		<include refid="tableName"></include>
+		where 
+			PROJECT_ID in
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                 #{item}
+		</foreach>
+	</delete>
+	
+	<!-- 通过NAME获取数据 -->
+	<select id="findByName" parameterType="pd" resultType="pd" >
+		select 
+			<include refid="Field"></include>
+		from 
+			<include refid="tableName"></include>
+		where 
+			NAME = #{NAME}
+	</select>
+	
+	
+	<!-- kuang 767375210 -->
+</mapper>

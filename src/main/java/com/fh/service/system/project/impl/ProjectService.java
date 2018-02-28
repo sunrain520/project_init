@@ -1,4 +1,4 @@
-package com.fh.service.system.business.impl;
+package com.fh.service.system.project.impl;
 
 import java.util.List;
 import javax.annotation.Resource;
@@ -6,16 +6,16 @@ import org.springframework.stereotype.Service;
 import com.fh.dao.DaoSupport;
 import com.fh.entity.Page;
 import com.fh.util.PageData;
-import com.fh.service.system.business.BusinessManager;
+import com.fh.service.system.project.ProjectManager;
 
 /** 
- * 说明： 行业管理
+ * 说明： 项目管理
  * 创建人：kuang 767375210
- * 创建时间：2018-01-04
+ * 创建时间：2018-02-26
  * @version
  */
-@Service("businessService")
-public class BusinessService implements BusinessManager{
+@Service("projectService")
+public class ProjectService implements ProjectManager{
 
 	@Resource(name = "daoSupport")
 	private DaoSupport dao;
@@ -25,7 +25,7 @@ public class BusinessService implements BusinessManager{
 	 * @throws Exception
 	 */
 	public void save(PageData pd)throws Exception{
-		dao.save("BusinessMapper.save", pd);
+		dao.save("ProjectMapper.save", pd);
 	}
 	
 	/**删除
@@ -33,7 +33,7 @@ public class BusinessService implements BusinessManager{
 	 * @throws Exception
 	 */
 	public void delete(PageData pd)throws Exception{
-		dao.delete("BusinessMapper.delete", pd);
+		dao.delete("ProjectMapper.delete", pd);
 	}
 	
 	/**修改
@@ -41,7 +41,7 @@ public class BusinessService implements BusinessManager{
 	 * @throws Exception
 	 */
 	public void edit(PageData pd)throws Exception{
-		dao.update("BusinessMapper.edit", pd);
+		dao.update("ProjectMapper.edit", pd);
 	}
 	
 	/**列表
@@ -50,7 +50,16 @@ public class BusinessService implements BusinessManager{
 	 */
 	@SuppressWarnings("unchecked")
 	public List<PageData> list(Page page)throws Exception{
-		return (List<PageData>)dao.findForList("BusinessMapper.datalistPage", page);
+		return (List<PageData>)dao.findForList("ProjectMapper.datalistPage", page);
+	}
+	
+	/**项目下拉
+	 * @param page
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	public List<PageData> listProject(Page page)throws Exception{
+		return (List<PageData>)dao.findForList("ProjectMapper.datalistProject", page);
 	}
 	
 	/**列表(全部)
@@ -59,7 +68,7 @@ public class BusinessService implements BusinessManager{
 	 */
 	@SuppressWarnings("unchecked")
 	public List<PageData> listAll(PageData pd)throws Exception{
-		return (List<PageData>)dao.findForList("BusinessMapper.listAll", pd);
+		return (List<PageData>)dao.findForList("ProjectMapper.listAll", pd);
 	}
 	
 	/**通过id获取数据
@@ -67,7 +76,7 @@ public class BusinessService implements BusinessManager{
 	 * @throws Exception
 	 */
 	public PageData findById(PageData pd)throws Exception{
-		return (PageData)dao.findForObject("BusinessMapper.findById", pd);
+		return (PageData)dao.findForObject("ProjectMapper.findById", pd);
 	}
 	
 	/**批量删除
@@ -75,17 +84,16 @@ public class BusinessService implements BusinessManager{
 	 * @throws Exception
 	 */
 	public void deleteAll(String[] ArrayDATA_IDS)throws Exception{
-		dao.delete("BusinessMapper.deleteAll", ArrayDATA_IDS);
+		dao.delete("ProjectMapper.deleteAll", ArrayDATA_IDS);
 	}
 	
-	/**通过NAEME获取数据
+	/**通过NAME获取数据
 	 * @param pd
 	 * @return
 	 * @throws Exception
 	 */
 	public PageData findByName(PageData pd)throws Exception{
-		return (PageData)dao.findForObject("BusinessMapper.findByName", pd);
+		return (PageData)dao.findForObject("ProjectMapper.findByName", pd);
 	}
-	
 }
 

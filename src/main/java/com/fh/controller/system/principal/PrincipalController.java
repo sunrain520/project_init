@@ -56,9 +56,9 @@ public class PrincipalController extends BaseController {
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		pd.put("PRINCIPAL_ID", this.get32UUID());	//主键
-		pd.put("PROVINCE_ID", "");	//省份
-		pd.put("AREA_ID", "");	//区域id
-		pd.put("USER_ID", "");	//用户id
+//		pd.put("PROVINCE_ID", "");	//省份
+//		pd.put("AREA_ID", "");	//区域id
+//		pd.put("USER_ID", "");	//用户id
 		principalService.save(pd);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
@@ -133,6 +133,7 @@ public class PrincipalController extends BaseController {
 		
 		Page page = new Page();
 		pd.put("TYPE", 1);
+		pd.put("STATUS", 1);
 		page.setPd(pd);
 		List<PageData>	userList = userService.listUsers(page);	//列出用户列表
 		

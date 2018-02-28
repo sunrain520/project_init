@@ -30,7 +30,7 @@
 						<div class="col-xs-12">
 							
 						<!-- 检索  -->
-						<form action="business/list.do" method="post" name="Form" id="Form">
+						<form action="project/list.do" method="post" name="Form" id="Form">
 						<table style="margin-top:5px;">
 							<tr>
 								<td>
@@ -41,15 +41,22 @@
 										</span>
 									</div>
 								</td>
-								<td style="vertical-align:top;padding-left:2px;">
-								 	<select class="chosen-select form-control" name="status" id="id" data-placeholder="请选择" style="vertical-align:top;width: 120px;">
-									<option value="">--状态--</option>
-									<option value="1" <c:if test="${pd.status=='1'}">selected</c:if>>正常</option>
-									<option value="2" <c:if test="${pd.status=='2'}">selected</c:if>>禁用</option>
-								  	</select>
-								</td>
+								<td style="padding-left:2px;"><input class="span10 date-picker"
+								 name="lastStart" id="lastStart"  value="${pd.lastStart }" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" 
+								 style="width:88px;" placeholder="开始日期" title="开始日期"/></td>
+								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastEnd" name="lastEnd"  value="${pd.lastEnd }" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="结束日期" title="结束日期"/></td>
+<!-- 								<td style="vertical-align:top;padding-left:2px;"> -->
+<!-- 								 	<select class="chosen-select form-control" name="name" id="id" data-placeholder="请选择" style="vertical-align:top;width: 120px;"> -->
+<!-- 									<option value=""></option> -->
+<!-- 									<option value="">全部</option> -->
+<!-- 									<option value="">1</option> -->
+<!-- 									<option value="">2</option> -->
+<!-- 								  	</select> -->
+<!-- 								</td> -->
 								<c:if test="${QX.cha == 1 }">
 								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
+								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="research();"  title="清空">
+								<i id="" class="ace-icon fa  bigger-110  blue">清空</i></a></td>
 								</c:if>
 <%-- 								<c:if test="${QX.toExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="toExcel();" title="导出到EXCEL"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td></c:if> --%>
 							</tr>
@@ -63,8 +70,26 @@
 									<label class="pos-rel"><input type="checkbox" class="ace" id="zcheckbox" /><span class="lbl"></span></label>
 									</th>
 									<th class="center" style="width:50px;">序号</th>
-									<th class="center">名称</th>
-									<th class="center">状态</th>
+									<th class="center">项目名称</th>
+<!-- 									<th class="center">项目简介</th> -->
+									<th class="center">最终客户</th>
+<!-- 									<th class="center">省份ID</th> -->
+									<th class="center">省份</th>
+<!-- 									<th class="center">区域ID</th> -->
+									<th class="center">区域名称</th>
+<!-- 									<th class="center">行业ID</th> -->
+									<th class="center">行业名称</th>
+									<th class="center">项目状态</th>
+									<th class="center">项目预算</th>
+									<th class="center">竞争对手</th>
+									<th class="center">预计投标时间</th>
+<!-- 									<th class="center">预计使用设备型号ID</th> -->
+									<th class="center">预计使用设备型号</th>
+									<th class="center">数量</th>
+									<th class="center">项目负责人姓名</th>
+									<th class="center">手机</th>
+<!-- 									<th class="center">备注</th> -->
+									<th class="center">报备时间</th>
 									<th class="center">操作</th>
 								</tr>
 							</thead>
@@ -77,26 +102,41 @@
 									<c:forEach items="${varList}" var="var" varStatus="vs">
 										<tr>
 											<td class='center'>
-												<label class="pos-rel"><input type='checkbox' name='ids' value="${var.BUSINESS_ID}" class="ace" /><span class="lbl"></span></label>
+												<label class="pos-rel"><input type='checkbox' name='ids' value="${var.PROJECT_ID}" class="ace" /><span class="lbl"></span></label>
 											</td>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
-											<td class='center'>${var.NAME}</td>
-											<td class='center'>
-												<c:if test="${var.STATUS == '1' }"><span class="label label-success arrowed">正常</span></c:if>
-												<c:if test="${var.STATUS == '2' }"><span class="label label-warning arrowed-in">禁用</span></c:if>
-											</td>
+											<td class='center'><a  onclick="siMenu('z41','lm40','项目报备','<%=basePath%>project/goViewProject.do?PROJECT_ID=${var.PROJECT_ID}')" style="cursor:pointer;">${var.PROJECT_NAME}</a></td>
+<%-- 											<td class='center'>${var.DETAILS}</td> --%>
+											<td class='center'>${var.CLIENT}</td>
+<%-- 											<td class='center'>${var.PROVINCE_ID}</td> --%>
+											<td class='center'>${var.PROVINCE_NAME}</td>
+<%-- 											<td class='center'>${var.AREA_ID}</td> --%>
+											<td class='center'>${var.AREA_NAME}</td>
+<%-- 											<td class='center'>${var.BUSINESS_ID}</td> --%>
+											<td class='center'>${var.BUSINESS_NAME}</td>
+											<td class='center'>${var.PROJECT_TYPE}</td>
+											<td class='center'>${var.BUDGET}</td>
+											<td class='center'>${var.OPPONENT}</td>
+											<td class='center'>${var.BID_TIME}</td>
+<%-- 											<td class='center'>${var.MODEL_ID}</td> --%>
+											<td class='center'>${var.MODEL_NAME}</td>
+											<td class='center'>${var.BID_NUM}</td>
+											<td class='center'>${var.LEADER_NAME}</td>
+											<td class='center'>${var.LEADER_PHONE}</td>
+<%-- 											<td class='center'>${var.BZ}</td> --%>
+											<td class='center'>${var.CREATE_TIME}</td>
 											<td class="center">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
 												</c:if>
 												<div class="hidden-sm hidden-xs btn-group">
 													<c:if test="${QX.edit == 1 }">
-													<a class="btn btn-xs btn-success" title="编辑" onclick="edit('${var.BUSINESS_ID}');">
+													<a class="btn btn-xs btn-success" title="编辑"  onclick="siMenu('z41','lm40','项目报备','<%=basePath%>project/goEditProject.do?PROJECT_ID=${var.PROJECT_ID}')" >
 														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="编辑"></i>
 													</a>
 													</c:if>
 													<c:if test="${QX.del == 1 }">
-													<a class="btn btn-xs btn-danger" onclick="del('${var.BUSINESS_ID}');">
+													<a class="btn btn-xs btn-danger" onclick="del('${var.PROJECT_ID}');">
 														<i class="ace-icon fa fa-trash-o bigger-120" title="删除"></i>
 													</a>
 													</c:if>
@@ -110,7 +150,8 @@
 														<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
 															<c:if test="${QX.edit == 1 }">
 															<li>
-																<a style="cursor:pointer;" onclick="edit('${var.BUSINESS_ID}');" class="tooltip-success" data-rel="tooltip" title="修改">
+																<a style="cursor:pointer;"
+																 onclick="siMenu('z41','lm40','项目报备','<%=basePath%>project/goAddProject.do?PROJECT_ID=${var.PROJECT_ID}')" class="tooltip-success" data-rel="tooltip" title="修改">
 																	<span class="green">
 																		<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
 																	</span>
@@ -119,7 +160,7 @@
 															</c:if>
 															<c:if test="${QX.del == 1 }">
 															<li>
-																<a style="cursor:pointer;" onclick="del('${var.BUSINESS_ID}');" class="tooltip-error" data-rel="tooltip" title="删除">
+																<a style="cursor:pointer;" onclick="del('${var.PROJECT_ID}');" class="tooltip-error" data-rel="tooltip" title="删除">
 																	<span class="red">
 																		<i class="ace-icon fa fa-trash-o bigger-120"></i>
 																	</span>
@@ -153,7 +194,7 @@
 							<tr>
 								<td style="vertical-align:top;">
 									<c:if test="${QX.add == 1 }">
-									<a class="btn btn-mini btn-success" onclick="add();">新增</a>
+									<a class="btn btn-mini btn-success" target="mainFrame" style="cursor:pointer;"  onclick="siMenu('z41','lm40','项目报备','<%=basePath%>project/goAddProject.do')">新增项目</a>
 									</c:if>
 									<c:if test="${QX.del == 1 }">
 									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要删除选中的数据吗?');" title="批量删除" ><i class='ace-icon fa fa-trash-o bigger-120'></i></a>
@@ -192,6 +233,8 @@
 	<script src="static/ace/js/ace/ace.js"></script>
 	<!-- 下拉框 -->
 	<script src="static/ace/js/chosen.jquery.js"></script>
+	<!--引入属于此页面的js -->
+<!-- 	<script type="text/javascript" src="static/js/myjs/head.js"></script> -->
 	<!-- 日期框 -->
 	<script src="static/ace/js/date-time/bootstrap-datepicker.js"></script>
 	<!--提示框-->
@@ -203,6 +246,22 @@
 			top.jzts();
 			$("#Form").submit();
 		}
+		function research(){
+			$("#nav-search-input").val("");
+			$("#lastStart").val("");
+			$("#lastEnd").val("");
+			tosearch();
+		}
+		
+		function siMenu(id,fid,MENU_NAME,MENU_URL){
+			$("#"+fid).attr("class","active open");
+			$("#"+id).attr("class","active");
+			top.mainFrame.tabAddHandler(id,MENU_NAME,MENU_URL);
+// 			if(MENU_URL != "druid/index.html"){
+// 				jzts();
+// 			}
+		}
+		
 		$(function() {
 		
 			//日期框
@@ -256,9 +315,9 @@
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
 			 diag.Title ="新增";
-			 diag.URL = '<%=basePath%>business/goAdd.do';
+			 diag.URL = '<%=basePath%>project/goAdd.do';
 			 diag.Width = 450;
-			 diag.Height = 200;
+			 diag.Height = 355;
 			 diag.Modal = true;				//有无遮罩窗口
 			 diag. ShowMaxButton = true;	//最大化按钮
 		     diag.ShowMinButton = true;		//最小化按钮
@@ -280,7 +339,7 @@
 			bootbox.confirm("确定要删除吗?", function(result) {
 				if(result) {
 					top.jzts();
-					var url = "<%=basePath%>business/delete.do?BUSINESS_ID="+Id+"&tm="+new Date().getTime();
+					var url = "<%=basePath%>project/delete.do?PROJECT_ID="+Id+"&tm="+new Date().getTime();
 					$.get(url,function(data){
 						tosearch();
 					});
@@ -294,9 +353,9 @@
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
 			 diag.Title ="编辑";
-			 diag.URL = '<%=basePath%>business/goEdit.do?BUSINESS_ID='+Id;
+			 diag.URL = '<%=basePath%>project/goEditProject.do?PROJECT_ID='+Id;
 			 diag.Width = 450;
-			 diag.Height = 200;
+			 diag.Height = 355;
 			 diag.Modal = true;				//有无遮罩窗口
 			 diag. ShowMaxButton = true;	//最大化按钮
 		     diag.ShowMinButton = true;		//最小化按钮 
@@ -338,7 +397,7 @@
 							top.jzts();
 							$.ajax({
 								type: "POST",
-								url: '<%=basePath%>business/deleteAll.do?tm='+new Date().getTime(),
+								url: '<%=basePath%>project/deleteAll.do?tm='+new Date().getTime(),
 						    	data: {DATA_IDS:str},
 								dataType:'json',
 								//beforeSend: validateData,
@@ -357,7 +416,7 @@
 		
 		//导出excel
 		function toExcel(){
-			window.location.href='<%=basePath%>business/excel.do';
+			window.location.href='<%=basePath%>project/excel.do';
 		}
 	</script>
 

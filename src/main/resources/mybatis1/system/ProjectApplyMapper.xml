@@ -10,30 +10,34 @@
 	<!-- 字段 -->
 	<sql id="Field">
 		USER_ID,	
+		USERNAME,	
 		FILE_TYPE,	
 		PROJECT_NAME,	
 		PROJECT_ID,	
 		NUM,	
-		ADDRESSEE,	
+		NAME,	
 		PHONE,	
 		ADDR,	
-		FILE_LIST,	
+		BID_DOCUMENT,	
 		CREATE_TIME,	
+		STATUS,	
 		PROJECTAPPLY_ID
 	</sql>
 	
 	<!-- 字段值 -->
 	<sql id="FieldValue">
 		#{USER_ID},	
+		#{USERNAME},	
 		#{FILE_TYPE},	
 		#{PROJECT_NAME},	
 		#{PROJECT_ID},	
 		#{NUM},	
-		#{ADDRESSEE},	
+		#{NAME},	
 		#{PHONE},	
 		#{ADDR},	
-		#{FILE_LIST},	
+		#{BID_DOCUMENT},	
 		#{CREATE_TIME},	
+		#{STATUS},	
 		#{PROJECTAPPLY_ID}
 	</sql>
 	
@@ -61,16 +65,15 @@
 		update
 		<include refid="tableName"></include>
 		set 
-			USER_ID = #{USER_ID},
 			FILE_TYPE = #{FILE_TYPE},
 			PROJECT_NAME = #{PROJECT_NAME},
 			PROJECT_ID = #{PROJECT_ID},
 			NUM = #{NUM},
-			ADDRESSEE = #{ADDRESSEE},
+			NAME = #{NAME},
 			PHONE = #{PHONE},
 			ADDR = #{ADDR},
-			FILE_LIST = #{FILE_LIST},
-			CREATE_TIME = #{CREATE_TIME},
+			BID_DOCUMENT = #{BID_DOCUMENT},
+			STATUS = #{STATUS},
 		PROJECTAPPLY_ID = PROJECTAPPLY_ID
 		where 
 		PROJECTAPPLY_ID = #{PROJECTAPPLY_ID}

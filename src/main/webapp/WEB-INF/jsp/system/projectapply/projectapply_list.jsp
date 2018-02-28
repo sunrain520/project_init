@@ -66,15 +66,17 @@
 									<label class="pos-rel"><input type="checkbox" class="ace" id="zcheckbox" /><span class="lbl"></span></label>
 									</th>
 									<th class="center" style="width:50px;">序号</th>
-									<th class="center">申请人</th>
+									<th class="center">项目名称</th>
+<!-- 									<th class="center">用户ID</th> -->
 									<th class="center">申请文件类型</th>
-									<th class="center">申请项目名称</th>
-									<th class="center">申请项目ID</th>
-									<th class="center">申请份数</th>
+<!-- 									<th class="center">项目ID</th> -->
+									<th class="center">申请数量</th>
 									<th class="center">邮寄联系人姓名</th>
 									<th class="center">邮寄联系人电话</th>
 									<th class="center">邮寄地址</th>
-									<th class="center">招标文件上传</th>
+									<th class="center">招标文件</th>
+									<th class="center">状态</th>
+									<th class="center">申请人</th>
 									<th class="center">申请时间</th>
 									<th class="center">操作</th>
 								</tr>
@@ -91,15 +93,28 @@
 												<label class="pos-rel"><input type='checkbox' name='ids' value="${var.PROJECTAPPLY_ID}" class="ace" /><span class="lbl"></span></label>
 											</td>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
-											<td class='center'>${var.USER_ID}</td>
-											<td class='center'>${var.FILE_TYPE}</td>
 											<td class='center'>${var.PROJECT_NAME}</td>
-											<td class='center'>${var.PROJECT_ID}</td>
+<%-- 											<td class='center'>${var.USER_ID}</td> --%>
+											<td class='center'>${var.FILE_TYPE}</td>
+<%-- 											<td class='center'>${var.PROJECT_ID}</td> --%>
 											<td class='center'>${var.NUM}</td>
-											<td class='center'>${var.ADDRESSEE}</td>
+											<td class='center'>${var.NAME}</td>
 											<td class='center'>${var.PHONE}</td>
 											<td class='center'>${var.ADDR}</td>
-											<td class='center'>${var.FILE_LIST}</td>
+											<td class='center'>
+												<a style="cursor:pointer;" onclick="window.location.href='<%=basePath%>/fhfile/downloadAll.do?FHFILE_ID=${var.BID_DOCUMENT}&key=${var.PROJECT_NAME}_招标文件'" class="tooltip-success" data-rel="tooltip" title="下载">
+													<span class="green">
+														<i class="ace-icon fa fa-cloud-download bigger-120"></i>
+													</span>
+												</a>
+											</td>
+											
+											<td class='center' style="width: 60px;">
+												<c:if test="${var.STATUS == '0' }"><span class="label label-info arrowed-in">待审核</span></c:if>
+												<c:if test="${var.STATUS == '1' }"><span class="label label-success arrowed">通过</span></c:if>
+												<c:if test="${var.STATUS == '2' }"><span class="label label-warning arrowed-in">拒绝</span></c:if>
+											</td>
+											<td class='center'>${var.USERNAME}</td>
 											<td class='center'>${var.CREATE_TIME}</td>
 											<td class="center">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
@@ -273,8 +288,8 @@
 			 diag.Drag=true;
 			 diag.Title ="新增";
 			 diag.URL = '<%=basePath%>projectapply/goAdd.do';
-			 diag.Width = 450;
-			 diag.Height = 355;
+			 diag.Width = 650;
+			 diag.Height = 500;
 			 diag.Modal = true;				//有无遮罩窗口
 			 diag. ShowMaxButton = true;	//最大化按钮
 		     diag.ShowMinButton = true;		//最小化按钮
@@ -311,8 +326,8 @@
 			 diag.Drag=true;
 			 diag.Title ="编辑";
 			 diag.URL = '<%=basePath%>projectapply/goEdit.do?PROJECTAPPLY_ID='+Id;
-			 diag.Width = 450;
-			 diag.Height = 355;
+			 diag.Width = 650;
+			 diag.Height = 500;
 			 diag.Modal = true;				//有无遮罩窗口
 			 diag. ShowMaxButton = true;	//最大化按钮
 		     diag.ShowMinButton = true;		//最小化按钮 

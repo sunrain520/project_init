@@ -9,8 +9,15 @@
 %>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <base href="<%=basePath%>">
+
+<!--查看图片插件 -->
+<link rel="stylesheet" media="screen" type="text/css" href="plugins/zoomimage/css/zoomimage.css" />
+<link rel="stylesheet" media="screen" type="text/css" href="plugins/zoomimage/css/custom.css" />
+<!--查看图片插件 -->
+
 <!-- 下拉框 -->
 <link rel="stylesheet" href="static/ace/css/chosen.css" />
 <!-- jsp文件头和头部 -->
@@ -41,16 +48,16 @@
 										</span>
 									</div>
 								</td>
-								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastStart" id="lastStart"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="开始日期" title="开始日期"/></td>
-								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastEnd" name="lastEnd"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="结束日期" title="结束日期"/></td>
-								<td style="vertical-align:top;padding-left:2px;">
-								 	<select class="chosen-select form-control" name="name" id="id" data-placeholder="请选择" style="vertical-align:top;width: 120px;">
-									<option value=""></option>
-									<option value="">全部</option>
-									<option value="">1</option>
-									<option value="">2</option>
-								  	</select>
-								</td>
+<!-- 								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastStart" id="lastStart"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="开始日期" title="开始日期"/></td> -->
+<!-- 								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastEnd" name="lastEnd"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="结束日期" title="结束日期"/></td> -->
+<!-- 								<td style="vertical-align:top;padding-left:2px;"> -->
+<!-- 								 	<select class="chosen-select form-control" name="name" id="id" data-placeholder="请选择" style="vertical-align:top;width: 120px;"> -->
+<!-- 									<option value=""></option> -->
+<!-- 									<option value="">全部</option> -->
+<!-- 									<option value="">1</option> -->
+<!-- 									<option value="">2</option> -->
+<!-- 								  	</select> -->
+<!-- 								</td> -->
 								<c:if test="${QX.cha == 1 }">
 								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
 								</c:if>
@@ -67,18 +74,21 @@
 									</th>
 									<th class="center" style="width:50px;">序号</th>
 									<th class="center">公司名称</th>
+									<th class="center">注册资本</th>
 									<th class="center">统一社会信用代码</th>
-									<th class="center">公司注册资本</th>
-									<th class="center">公司办公地址</th>
+									<th class="center">办公地址</th>
 									<th class="center">公司网站</th>
-									<th class="center">公司所属省份</th>
-									<th class="center">公司所属省份ID</th>
+<!-- 									<th class="center">省份ID</th> -->
+									<th class="center">省份</th>
 									<th class="center">营业执照</th>
-									<th class="center">公司经营范围</th>
+									<th class="center">经营范围</th>
 									<th class="center">盖章的开票信息</th>
 									<th class="center">法人姓名</th>
 									<th class="center">法人手机号</th>
 									<th class="center">法人身份证</th>
+									<th class="center">联系人</th>
+									<th class="center">联系人手机</th>
+									<th class="center">联系人邮箱</th>
 									<th class="center">注册时间</th>
 									<th class="center">操作</th>
 								</tr>
@@ -96,19 +106,34 @@
 											</td>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
 											<td class='center'>${var.COMPANY_NAME}</td>
-											<td class='center'>${var.CREDIT_CODE}</td>
 											<td class='center'>${var.REGISTERED_CAPITAL}</td>
+											<td class='center'>${var.CREDIT_CODE}</td>
 											<td class='center'>${var.ADDR}</td>
-											<td class='center'>${var.WEB_SITES}</td>
+											<td class='center'><a href="http://${var.WEB_SITES}" target="_blank">${var.WEB_SITES}</a></td>
+<%-- 											<td class='center'>${var.PROVINCE_ID}</td> --%>
 											<td class='center'>${var.PROVINCE_NAME}</td>
-											<td class='center'>${var.PROVINCE_ID}</td>
-											<td class='center'>${var.LICENSE}</td>
+											<td class="center">
+											<a href="<%=basePath%>uploadFiles/uploadImgs/${var.LICENSE}" title="[营业执照]" class="bwGal">
+											<img src="<%=basePath%>uploadFiles/uploadImgs/${var.LICENSE}" alt="[营业执照]" width="100"></a>
+											</td>
+<%-- 											<td class='center'>${var.LICENSE}</td> --%>
 											<td class='center'>${var.BUSINESS_SCOPE}</td>
-											<td class='center'>${var.BILLING}</td>
+											<td class="center">
+											<a href="<%=basePath%>uploadFiles/uploadImgs/${var.BILLING}" title="[盖章的开票信息]" class="bwGal">
+											<img src="<%=basePath%>uploadFiles/uploadImgs/${var.BILLING}" alt="[盖章的开票信息]" width="100"></a>
+											</td>
+<%-- 											<td class='center'>${var.BILLING}</td> --%>
 											<td class='center'>${var.LEGAL_PERSON}</td>
 											<td class='center'>${var.LEGAL_PHONE}</td>
-											<td class='center'>${var.LEGAL_NO}</td>
-											<td class='center'>${var.CREATE_TIME}</td>
+											<td class="center">
+											<a href="<%=basePath%>uploadFiles/uploadImgs/${var.LEGAL_NO}" title="[法人身份证]" class="bwGal">
+											<img src="<%=basePath%>uploadFiles/uploadImgs/${var.LEGAL_NO}" alt="[法人身份证]" width="100"></a>
+											</td>
+<%-- 											<td class='center'>${var.LEGAL_NO}</td> --%>
+											<td class='center'>${var.NAME}</td>
+											<td class='center'>${var.PHONE}</td>
+											<td class='center'>${var.EMAIL}</td>
+											<td class='center'>${var.REGTIME}</td>
 											<td class="center">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
@@ -176,12 +201,12 @@
 						<table style="width:100%;">
 							<tr>
 								<td style="vertical-align:top;">
-									<c:if test="${QX.add == 1 }">
-									<a class="btn btn-mini btn-success" onclick="add();">新增</a>
-									</c:if>
-									<c:if test="${QX.del == 1 }">
-									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要删除选中的数据吗?');" title="批量删除" ><i class='ace-icon fa fa-trash-o bigger-120'></i></a>
-									</c:if>
+<%-- 									<c:if test="${QX.add == 1 }"> --%>
+<!-- 									<a class="btn btn-mini btn-success" onclick="add();">新增</a> -->
+<%-- 									</c:if> --%>
+<%-- 									<c:if test="${QX.del == 1 }"> --%>
+<!-- 									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要删除选中的数据吗?');" title="批量删除" ><i class='ace-icon fa fa-trash-o bigger-120'></i></a> -->
+<%-- 									</c:if> --%>
 								</td>
 								<td style="vertical-align:top;"><div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div></td>
 							</tr>
@@ -220,6 +245,13 @@
 	<script src="static/ace/js/date-time/bootstrap-datepicker.js"></script>
 	<!--提示框-->
 	<script type="text/javascript" src="static/js/jquery.tips.js"></script>
+	
+<!-- 	<script type="text/javascript" src="plugins/zoomimage/js/jquery.js"></script> -->
+<script type="text/javascript" src="plugins/zoomimage/js/eye.js"></script>
+<script type="text/javascript" src="plugins/zoomimage/js/utils.js"></script>
+<script type="text/javascript" src="plugins/zoomimage/js/zoomimage.js"></script>
+<script type="text/javascript" src="plugins/zoomimage/js/layout.js"></script>
+	
 	<script type="text/javascript">
 		$(top.hangge());//关闭加载状态
 		//检索
@@ -385,6 +417,12 @@
 		}
 	</script>
 
-
+	<style type="text/css">
+	li {list-style-type:none;}
+	</style>
+	<ul class="navigationTabs">
+           <li><a></a></li>
+           <li></li>
+       </ul>
 </body>
 </html>

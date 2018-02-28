@@ -26,9 +26,9 @@ import com.fh.util.Tools;
 import com.fh.service.system.company.CompanyManager;
 
 /** 
- * 说明：公司注册信息
+ * 说明：注册公司
  * 创建人：kuang 767375210
- * 创建时间：2018-01-20
+ * 创建时间：2018-02-24
  */
 @Controller
 @RequestMapping(value="/company")
@@ -182,39 +182,45 @@ public class CompanyController extends BaseController {
 		pd = this.getPageData();
 		Map<String,Object> dataMap = new HashMap<String,Object>();
 		List<String> titles = new ArrayList<String>();
-		titles.add("公司名称");	//1
-		titles.add("统一社会信用代码");	//2
-		titles.add("公司注册资本");	//3
-		titles.add("公司办公地址");	//4
-		titles.add("公司网站");	//5
-		titles.add("公司所属省份");	//6
-		titles.add("公司所属省份ID");	//7
+		titles.add("名称");	//1
+		titles.add("注册资本");	//2
+		titles.add("统一社会信用代码");	//3
+		titles.add("办公地址");	//4
+		titles.add("网站");	//5
+		titles.add("省份ID");	//6
+		titles.add("省份名称");	//7
 		titles.add("营业执照");	//8
-		titles.add("公司经营范围");	//9
+		titles.add("经营范围");	//9
 		titles.add("盖章的开票信息");	//10
 		titles.add("法人姓名");	//11
 		titles.add("法人手机号");	//12
 		titles.add("法人身份证");	//13
-		titles.add("注册时间");	//14
+		titles.add("联系人");	//14
+		titles.add("联系人手机");	//15
+		titles.add("联系人邮箱");	//16
+		titles.add("注册时间");	//17
 		dataMap.put("titles", titles);
 		List<PageData> varOList = companyService.listAll(pd);
 		List<PageData> varList = new ArrayList<PageData>();
 		for(int i=0;i<varOList.size();i++){
 			PageData vpd = new PageData();
 			vpd.put("var1", varOList.get(i).getString("COMPANY_NAME"));	    //1
-			vpd.put("var2", varOList.get(i).getString("CREDIT_CODE"));	    //2
-			vpd.put("var3", varOList.get(i).get("REGISTERED_CAPITAL").toString());	//3
+			vpd.put("var2", varOList.get(i).get("REGISTERED_CAPITAL").toString());	//2
+			vpd.put("var3", varOList.get(i).getString("CREDIT_CODE"));	    //3
 			vpd.put("var4", varOList.get(i).getString("ADDR"));	    //4
 			vpd.put("var5", varOList.get(i).getString("WEB_SITES"));	    //5
-			vpd.put("var6", varOList.get(i).getString("PROVINCE_NAME"));	    //6
-			vpd.put("var7", varOList.get(i).getString("PROVINCE_ID"));	    //7
+			vpd.put("var6", varOList.get(i).getString("PROVINCE_ID"));	    //6
+			vpd.put("var7", varOList.get(i).getString("PROVINCE_NAME"));	    //7
 			vpd.put("var8", varOList.get(i).getString("LICENSE"));	    //8
 			vpd.put("var9", varOList.get(i).getString("BUSINESS_SCOPE"));	    //9
 			vpd.put("var10", varOList.get(i).getString("BILLING"));	    //10
 			vpd.put("var11", varOList.get(i).getString("LEGAL_PERSON"));	    //11
 			vpd.put("var12", varOList.get(i).getString("LEGAL_PHONE"));	    //12
 			vpd.put("var13", varOList.get(i).getString("LEGAL_NO"));	    //13
-			vpd.put("var14", varOList.get(i).getString("CREATE_TIME"));	    //14
+			vpd.put("var14", varOList.get(i).getString("NAME"));	    //14
+			vpd.put("var15", varOList.get(i).getString("PHONE"));	    //15
+			vpd.put("var16", varOList.get(i).getString("EMAIL"));	    //16
+			vpd.put("var17", varOList.get(i).getString("REGTIME"));	    //17
 			varList.add(vpd);
 		}
 		dataMap.put("varList", varList);

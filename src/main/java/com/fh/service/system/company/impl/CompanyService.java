@@ -9,9 +9,9 @@ import com.fh.util.PageData;
 import com.fh.service.system.company.CompanyManager;
 
 /** 
- * 说明： 公司注册信息
+ * 说明： 注册公司
  * 创建人：kuang 767375210
- * 创建时间：2018-01-20
+ * 创建时间：2018-02-24
  * @version
  */
 @Service("companyService")

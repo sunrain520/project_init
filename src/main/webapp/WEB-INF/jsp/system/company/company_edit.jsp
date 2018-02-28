@@ -32,40 +32,40 @@
 						<div id="zhongxin" style="padding-top: 13px;">
 						<table id="table_report" class="table table-striped table-bordered table-hover">
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">公司名称:</td>
-								<td><input type="text" name="COMPANY_NAME" id="COMPANY_NAME" value="${pd.COMPANY_NAME}" maxlength="100" placeholder="这里输入公司名称" title="公司名称" style="width:98%;"/></td>
+								<td style="width:75px;text-align: right;padding-top: 13px;">名称:</td>
+								<td><input type="text" name="COMPANY_NAME" id="COMPANY_NAME" value="${pd.COMPANY_NAME}" maxlength="255" placeholder="这里输入名称" title="名称" style="width:98%;"/></td>
+							</tr>
+							<tr>
+								<td style="width:75px;text-align: right;padding-top: 13px;">注册资本:</td>
+								<td><input type="number" name="REGISTERED_CAPITAL" id="REGISTERED_CAPITAL" value="${pd.REGISTERED_CAPITAL}" maxlength="32" placeholder="这里输入注册资本" title="注册资本" style="width:98%;"/></td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">统一社会信用代码:</td>
-								<td><input type="text" name="CREDIT_CODE" id="CREDIT_CODE" value="${pd.CREDIT_CODE}" maxlength="100" placeholder="这里输入统一社会信用代码" title="统一社会信用代码" style="width:98%;"/></td>
+								<td><input type="text" name="CREDIT_CODE" id="CREDIT_CODE" value="${pd.CREDIT_CODE}" maxlength="255" placeholder="这里输入统一社会信用代码" title="统一社会信用代码" style="width:98%;"/></td>
 							</tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">公司注册资本:</td>
-								<td><input type="number" name="REGISTERED_CAPITAL" id="REGISTERED_CAPITAL" value="${pd.REGISTERED_CAPITAL}" maxlength="32" placeholder="这里输入公司注册资本" title="公司注册资本" style="width:98%;"/></td>
+								<td style="width:75px;text-align: right;padding-top: 13px;">办公地址:</td>
+								<td><input type="text" name="ADDR" id="ADDR" value="${pd.ADDR}" maxlength="255" placeholder="这里输入办公地址" title="办公地址" style="width:98%;"/></td>
 							</tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">公司办公地址:</td>
-								<td><input type="text" name="ADDR" id="ADDR" value="${pd.ADDR}" maxlength="255" placeholder="这里输入公司办公地址" title="公司办公地址" style="width:98%;"/></td>
+								<td style="width:75px;text-align: right;padding-top: 13px;">网站:</td>
+								<td><input type="text" name="WEB_SITES" id="WEB_SITES" value="${pd.WEB_SITES}" maxlength="255" placeholder="这里输入网站" title="网站" style="width:98%;"/></td>
 							</tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">公司网站:</td>
-								<td><input type="text" name="WEB_SITES" id="WEB_SITES" value="${pd.WEB_SITES}" maxlength="255" placeholder="这里输入公司网站" title="公司网站" style="width:98%;"/></td>
+								<td style="width:75px;text-align: right;padding-top: 13px;">省份ID:</td>
+								<td><input type="text" name="PROVINCE_ID" id="PROVINCE_ID" value="${pd.PROVINCE_ID}" maxlength="255" placeholder="这里输入省份ID" title="省份ID" style="width:98%;"/></td>
 							</tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">公司所属省份:</td>
-								<td><input type="text" name="PROVINCE_NAME" id="PROVINCE_NAME" value="${pd.PROVINCE_NAME}" maxlength="255" placeholder="这里输入公司所属省份" title="公司所属省份" style="width:98%;"/></td>
-							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">公司所属省份ID:</td>
-								<td><input type="text" name="PROVINCE_ID" id="PROVINCE_ID" value="${pd.PROVINCE_ID}" maxlength="255" placeholder="这里输入公司所属省份ID" title="公司所属省份ID" style="width:98%;"/></td>
+								<td style="width:75px;text-align: right;padding-top: 13px;">省份名称:</td>
+								<td><input type="text" name="PROVINCE_NAME" id="PROVINCE_NAME" value="${pd.PROVINCE_NAME}" maxlength="255" placeholder="这里输入省份名称" title="省份名称" style="width:98%;"/></td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">营业执照:</td>
 								<td><input type="text" name="LICENSE" id="LICENSE" value="${pd.LICENSE}" maxlength="255" placeholder="这里输入营业执照" title="营业执照" style="width:98%;"/></td>
 							</tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">公司经营范围:</td>
-								<td><input type="text" name="BUSINESS_SCOPE" id="BUSINESS_SCOPE" value="${pd.BUSINESS_SCOPE}" maxlength="255" placeholder="这里输入公司经营范围" title="公司经营范围" style="width:98%;"/></td>
+								<td style="width:75px;text-align: right;padding-top: 13px;">经营范围:</td>
+								<td><input type="text" name="BUSINESS_SCOPE" id="BUSINESS_SCOPE" value="${pd.BUSINESS_SCOPE}" maxlength="255" placeholder="这里输入经营范围" title="经营范围" style="width:98%;"/></td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">盖章的开票信息:</td>
@@ -73,19 +73,31 @@
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">法人姓名:</td>
-								<td><input type="text" name="LEGAL_PERSON" id="LEGAL_PERSON" value="${pd.LEGAL_PERSON}" maxlength="50" placeholder="这里输入法人姓名" title="法人姓名" style="width:98%;"/></td>
+								<td><input type="text" name="LEGAL_PERSON" id="LEGAL_PERSON" value="${pd.LEGAL_PERSON}" maxlength="255" placeholder="这里输入法人姓名" title="法人姓名" style="width:98%;"/></td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">法人手机号:</td>
-								<td><input type="text" name="LEGAL_PHONE" id="LEGAL_PHONE" value="${pd.LEGAL_PHONE}" maxlength="20" placeholder="这里输入法人手机号" title="法人手机号" style="width:98%;"/></td>
+								<td><input type="text" name="LEGAL_PHONE" id="LEGAL_PHONE" value="${pd.LEGAL_PHONE}" maxlength="255" placeholder="这里输入法人手机号" title="法人手机号" style="width:98%;"/></td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">法人身份证:</td>
 								<td><input type="text" name="LEGAL_NO" id="LEGAL_NO" value="${pd.LEGAL_NO}" maxlength="255" placeholder="这里输入法人身份证" title="法人身份证" style="width:98%;"/></td>
 							</tr>
 							<tr>
+								<td style="width:75px;text-align: right;padding-top: 13px;">联系人:</td>
+								<td><input type="text" name="NAME" id="NAME" value="${pd.NAME}" maxlength="255" placeholder="这里输入联系人" title="联系人" style="width:98%;"/></td>
+							</tr>
+							<tr>
+								<td style="width:75px;text-align: right;padding-top: 13px;">联系人手机:</td>
+								<td><input type="text" name="PHONE" id="PHONE" value="${pd.PHONE}" maxlength="255" placeholder="这里输入联系人手机" title="联系人手机" style="width:98%;"/></td>
+							</tr>
+							<tr>
+								<td style="width:75px;text-align: right;padding-top: 13px;">联系人邮箱:</td>
+								<td><input type="text" name="EMAIL" id="EMAIL" value="${pd.EMAIL}" maxlength="255" placeholder="这里输入联系人邮箱" title="联系人邮箱" style="width:98%;"/></td>
+							</tr>
+							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">注册时间:</td>
-								<td><input type="text" name="CREATE_TIME" id="CREATE_TIME" value="${pd.CREATE_TIME}" maxlength="50" placeholder="这里输入注册时间" title="注册时间" style="width:98%;"/></td>
+								<td><input type="text" name="REGTIME" id="REGTIME" value="${pd.REGTIME}" maxlength="255" placeholder="这里输入注册时间" title="注册时间" style="width:98%;"/></td>
 							</tr>
 							<tr>
 								<td style="text-align: center;" colspan="10">
@@ -125,11 +137,21 @@
 			if($("#COMPANY_NAME").val()==""){
 				$("#COMPANY_NAME").tips({
 					side:3,
-		            msg:'请输入公司名称',
+		            msg:'请输入名称',
 		            bg:'#AE81FF',
 		            time:2
 		        });
 				$("#COMPANY_NAME").focus();
+			return false;
+			}
+			if($("#REGISTERED_CAPITAL").val()==""){
+				$("#REGISTERED_CAPITAL").tips({
+					side:3,
+		            msg:'请输入注册资本',
+		            bg:'#AE81FF',
+		            time:2
+		        });
+				$("#REGISTERED_CAPITAL").focus();
 			return false;
 			}
 			if($("#CREDIT_CODE").val()==""){
@@ -142,20 +164,10 @@
 				$("#CREDIT_CODE").focus();
 			return false;
 			}
-			if($("#REGISTERED_CAPITAL").val()==""){
-				$("#REGISTERED_CAPITAL").tips({
-					side:3,
-		            msg:'请输入公司注册资本',
-		            bg:'#AE81FF',
-		            time:2
-		        });
-				$("#REGISTERED_CAPITAL").focus();
-			return false;
-			}
 			if($("#ADDR").val()==""){
 				$("#ADDR").tips({
 					side:3,
-		            msg:'请输入公司办公地址',
+		            msg:'请输入办公地址',
 		            bg:'#AE81FF',
 		            time:2
 		        });
@@ -165,31 +177,31 @@
 			if($("#WEB_SITES").val()==""){
 				$("#WEB_SITES").tips({
 					side:3,
-		            msg:'请输入公司网站',
+		            msg:'请输入网站',
 		            bg:'#AE81FF',
 		            time:2
 		        });
 				$("#WEB_SITES").focus();
 			return false;
 			}
-			if($("#PROVINCE_NAME").val()==""){
-				$("#PROVINCE_NAME").tips({
-					side:3,
-		            msg:'请输入公司所属省份',
-		            bg:'#AE81FF',
-		            time:2
-		        });
-				$("#PROVINCE_NAME").focus();
-			return false;
-			}
 			if($("#PROVINCE_ID").val()==""){
 				$("#PROVINCE_ID").tips({
 					side:3,
-		            msg:'请输入公司所属省份ID',
+		            msg:'请输入省份ID',
 		            bg:'#AE81FF',
 		            time:2
 		        });
 				$("#PROVINCE_ID").focus();
+			return false;
+			}
+			if($("#PROVINCE_NAME").val()==""){
+				$("#PROVINCE_NAME").tips({
+					side:3,
+		            msg:'请输入省份名称',
+		            bg:'#AE81FF',
+		            time:2
+		        });
+				$("#PROVINCE_NAME").focus();
 			return false;
 			}
 			if($("#LICENSE").val()==""){
@@ -205,7 +217,7 @@
 			if($("#BUSINESS_SCOPE").val()==""){
 				$("#BUSINESS_SCOPE").tips({
 					side:3,
-		            msg:'请输入公司经营范围',
+		            msg:'请输入经营范围',
 		            bg:'#AE81FF',
 		            time:2
 		        });
@@ -252,14 +264,44 @@
 				$("#LEGAL_NO").focus();
 			return false;
 			}
-			if($("#CREATE_TIME").val()==""){
-				$("#CREATE_TIME").tips({
+			if($("#NAME").val()==""){
+				$("#NAME").tips({
+					side:3,
+		            msg:'请输入联系人',
+		            bg:'#AE81FF',
+		            time:2
+		        });
+				$("#NAME").focus();
+			return false;
+			}
+			if($("#PHONE").val()==""){
+				$("#PHONE").tips({
+					side:3,
+		            msg:'请输入联系人手机',
+		            bg:'#AE81FF',
+		            time:2
+		        });
+				$("#PHONE").focus();
+			return false;
+			}
+			if($("#EMAIL").val()==""){
+				$("#EMAIL").tips({
+					side:3,
+		            msg:'请输入联系人邮箱',
+		            bg:'#AE81FF',
+		            time:2
+		        });
+				$("#EMAIL").focus();
+			return false;
+			}
+			if($("#REGTIME").val()==""){
+				$("#REGTIME").tips({
 					side:3,
 		            msg:'请输入注册时间',
 		            bg:'#AE81FF',
 		            time:2
 		        });
-				$("#CREATE_TIME").focus();
+				$("#REGTIME").focus();
 			return false;
 			}
 		    if($("#COMPANY_ID").val()==""){

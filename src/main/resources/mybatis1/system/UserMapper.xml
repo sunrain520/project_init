@@ -41,6 +41,9 @@
 	<sql id="roleTableName">
 		SYS_ROLE
 	</sql>
+	<sql id="companyTableName">
+		tb_company
+	</sql>
 	<sql id="staffTableName">
 		OA_STAFF
 	</sql>
@@ -170,10 +173,10 @@
 				u.PHONE,
 				u.STATUS,
 				r.ROLE_ID,
-				r.ROLE_NAME
-		from <include refid="tableName"></include> u, <include refid="roleTableName"></include> r 
-		where u.ROLE_ID = r.ROLE_ID 
-		and u.USERNAME != 'admin'
+				r.ROLE_NAME,
+				c.COMPANY_NAME
+		from sys_user u LEFT JOIN sys_role r ON u.ROLE_ID = r.ROLE_ID LEFT JOIN tb_company c  ON u.USER_ID = c.COMPANY_ID
+		where u.USERNAME != 'admin'
 		and r.PARENT_ID = '1'
 		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
 			and
@@ -191,6 +194,9 @@
 		</if>
 		<if test="pd.TYPE != null and pd.TYPE != ''"><!-- 角色检索 -->
 			and u.TYPE=#{pd.TYPE} 
+		</if>
+		<if test="pd.STATUS != null and pd.STATUS != ''"><!-- 角色检索 -->
+			and u.STATUS=#{pd.STATUS} 
 		</if>
 		<if test="pd.ROLE_ID != null and pd.ROLE_ID != ''"><!-- 角色检索 -->
 			and u.ROLE_ID=#{pd.ROLE_ID} 

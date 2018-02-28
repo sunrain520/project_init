@@ -7,7 +7,7 @@ import com.fh.util.PageData;
 /** 
  * 说明： 项目授权申请接口
  * 创建人：kuang 767375210
- * 创建时间：2018-01-20
+ * 创建时间：2018-02-28
  * @version
  */
 public interface ProjectApplyManager{

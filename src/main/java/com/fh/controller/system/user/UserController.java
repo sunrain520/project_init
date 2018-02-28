@@ -184,9 +184,10 @@ public class UserController extends BaseController {
 		pd.put("USER_ID", this.get32UUID());	//ID 主键
 		pd.put("LAST_LOGIN", "");				//最后登录时间
 		pd.put("IP", "");						//IP
-		pd.put("STATUS", "0");					//状态
+		pd.put("STATUS", "1");					//状态
 		pd.put("SKIN", "default");
 		pd.put("RIGHTS", "");		
+		pd.put("TYPE", "1");		
 		pd.put("PASSWORD", new SimpleHash("SHA-1", pd.getString("USERNAME"), pd.getString("PASSWORD")).toString());	//密码加密
 		if(null == userService.findByUsername(pd)){	//判断用户名是否存在
 			userService.saveU(pd); 					//执行保存

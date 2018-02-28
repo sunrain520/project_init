@@ -254,7 +254,28 @@ public class FhfileController extends BaseController {
 		pd = this.getPageData();
 		pd = fhfileService.findById(pd);
 		String fileName = pd.getString("FILEPATH");
+		logger.info(PathUtil.getClasspath());
+		logger.info( Const.FILEPATHFILEOA);
+		logger.info( fileName);
+		logger.info( fileName.substring(19, fileName.length()));
 		FileDownload.fileDownload(response, PathUtil.getClasspath() + Const.FILEPATHFILEOA + fileName, pd.getString("NAME")+fileName.substring(19, fileName.length()));
+	}
+	
+	/**下载
+	 * @param response
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/downloadAll")
+	public void downloadAll(HttpServletResponse response)throws Exception{
+		PageData pd = new PageData();
+		pd = this.getPageData();
+//		pd = fhfileService.findById(pd);
+		String fileName = pd.getString("FHFILE_ID");
+		String name = new String(pd.getString("key").getBytes("iso-8859-1"), "utf-8"); 
+		logger.info(name+fileName.substring(fileName.indexOf(".")));
+		logger.info( PathUtil.getClasspath() + Const.FILEPATHIMG + fileName);
+		
+		FileDownload.fileDownload(response, PathUtil.getClasspath() + Const.FILEPATHIMG + fileName, name+fileName.substring(fileName.indexOf(".")));
 	}
 	
 	@InitBinder

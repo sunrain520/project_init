@@ -10,38 +10,44 @@
 	<!-- 字段 -->
 	<sql id="Field">
 		COMPANY_NAME,	
-		CREDIT_CODE,	
 		REGISTERED_CAPITAL,	
+		CREDIT_CODE,	
 		ADDR,	
 		WEB_SITES,	
-		PROVINCE_NAME,	
 		PROVINCE_ID,	
+		PROVINCE_NAME,	
 		LICENSE,	
 		BUSINESS_SCOPE,	
 		BILLING,	
 		LEGAL_PERSON,	
 		LEGAL_PHONE,	
 		LEGAL_NO,	
-		CREATE_TIME,	
+		NAME,	
+		PHONE,	
+		EMAIL,	
+		REGTIME,	
 		COMPANY_ID
 	</sql>
 	
 	<!-- 字段值 -->
 	<sql id="FieldValue">
 		#{COMPANY_NAME},	
-		#{CREDIT_CODE},	
 		#{REGISTERED_CAPITAL},	
+		#{CREDIT_CODE},	
 		#{ADDR},	
 		#{WEB_SITES},	
-		#{PROVINCE_NAME},	
 		#{PROVINCE_ID},	
+		#{PROVINCE_NAME},	
 		#{LICENSE},	
 		#{BUSINESS_SCOPE},	
 		#{BILLING},	
 		#{LEGAL_PERSON},	
 		#{LEGAL_PHONE},	
 		#{LEGAL_NO},	
-		#{CREATE_TIME},	
+		#{NAME},	
+		#{PHONE},	
+		#{EMAIL},	
+		now(),	
 		#{COMPANY_ID}
 	</sql>
 	
@@ -70,19 +76,22 @@
 		<include refid="tableName"></include>
 		set 
 			COMPANY_NAME = #{COMPANY_NAME},
-			CREDIT_CODE = #{CREDIT_CODE},
 			REGISTERED_CAPITAL = #{REGISTERED_CAPITAL},
+			CREDIT_CODE = #{CREDIT_CODE},
 			ADDR = #{ADDR},
 			WEB_SITES = #{WEB_SITES},
-			PROVINCE_NAME = #{PROVINCE_NAME},
 			PROVINCE_ID = #{PROVINCE_ID},
+			PROVINCE_NAME = #{PROVINCE_NAME},
 			LICENSE = #{LICENSE},
 			BUSINESS_SCOPE = #{BUSINESS_SCOPE},
 			BILLING = #{BILLING},
 			LEGAL_PERSON = #{LEGAL_PERSON},
 			LEGAL_PHONE = #{LEGAL_PHONE},
 			LEGAL_NO = #{LEGAL_NO},
-			CREATE_TIME = #{CREATE_TIME},
+			NAME = #{NAME},
+			PHONE = #{PHONE},
+			EMAIL = #{EMAIL},
+			REGTIME = #{REGTIME},
 		COMPANY_ID = COMPANY_ID
 		where 
 		COMPANY_ID = #{COMPANY_ID}
@@ -108,11 +117,17 @@
 		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
 			and
 				(
-				<!--	根据需求自己加检索条件
-					字段1 LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+					COMPANY_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
 					 or 
-					字段2 LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
-				-->
+					ADDR LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
+					 or 
+					PROVINCE_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
+					 or 
+					BUSINESS_SCOPE LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
+					 or 
+					LEGAL_PERSON LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
+					 or 
+					NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
 				)
 		</if>
 	</select>

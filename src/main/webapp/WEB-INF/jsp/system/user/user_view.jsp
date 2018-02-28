@@ -51,7 +51,7 @@
 										</tr>
 										<tr>
 											<td style="width:79px;text-align: right;padding-top: 13px;">编号:</td>
-											<td><input type="text" name="NUMBER" id="NUMBER" value="${pd.NUMBER }" maxlength="32" title="编号" onblur="hasN('${pd.USERNAME }')" style="width:98%;" disabled="disabled"/></td>
+											<td><input type="text" name="NUMBER" id="NUMBER" value="${pd.USER_ID }" maxlength="32" title="编号" onblur="hasN('${pd.USERNAME }')" style="width:98%;" disabled="disabled"/></td>
 										</tr>
 										<tr>
 											<td style="width:79px;text-align: right;padding-top: 13px;">姓名:</td>

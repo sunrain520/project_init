@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 import com.fh.controller.base.BaseController;
+import com.fh.service.system.company.CompanyManager;
 import com.fh.service.system.fhlog.FHlogManager;
 import com.fh.service.system.user.UserManager;
 import com.fh.util.AppUtil;
@@ -40,6 +41,8 @@ public class SysUserController extends BaseController {
 	private UserManager userService;
 	@Resource(name="fhlogService")
 	private FHlogManager FHLOG;
+	@Resource(name="companyService")
+	private CompanyManager companyService;
 	
 	/**系统用户注册接口
 	 * @return
@@ -59,11 +62,12 @@ public class SysUserController extends BaseController {
 					Session session = Jurisdiction.getSession();
 					String sessionCode = (String)session.getAttribute(Const.SESSION_SECURITY_CODE);		//获取session中的验证码
 					String rcode = pd.getString("rcode");
+					String userId = this.get32UUID();
 					if(Tools.notEmpty(sessionCode) && sessionCode.equalsIgnoreCase(rcode)){				//判断登录验证码
-						pd.put("USER_ID", this.get32UUID());	//ID 主键
+						pd.put("USER_ID", userId);	//ID 主键
 						pd.put("ROLE_ID", "fhadminzhuche");		//角色ID fhadminzhuche 为注册用户
-						pd.put("NUMBER", "");					//编号
-						pd.put("PHONE", "");					//手机号
+						pd.put("NUMBER", userId);					//编号
+//						pd.put("PHONE", "");					//手机号
 						pd.put("BZ", "注册用户");				//备注
 						pd.put("LAST_LOGIN", "");				//最后登录时间
 						pd.put("IP", "");						//IP
@@ -71,11 +75,15 @@ public class SysUserController extends BaseController {
 						pd.put("TYPE", pd.getString("type"));					//状态
 						pd.put("SKIN", "default");
 						pd.put("RIGHTS", "");		
-						pd.put("PASSWORD", new SimpleHash("SHA-1", pd.getString("username"), pd.getString("password")).toString());	//密码加密
+						pd.put("PASSWORD", new SimpleHash("SHA-1", pd.getString("USERNAME"), pd.getString("PASSWORD")).toString());	//密码加密
 						System.out.println(JSON.toJSONString(pd));
 						if(null == userService.findByUsername(pd)){	//判断用户名是否存在
 							userService.saveU(pd); 					//执行保存
-							FHLOG.save(pd.getString("username"), "新注册");
+							FHLOG.save(pd.getString("USERNAME"), "新注册");
+							
+							pd.put("COMPANY_ID", userId);	//主键
+							companyService.save(pd);
+							
 						}else{
 							result = "04"; 	//用户名已存在
 						}
