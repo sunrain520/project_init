@@ -139,6 +139,15 @@
 		<if test="pd.lastEnd!= null and pd.lastEnd != ''">
 			and CREATE_TIME &lt;= #{pd.lastEnd}
 		</if>
+		<if test="pd.USER_ID!= null and pd.USER_ID != ''">
+			and USER_ID = #{pd.USER_ID}
+		</if>
+		<if test="pd.AREA != null">
+			and AREA_ID in 
+			 <foreach collection="pd.AREA" index="index" item="custid" open="(" separator="," close=")"> 
+			        #{pd.AREA[${index}]} 
+			  </foreach>
+		</if>
 		order by CREATE_TIME desc
 	</select>
 	

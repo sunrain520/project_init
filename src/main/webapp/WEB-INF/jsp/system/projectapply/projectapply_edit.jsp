@@ -16,7 +16,7 @@
 	<%@ include file="../../system/index/top.jsp"%>
 	<!-- 日期框 -->
 	<link rel="stylesheet" href="static/ace/css/datepicker.css" />
-
+<link rel="stylesheet" href="plugins/layer/theme/default/layer.css" />
 </head>
 <body class="no-skin">
 <!-- /section:basics/navbar.layout -->
@@ -35,7 +35,8 @@
 							<tr>
 								<td style="width:140px;text-align: right;padding-top: 13px;">项目名称:</td>
 								<td>
-								<select class="chosen-select form-control" onchange="changeProject(this.value)" name="PROJECT_ID" id="PROJECT_ID" data-placeholder="请选择项目名称" style="vertical-align:top;" style="width:98%;" >
+								<select class="chosen-select form-control" onchange="changeProject(this.value)" 
+								name="PROJECT_ID" id="PROJECT_ID" data-placeholder="请选择项目名称" style="vertical-align:top;" style="width:98%;"  <c:if test="${msg  ne 'save' }">disabled</c:if>>
 								<option value=""></option>
 								<c:forEach items="${projectList}" var="project">
 									<option value="${project.PROJECT_ID }" <c:if test="${project.PROJECT_ID == pd.PROJECT_ID }">selected</c:if>>${project.PROJECT_NAME }</option>
@@ -52,10 +53,11 @@
 									<select multiple="" class="chosen-select form-control" id="form-field-select-4" data-placeholder="选择申请文件类型">
 										<c:forEach items="${fileList}" var="file">
 											<option onclick="setROLE_IDS('${file.DICTIONARIES_ID }')" value="${file.DICTIONARIES_ID }" 
-											<c:if test="${file.RIGHTS == '1' }">selected</c:if>>${file.NAME }</option>
+											<c:if test="${file.RIGHTS == '1' }">selected</c:if> id="${file.DICTIONARIES_ID }">${file.NAME }</option>
 										</c:forEach>
 									</select>
 									<textarea style="display: none;" name="FILE_TYPE" id="FILE_TYPE" >${pd.FILE_TYPE }</textarea>
+									<textarea style="display: none;" name="FILE_NAME" id="FILE_NAME" >${pd.FILE_NAME }</textarea>
 								</div>
 								</td>
 							</tr>
@@ -90,9 +92,9 @@
 								<td style="width:75px;text-align: right;padding-top: 13px;">授权状态:</td>
 								<td >
 <%-- 								<input type="text" name="STATUS" id="STATUS" value="${pd.STATUS}" maxlength="20" placeholder="这里输入授权状态" title="授权状态" style="width:98%;"/> --%>
-								<select name="STATUS" id="STATUS" title="状态" style="width:100px;">
+								<select name="STATUS" id="STATUS" title="状态" style="width:100px;" <c:if test="${ msg eq 'save' }">disabled</c:if>  >
 								<option value="" >请选择</option>
-								<option value="0" <c:if test="${pd.STATUS == '0' }">selected</c:if> >待审核</option>
+								<option value="0" <c:if test="${pd.STATUS == '0' || msg eq 'save' }">selected</c:if> >待审核</option>
 								<option value="1" <c:if test="${pd.STATUS == '1' }">selected</c:if> >通过</option>
 								<option value="2" <c:if test="${pd.STATUS == '2' }">selected</c:if> >拒绝</option>
 								</select>
@@ -129,12 +131,15 @@
 	<script src="static/ace/js/date-time/bootstrap-datepicker.js"></script>
 	<!--提示框-->
 	<script type="text/javascript" src="static/js/jquery.tips.js"></script>
-	
+	<script type="text/javascript" charset="utf-8" src="plugins/layer/layer.js"></script>
 	<script type="text/javascript" src="static/login/js/jquery.form.js"></script>
+	
+	
 		<script type="text/javascript">
 		$(top.hangge());
 		
 		function changeProject(value){
+			hasU();
 			var text = $("#PROJECT_ID").find("option:selected").text(); //获取Select选择的Text 
 			 $("#PROJECT_NAME").attr("value",text);
 		}
@@ -228,17 +233,24 @@
 		function removeRoleId(ROLE_ID){
 			var OROLE_IDS = $("#FILE_TYPE");
 			var ROLE_IDS = OROLE_IDS.val();
+			var FILE_NAME = $("#FILE_NAME").val();
+			FILE_NAME = FILE_NAME.replace( $("#"+ROLE_ID).text() + "，","");
 			ROLE_IDS = ROLE_IDS.replace(ROLE_ID+",fh,","");
 			OROLE_IDS.val(ROLE_IDS);
+			$("#FILE_NAME").val(FILE_NAME);
 			console.log("remove"+ROLE_IDS);
 		}
 		//添加副职角色
 		function addRoleId(ROLE_ID){
 			var OROLE_IDS = $("#FILE_TYPE");
 			var ROLE_IDS = OROLE_IDS.val();
+			var FILE_NAME = $("#FILE_NAME").val();
+			
 			if(!isContains(ROLE_IDS,ROLE_ID)){
 				ROLE_IDS = ROLE_IDS + ROLE_ID + ",fh,";
+				FILE_NAME = FILE_NAME + $("#"+ROLE_ID).text()+"，";
 				OROLE_IDS.val(ROLE_IDS);
+				$("#FILE_NAME").val(FILE_NAME);
 			}
 		}
 		function isContains(str, substr) {
@@ -349,16 +361,7 @@
 				$("#STATUS").focus();
 			return false;
 			}
-		    if($("#PROJECTAPPLY_ID").val()==""){
-// 				hasU();
-		    	submit();
-// 				$("#zhongxin").hide();
-// 				$("#zhongxin2").show();
-			}else{
 				submit();
-// 				$("#zhongxin").hide();
-// 				$("#zhongxin2").show();
-			}
 		}
 		
 			//提交
@@ -368,6 +371,7 @@
 				var data = {
 						PROJECTAPPLY_ID : $("#PROJECTAPPLY_ID").val(),
 						FILE_TYPE : $("#FILE_TYPE").val(),
+						FILE_NAME : $("#FILE_NAME").val(),
 						PROJECT_NAME : $("#PROJECT_NAME").val(),
 						PROJECT_ID : $("#PROJECT_ID").val(),
 						NUM : $("#NUM").val(),
@@ -403,7 +407,7 @@
 
 			//判断名称是否存在
 			function hasU() {
-				var NAME = $.trim($("#NAME").val());
+				var NAME = $.trim($("#PROJECT_ID").val());
 				$.ajax({
 					type : "POST",
 					url : '<%=basePath%>projectapply/hasU.do',
@@ -411,19 +415,9 @@
 				dataType:'json',
 				cache: false,
 				success: function(data){
-					 if("success" == data.result){
-						$("#Form").submit();
-						$("#zhongxin").hide();
-						$("#zhongxin2").show();
-					 }else{
-						 $("#NAME").tips({
-								side:4,
-					            msg:'此名称已存在',
-					            bg:'#AE81FF',
-					            time:2
-					        });
-							$("#NAME").focus();
-							return false;
+					 if("success" != data.result){
+						 layer.msg("该项目已提交授权申请，请选择其他项目");
+						 return false;
 					 }
 				}
 			});

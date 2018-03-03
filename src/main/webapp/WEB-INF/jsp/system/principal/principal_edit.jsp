@@ -16,6 +16,8 @@
 	<%@ include file="../../system/index/top.jsp"%>
 	<!-- 日期框 -->
 	<link rel="stylesheet" href="static/ace/css/datepicker.css" />
+	
+	<link rel="stylesheet" href="plugins/layer/theme/default/layer.css" />
 </head>
 <body class="no-skin">
 <!-- /section:basics/navbar.layout -->
@@ -37,11 +39,11 @@
 									<select name="PROVINCE_ID" id="level1" onchange="change1(this.value)" style="width: 120px;">
 		                                <option>请选择</option>     					 
 		                          	</select>
-		                          	<input type="hidden" name="PROVINCE_NAME" id="PROVINCE_NAME">
+		                          	<input type="hidden" name="PROVINCE_NAME" id="PROVINCE_NAME" value="${pd.PROVINCE_NAME }">
 								 	<select id="level2" name="AREA_ID" onchange="change2(this.value)" style="width: 120px;">
 								 		<option>请选择</option>                       
                       				</select>
-                      				<input type="hidden" name="AREA_NAME" id="AREA_NAME">
+                      				<input type="hidden" name="AREA_NAME" id="AREA_NAME" value="${pd.AREA_NAME }">
 								</td>
 							</tr>
 							
@@ -55,7 +57,7 @@
 									<c:if test="${user.USER_ID == pd.USER_ID}">selected</c:if> >${user.USERNAME }</option>
 								</c:forEach>
 								</select>
-								<input type="hidden" name="USER_NAME" id="USER_NAME">
+								<input type="hidden" name="USER_NAME" id="USER_NAME" value="${pd.USER_NAME }">
 								</td>
 							</tr>
 							
@@ -94,11 +96,15 @@
 	<script src="static/ace/js/date-time/bootstrap-datepicker.js"></script>
 	<!--提示框-->
 	<script type="text/javascript" src="static/js/jquery.tips.js"></script>
+	
+	<script type="text/javascript" charset="utf-8" src="plugins/layer/layer.js"></script>
+		
 	<script type="text/javascript">
 	$(top.hangge());
 	
 			//初始第一级
 			$(function() {
+				var name = $("#PROVINCE_NAME").val();
 				$.ajax({
 					type: "POST",
 					url: '<%=basePath%>linkage/getLevels.do?tm='+new Date().getTime(),
@@ -108,7 +114,12 @@
 					success: function(data){
 						$("#level1").html('<option>请选择</option>');
 						 $.each(data.list, function(i, dvar){
-								$("#level1").append("<option value="+dvar.DICTIONARIES_ID+">"+dvar.NAME+"</option>");
+							 if(dvar.NAME == name){
+									$("#level1").append("<option value="+dvar.DICTIONARIES_ID+" selected>"+dvar.NAME+"</option>");
+									change1(dvar.DICTIONARIES_ID);
+								 }else{
+									$("#level1").append("<option value="+dvar.DICTIONARIES_ID+">"+dvar.NAME+"</option>");
+								 }
 						 });
 					}
 				});
@@ -116,6 +127,7 @@
 			
 			//第一级值改变事件(初始第二级)
 			function change1(value){
+				var name = $("#AREA_NAME").val();
 				var text = $("#level1").find("option:selected").text(); //获取Select选择的Text 
 				$.ajax({
 					type: "POST",
@@ -126,7 +138,12 @@
 					success: function(data){
 						$("#level2").html('<option>请选择</option>');
 						 $.each(data.list, function(i, dvar){
-								$("#level2").append("<option value="+dvar.DICTIONARIES_ID+">"+dvar.NAME+"</option>");
+							 if(dvar.NAME == name){
+									$("#level2").append("<option value="+dvar.DICTIONARIES_ID+" selected>"+dvar.NAME+"</option>");
+								 }else{
+									$("#level2").append("<option value="+dvar.DICTIONARIES_ID+">"+dvar.NAME+"</option>");
+								 }
+// 								$("#level2").append("<option value="+dvar.DICTIONARIES_ID+">"+dvar.NAME+"</option>");
 						 });
 						 
 						 $("#PROVINCE_NAME").attr("value",text);
@@ -150,44 +167,20 @@
 		//保存
 		function save(){
 			if($("#PROVINCE_NAME").val()==""){
-				$("#PROVINCE_NAME").tips({
-					side:3,
-		            msg:'请输入省份',
-		            bg:'#AE81FF',
-		            time:2
-		        });
-				$("#PROVINCE_NAME").focus();
-			return false;
+				layer.msg('请选择省份');
+				return false;
 			}
 			if($("#AREA_NAME").val()==""){
-				$("#AREA_NAME").tips({
-					side:3,
-		            msg:'请输入地市',
-		            bg:'#AE81FF',
-		            time:2
-		        });
-				$("#AREA_NAME").focus();
-			return false;
+				layer.msg('请选择地市');
+				return false;
 			}
 			if($("#USER_NAME").val()==""){
-				$("#USER_NAME").tips({
-					side:3,
-		            msg:'请输入对接人',
-		            bg:'#AE81FF',
-		            time:2
-		        });
-				$("#USER_NAME").focus();
-			return false;
+				layer.msg('请输入对接人');
+				return false;
 			}
 			if($("#PHONE").val()==""){
-				$("#PHONE").tips({
-					side:3,
-		            msg:'请输入联系方式',
-		            bg:'#AE81FF',
-		            time:2
-		        });
-				$("#PHONE").focus();
-			return false;
+				layer.msg('请输入联系方式');
+				return false;
 			}
 		    if($("#PRINCIPAL_ID").val()==""){
 				hasU();
@@ -205,7 +198,7 @@
 		
 		//判断名称是否存在
 		function hasU(){
-			var NAME = $.trim($("#NAME").val());
+			var NAME = $.trim($("#AREA_NAME").val());
 			$.ajax({
 				type: "POST",
 				url: '<%=basePath%>principal/hasU.do',
@@ -218,14 +211,8 @@
 						$("#zhongxin").hide();
 						$("#zhongxin2").show();
 					 }else{
-						 $("#NAME").tips({
-								side:4,
-					            msg:'此名称已存在',
-					            bg:'#AE81FF',
-					            time:2
-					        });
-							$("#NAME").focus();
-							return false;
+						 layer.msg('【'+NAME+'】已存在区域负责人，请重新选择');
+						return false;
 					 }
 				}
 			});

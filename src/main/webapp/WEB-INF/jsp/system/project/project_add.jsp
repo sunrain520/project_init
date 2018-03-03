@@ -137,11 +137,12 @@
         <div class="col-sm-9">
         <select multiple="" class="chosen-select form-control" id="form-field-select-4" data-placeholder="选择预计使用设备型号" nullmsg="请选择预计使用设备型号！" datatype="*" <c:if test="${msg  eq 'view' }">disabled</c:if>>
 			<c:forEach items="${modelList}" var="model">
-				<option onclick="setROLE_IDS('${model.DICTIONARIES_ID}')" value="${model.DICTIONARIES_ID}" <c:if test="${model.RIGHTS == '1' }">selected</c:if>>
+				<option onclick="setROLE_IDS('${model.DICTIONARIES_ID}')" value="${model.DICTIONARIES_ID}" id="${model.DICTIONARIES_ID}" <c:if test="${model.RIGHTS == '1' }">selected</c:if>>
 				${model.NAME }</option>
 			</c:forEach>
 		</select>
 		<textarea style="display: none;" name="MODEL_ID" id="MODEL_ID" >${pd.MODEL_ID }</textarea>
+		<textarea style="display: none;" name="MODEL_NAME" id="MODEL_NAME" >${pd.MODEL_NAME }</textarea>
         </div>
     </div>
     
@@ -390,17 +391,23 @@
 		function removeRoleId(ROLE_ID){
 			var OROLE_IDS = $("#MODEL_ID");
 			var ROLE_IDS = OROLE_IDS.val();
+			var MODEL_NAME = $("#MODEL_NAME").val();
 			ROLE_IDS = ROLE_IDS.replace(ROLE_ID+",fh,","");
+			MODEL_NAME = MODEL_NAME.replace($("#"+ROLE_ID).text()+"，","");
 			OROLE_IDS.val(ROLE_IDS);
+			$("#MODEL_NAME").val(MODEL_NAME);
 			console.log("remove"+ROLE_IDS);
 		}
 		//添加副职角色
 		function addRoleId(ROLE_ID){
 			var OROLE_IDS = $("#MODEL_ID");
 			var ROLE_IDS = OROLE_IDS.val();
+			var MODEL_NAME = $("#MODEL_NAME").val();
 			if(!isContains(ROLE_IDS,ROLE_ID)){
 				ROLE_IDS = ROLE_IDS + ROLE_ID + ",fh,";
 				OROLE_IDS.val(ROLE_IDS);
+				MODEL_NAME = MODEL_NAME + $("#"+ROLE_ID).text() +"，";
+				$("#MODEL_NAME").val(MODEL_NAME);
 			}
 		}
 		function isContains(str, substr) {

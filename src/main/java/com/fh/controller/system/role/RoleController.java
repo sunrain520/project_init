@@ -201,6 +201,7 @@ public class RoleController extends BaseController {
 			if(roleList_z.size() > 0){
 				errInfo = "false";											//下级有数据时，删除失败
 			}else{
+				pd.put("STATUS", 1);
 				List<PageData> userlist = userService.listAllUserByRoldId(pd);			//此角色下的用户
 				List<PageData> appuserlist = appuserService.listAllAppuserByRorlid(pd);	//此角色下的会员
 				if(userlist.size() > 0 || appuserlist.size() > 0){						//此角色已被使用就不能删除

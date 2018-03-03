@@ -9,6 +9,7 @@ import org.springframework.context.ApplicationContext;
 public class Const {
 	public static final String SESSION_SECURITY_CODE = "sessionSecCode";	//验证码
 	public static final String SESSION_USER = "sessionUser";				//session用的用户
+	public static final String SESSION_USER_AREA = "sessionUserArea";				//session用的区域负责人负责省份列表
 	public static final String SESSION_ROLE_RIGHTS = "sessionRoleRights";
 	public static final String sSESSION_ROLE_RIGHTS = "sessionRoleRights";
 	public static final String SESSION_menuList = "menuList";				//当前菜单

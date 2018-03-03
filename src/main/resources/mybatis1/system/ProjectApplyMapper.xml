@@ -12,6 +12,7 @@
 		USER_ID,	
 		USERNAME,	
 		FILE_TYPE,	
+		FILE_NAME,	
 		PROJECT_NAME,	
 		PROJECT_ID,	
 		NUM,	
@@ -29,6 +30,7 @@
 		#{USER_ID},	
 		#{USERNAME},	
 		#{FILE_TYPE},	
+		#{FILE_NAME},	
 		#{PROJECT_NAME},	
 		#{PROJECT_ID},	
 		#{NUM},	
@@ -66,6 +68,7 @@
 		<include refid="tableName"></include>
 		set 
 			FILE_TYPE = #{FILE_TYPE},
+			FILE_NAME = #{FILE_NAME},
 			PROJECT_NAME = #{PROJECT_NAME},
 			PROJECT_ID = #{PROJECT_ID},
 			NUM = #{NUM},
@@ -99,13 +102,26 @@
 		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
 			and
 				(
-				<!--	根据需求自己加检索条件
-					字段1 LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+					PROJECT_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
 					 or 
-					字段2 LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
-				-->
+					NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
+					 or 
+					PHONE LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
 				)
 		</if>
+		<if test="pd.STATUS!= null and pd.STATUS != ''">
+			and STATUS = #{pd.STATUS}
+		</if>
+		<if test="pd.lastStart!= null and pd.lastStart != ''">
+			and CREATE_TIME &gt;= #{pd.lastStart}
+		</if>
+		<if test="pd.lastEnd!= null and pd.lastEnd != ''">
+			and CREATE_TIME &lt;= #{pd.lastEnd}
+		</if>
+		<if test="pd.USER_ID!= null and pd.USER_ID != ''">
+			and USER_ID = #{pd.USER_ID}
+		</if>
+		ORDER BY STATUS asc, CREATE_TIME DESC
 	</select>
 	
 	<!-- 列表(全部) -->
@@ -134,7 +150,7 @@
 		from 
 			<include refid="tableName"></include>
 		where 
-			NAME = #{NAME}
+			PROJECT_ID = #{NAME}
 	</select>
 	
 	

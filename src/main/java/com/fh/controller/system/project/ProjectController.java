@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.alibaba.fastjson.JSON;
 import com.fh.controller.base.BaseController;
 import com.fh.entity.Page;
 import com.fh.entity.system.Dictionaries;
@@ -124,6 +126,7 @@ public class ProjectController extends BaseController {
 		if(null != keywords && !"".equals(keywords)){
 			pd.put("keywords", keywords.trim());
 		}
+		logger.info("project_list"+JSON.toJSONString(pd));
 		page.setPd(pd);
 		List<PageData>	varList = projectService.list(page);	//列出Project列表
 		mv.setViewName("system/project/project_list");

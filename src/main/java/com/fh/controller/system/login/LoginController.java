@@ -30,6 +30,8 @@ import com.fh.service.system.fhbutton.FhbuttonManager;
 import com.fh.service.system.fhlog.FHlogManager;
 import com.fh.service.system.loginimg.LogInImgManager;
 import com.fh.service.system.menu.MenuManager;
+import com.fh.service.system.principal.PrincipalManager;
+import com.fh.entity.Page;
 import com.fh.entity.system.Dictionaries;
 import com.fh.entity.system.Menu;
 import com.fh.entity.system.Role;
@@ -76,6 +78,8 @@ public class LoginController extends BaseController {
 	private LogInImgManager loginimgService;
 	@Resource(name = "dictionariesService")
 	private DictionariesManager dictionariesService;
+	@Resource(name = "principalService")
+	private PrincipalManager principalService;
 
 	/**
 	 * 访问登录页
@@ -140,7 +144,6 @@ public class LoginController extends BaseController {
 					String passwd = new SimpleHash("SHA-1", USERNAME, PASSWORD).toString(); // 密码加密
 					pd.put("PASSWORD", passwd);
 					pd = userService.getUserByNameAndPwd(pd); // 根据用户名和密码去读取用户信息
-					System.out.println(JSON.toJSONString(pd));
 					if (pd != null && "1".equals(pd.getString("STATUS"))) {
 						this.removeSession(USERNAME);// 请缓存
 						pd.put("LAST_LOGIN", DateUtil.getTime().toString());
@@ -157,6 +160,21 @@ public class LoginController extends BaseController {
 						user.setSTATUS(pd.getString("STATUS"));
 						session.setAttribute(Const.SESSION_USER, user); // 把用户信息放session中
 						session.removeAttribute(Const.SESSION_SECURITY_CODE); // 清除登录验证码的session
+
+						// 区域负责人负责的省份放在session中
+						if (pd.getString("ROLE_ID").equals("19666e042e6240e281d035237722fd2e")) {
+							pd.put("USER_ID", pd.getString("USER_ID"));
+							List<PageData> varList = principalService.findByUserId(pd); // 列出Principal列表
+							List<String> areaList = new ArrayList<String>();
+							if (varList != null && varList.size() > 0) {
+								for (PageData data : varList) {
+									areaList.add(data.getString("AREA_ID"));
+								}
+							}
+							logger.info(JSON.toJSONString(areaList));
+							session.setAttribute(Const.SESSION_USER_AREA, areaList); // 把用户信息放session中
+						}
+
 						// shiro加入身份验证
 						Subject subject = SecurityUtils.getSubject();
 						UsernamePasswordToken token = new UsernamePasswordToken(USERNAME, PASSWORD);

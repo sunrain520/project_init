@@ -53,6 +53,11 @@ public class PrincipalService implements PrincipalManager{
 		return (List<PageData>)dao.findForList("PrincipalMapper.datalistPage", page);
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<PageData> findByUserId(PageData pd)throws Exception{
+		return (List<PageData>)dao.findForList("PrincipalMapper.findByUserId", pd);
+	}
+	
 	/**列表(全部)
 	 * @param pd
 	 * @throws Exception

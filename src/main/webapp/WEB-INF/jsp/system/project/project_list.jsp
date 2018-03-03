@@ -72,20 +72,20 @@
 									<th class="center" style="width:50px;">序号</th>
 									<th class="center">项目名称</th>
 <!-- 									<th class="center">项目简介</th> -->
-									<th class="center">最终客户</th>
 <!-- 									<th class="center">省份ID</th> -->
-									<th class="center">省份</th>
-<!-- 									<th class="center">区域ID</th> -->
-									<th class="center">区域名称</th>
 <!-- 									<th class="center">行业ID</th> -->
 									<th class="center">行业名称</th>
 									<th class="center">项目状态</th>
-									<th class="center">项目预算</th>
+									<th class="center">数量</th>
+									<th class="center">项目预算(万)</th>
+									<th class="center" style="width: 120px;">预计使用设备型号</th>
+									<th class="center">省份</th>
+<!-- 									<th class="center">区域ID</th> -->
+									<th class="center">区域名称</th>
+									<th class="center">最终客户</th>
 									<th class="center">竞争对手</th>
 									<th class="center">预计投标时间</th>
 <!-- 									<th class="center">预计使用设备型号ID</th> -->
-									<th class="center">预计使用设备型号</th>
-									<th class="center">数量</th>
 									<th class="center">项目负责人姓名</th>
 									<th class="center">手机</th>
 <!-- 									<th class="center">备注</th> -->
@@ -107,20 +107,20 @@
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
 											<td class='center'><a  onclick="siMenu('z41','lm40','项目报备','<%=basePath%>project/goViewProject.do?PROJECT_ID=${var.PROJECT_ID}')" style="cursor:pointer;">${var.PROJECT_NAME}</a></td>
 <%-- 											<td class='center'>${var.DETAILS}</td> --%>
-											<td class='center'>${var.CLIENT}</td>
 <%-- 											<td class='center'>${var.PROVINCE_ID}</td> --%>
-											<td class='center'>${var.PROVINCE_NAME}</td>
-<%-- 											<td class='center'>${var.AREA_ID}</td> --%>
-											<td class='center'>${var.AREA_NAME}</td>
 <%-- 											<td class='center'>${var.BUSINESS_ID}</td> --%>
 											<td class='center'>${var.BUSINESS_NAME}</td>
 											<td class='center'>${var.PROJECT_TYPE}</td>
+											<td class='center'>${var.BID_NUM}</td>
 											<td class='center'>${var.BUDGET}</td>
+											<td class='center'>${var.MODEL_NAME}</td>
+											<td class='center'>${var.PROVINCE_NAME}</td>
+<%-- 											<td class='center'>${var.AREA_ID}</td> --%>
+											<td class='center'>${var.AREA_NAME}</td>
+											<td class='center'>${var.CLIENT}</td>
 											<td class='center'>${var.OPPONENT}</td>
 											<td class='center'>${var.BID_TIME}</td>
 <%-- 											<td class='center'>${var.MODEL_ID}</td> --%>
-											<td class='center'>${var.MODEL_NAME}</td>
-											<td class='center'>${var.BID_NUM}</td>
 											<td class='center'>${var.LEADER_NAME}</td>
 											<td class='center'>${var.LEADER_PHONE}</td>
 <%-- 											<td class='center'>${var.BZ}</td> --%>

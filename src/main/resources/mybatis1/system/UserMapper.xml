@@ -157,7 +157,10 @@
 		from 
 		<include refid="tableName"></include>
 		where 
-		ROLE_ID = #{ROLE_ID}
+		ROLE_ID = #{ROLE_ID} 
+		<if test="STATUS!= null and STATUS != ''">
+			and STATUS =#{STATUS}
+		</if>
 	</select>
 	
 	<!-- 用户列表 -->

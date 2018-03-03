@@ -2,20 +2,26 @@ package com.fh.controller.base;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.shiro.session.Session;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSON;
 import com.fh.entity.Page;
+import com.fh.entity.system.User;
+import com.fh.util.Const;
+import com.fh.util.Jurisdiction;
 import com.fh.util.Logger;
 import com.fh.util.PageData;
 import com.fh.util.UuidUtil;
 
 /**
- * @author FH Q313596790 修改时间：2015、12、11
+ * @author
  */
 public class BaseController {
 
@@ -29,7 +35,35 @@ public class BaseController {
 	 * @return
 	 */
 	public PageData getPageData() {
-		return new PageData(this.getRequest());
+		PageData pd = new PageData(this.getRequest());
+
+		Session session = Jurisdiction.getSession();
+		User user = (User) session.getAttribute(Const.SESSION_USER); // 读取session中的用户信息(单独用户信息)
+		logger.info("login"+"1111");
+		logger.info("login"+JSON.toJSONString(user));
+		if (user != null) {
+			String USERNAME = user.getUSERNAME();
+			String USER_ID = user.getUSER_ID();
+			String ROLE_ID = user.getROLE_ID();
+//			pd.put("ROLE_ID", ROLE_ID);	
+			logger.info("base:"+JSON.toJSONString(pd));
+			// 注册用户
+			if (ROLE_ID != "" && ROLE_ID.equals("fhadminzhuche")) {
+				pd.put("USERNAME", USERNAME);
+				pd.put("USER_ID", USER_ID);
+				pd.put("TYPE", 2);
+			}
+			// 区域负责人
+			if(ROLE_ID != "" && ROLE_ID.equals("19666e042e6240e281d035237722fd2e")){
+				// 获取区域负责人省份列表
+				List<String> areaList = (List<String>) session.getAttribute(Const.SESSION_USER_AREA); 
+				logger.info(JSON.toJSONString(areaList));
+				pd.put("AREA", areaList);
+			}
+
+		}
+
+		return pd;
 	}
 
 	/**

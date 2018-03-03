@@ -69,6 +69,7 @@ public class ProjectApplyController extends BaseController {
 		pd = this.getPageData();
 		pd.put("PROJECTAPPLY_ID", this.get32UUID()); // 主键
 		pd.put("CREATE_TIME", getNow());
+		
 		Session session = Jurisdiction.getSession();
 		User user = (User) session.getAttribute(Const.SESSION_USER); // 读取session中的用户信息(单独用户信息)
 		String USERNAME = user.getUSERNAME();
@@ -164,7 +165,7 @@ public class ProjectApplyController extends BaseController {
 		PageData pd = new PageData();
 		pd = this.getPageData();
 
-		String DICTIONARIES_ID = "1688305536294dea863fa5ae88ebbfa0";
+		String DICTIONARIES_ID = "1f132dd70a354134ac3e195ad80efcaf";
 		List<Dictionaries> varList = dictionariesService.listSubDictByParentId(DICTIONARIES_ID); // 用传过来的ID获取此ID下的子列表数据
 		List<PageData> pdList = new ArrayList<PageData>();
 		for (Dictionaries d : varList) {
@@ -175,10 +176,10 @@ public class ProjectApplyController extends BaseController {
 		}
 		mv.addObject("fileList", pdList);
 		
-		Session session = Jurisdiction.getSession();
-		User user = (User) session.getAttribute(Const.SESSION_USER); // 读取session中的用户信息(单独用户信息)
-		String USER_ID = user.getUSER_ID();
-		pd.put("USER_ID", USER_ID);
+//		Session session = Jurisdiction.getSession();
+//		User user = (User) session.getAttribute(Const.SESSION_USER); // 读取session中的用户信息(单独用户信息)
+//		String USER_ID = user.getUSER_ID();
+//		pd.put("USER_ID", USER_ID);
 		Page page = new Page();
 		page.setPd(pd);
 		List<PageData>	projectList = projectService.listProject(page);	//列出Project列表
@@ -211,7 +212,7 @@ public class ProjectApplyController extends BaseController {
 			tempList = Arrays.asList(arryFILE_TYPE); 
 		}
 
-		String DICTIONARIES_ID = "1688305536294dea863fa5ae88ebbfa0";
+		String DICTIONARIES_ID = "1f132dd70a354134ac3e195ad80efcaf";
 		List<Dictionaries> varList = dictionariesService.listSubDictByParentId(DICTIONARIES_ID); // 用传过来的ID获取此ID下的子列表数据
 		List<PageData> pdList = new ArrayList<PageData>();
 		for (Dictionaries d : varList) {
@@ -225,10 +226,7 @@ public class ProjectApplyController extends BaseController {
 		}
 		mv.addObject("fileList", pdList);
 		
-		Session session = Jurisdiction.getSession();
-		User user = (User) session.getAttribute(Const.SESSION_USER); // 读取session中的用户信息(单独用户信息)
-		String USER_ID = user.getUSER_ID();
-		pd.put("USER_ID", USER_ID);
+		
 		Page page = new Page();
 		page.setPd(pd);
 		List<PageData>	projectList = projectService.listProject(page);	//列出Project列表

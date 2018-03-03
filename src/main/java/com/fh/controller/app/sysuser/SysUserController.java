@@ -22,91 +22,85 @@ import com.fh.util.Jurisdiction;
 import com.fh.util.PageData;
 import com.fh.util.Tools;
 
-
-/**@author FH Q313596790
-  * 系统用户-接口类 
-  * 相关参数协议：
-  * 00	请求失败
-  * 01	请求成功
-  * 02	返回空值
-  * 03	请求协议参数不完整    
-  * 04  用户名或密码错误
-  * 05  FKEY验证失败
+/**
+ * @author FH Q313596790 系统用户-接口类 相关参数协议： 00 请求失败 01 请求成功 02 返回空值 03 请求协议参数不完整
+ *         04 用户名或密码错误 05 FKEY验证失败
  */
 @Controller
-@RequestMapping(value="/appSysUser")
+@RequestMapping(value = "/appSysUser")
 public class SysUserController extends BaseController {
-    
-	@Resource(name="userService")
+
+	@Resource(name = "userService")
 	private UserManager userService;
-	@Resource(name="fhlogService")
+	@Resource(name = "fhlogService")
 	private FHlogManager FHLOG;
-	@Resource(name="companyService")
+	@Resource(name = "companyService")
 	private CompanyManager companyService;
-	
-	/**系统用户注册接口
+
+	/**
+	 * 系统用户注册接口
+	 * 
 	 * @return
 	 */
-	@RequestMapping(value="/registerSysUser")
+	@RequestMapping(value = "/registerSysUser")
 	@ResponseBody
-	public Object registerSysUser(){
+	public Object registerSysUser() {
 		logBefore(logger, "系统用户注册接口");
-		Map<String,Object> map = new HashMap<String,Object>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		String result = "00";
-		try{
-			if(Tools.checkKey("username", pd.getString("FKEY"))){	//检验请求key值是否合法
-				if(AppUtil.checkParam("registerSysUser", pd)){		//检查参数
-					
+		try {
+			if (Tools.checkKey("username", pd.getString("FKEY"))) { // 检验请求key值是否合法
+				if (AppUtil.checkParam("registerSysUser", pd)) { // 检查参数
+
 					Session session = Jurisdiction.getSession();
-					String sessionCode = (String)session.getAttribute(Const.SESSION_SECURITY_CODE);		//获取session中的验证码
+					String sessionCode = (String) session.getAttribute(Const.SESSION_SECURITY_CODE); // 获取session中的验证码
 					String rcode = pd.getString("rcode");
 					String userId = this.get32UUID();
-					if(Tools.notEmpty(sessionCode) && sessionCode.equalsIgnoreCase(rcode)){				//判断登录验证码
-						pd.put("USER_ID", userId);	//ID 主键
-						pd.put("ROLE_ID", "fhadminzhuche");		//角色ID fhadminzhuche 为注册用户
-						pd.put("NUMBER", userId);					//编号
-//						pd.put("PHONE", "");					//手机号
-						pd.put("BZ", "注册用户");				//备注
-						pd.put("LAST_LOGIN", "");				//最后登录时间
-						pd.put("IP", "");						//IP
-						pd.put("STATUS", "0");					//状态
-						pd.put("TYPE", pd.getString("type"));					//状态
+					if (Tools.notEmpty(sessionCode) && sessionCode.equalsIgnoreCase(rcode)) { // 判断登录验证码
+						pd.put("USER_ID", userId); // ID 主键
+						pd.put("ROLE_ID", "fhadminzhuche"); // 角色ID
+															// fhadminzhuche
+															// 为注册用户
+						pd.put("NUMBER", userId); // 编号
+						// pd.put("PHONE", ""); //手机号
+						pd.put("BZ", "注册用户"); // 备注
+						pd.put("LAST_LOGIN", ""); // 最后登录时间
+						pd.put("IP", ""); // IP
+						pd.put("STATUS", "0"); // 状态
+						pd.put("TYPE", pd.getString("type")); // 状态
 						pd.put("SKIN", "default");
-						pd.put("RIGHTS", "");		
-						pd.put("PASSWORD", new SimpleHash("SHA-1", pd.getString("USERNAME"), pd.getString("PASSWORD")).toString());	//密码加密
-						System.out.println(JSON.toJSONString(pd));
-						if(null == userService.findByUsername(pd)){	//判断用户名是否存在
-							userService.saveU(pd); 					//执行保存
+						pd.put("RIGHTS", "");
+						pd.put("PASSWORD",
+								new SimpleHash("SHA-1", pd.getString("USERNAME"), pd.getString("PASSWORD")).toString()); // 密码加密
+						logger.info("注册用户数据：" + JSON.toJSONString(pd));
+						if (null == userService.findByUsername(pd)) { // 判断用户名是否存在
+							userService.saveU(pd); // 执行保存
 							FHLOG.save(pd.getString("USERNAME"), "新注册");
-							
-							pd.put("COMPANY_ID", userId);	//主键
+
+							pd.put("COMPANY_ID", userId); // 主键
 							companyService.save(pd);
-							
-						}else{
-							result = "04"; 	//用户名已存在
+
+						} else {
+							result = "04"; // 用户名已存在
 						}
-					}else{
-						result = "06"; 		//验证码错误
+					} else {
+						result = "06"; // 验证码错误
 					}
-				}else {
+				} else {
 					result = "03";
 				}
-			}else{
+			} else {
 				result = "05";
 			}
-		}catch (Exception e){
+		} catch (Exception e) {
 			logger.error(e.toString(), e);
-		}finally{
+		} finally {
 			map.put("result", result);
 			logAfter(logger);
 		}
 		return AppUtil.returnObject(new PageData(), map);
 	}
-	
 
-	
 }
-	
- 

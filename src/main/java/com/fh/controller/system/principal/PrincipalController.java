@@ -155,7 +155,7 @@ public class PrincipalController extends BaseController {
 		pd = this.getPageData();
 		pd = principalService.findById(pd);	//根据ID读取
 		
-		System.out.println(JSON.toJSONString(pd));
+		logger.info("区域负责人列表"+JSON.toJSONString(pd));
 		
 		Page page = new Page();
 		pd.put("TYPE", 1);
