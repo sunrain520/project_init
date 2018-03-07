@@ -149,3 +149,22 @@ function TabView(f) {
     };
     this.init()
 };
+
+function closeTab(id) {
+//	var $tabMenu = $('#tab_menu');
+//	var $iframe = $('#page_' + id);
+//	
+//	$iframe.remove();
+//	$('#'+id).remove();
+//	console.log($('#tab_menu').find('#' + id ), 'jjjj')
+//	console.log($('#tab_menu').find('#' + id + ' .tab_close'))
+	siMenu('z130','lm129','项目列表','project/list.do');
+	$('#' + id).find('.tab_close').trigger('click');
+	
+}
+
+function siMenu(id,fid,MENU_NAME,MENU_URL){
+	$("#"+fid).attr("class","active open");
+	$("#"+id).attr("class","active");
+	top.mainFrame.tabAddHandler(id,MENU_NAME,MENU_URL);
+}

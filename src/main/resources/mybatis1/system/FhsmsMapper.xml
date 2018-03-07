@@ -9,6 +9,7 @@
 	
 	<!-- 字段 -->
 	<sql id="Field">
+		TITLE,
 		CONTENT,	
 		TYPE,	
 		TO_USERNAME,	
@@ -21,6 +22,7 @@
 	
 	<!-- 字段值 -->
 	<sql id="FieldValue">
+		#{TITLE},	
 		#{CONTENT},	
 		#{TYPE},	
 		#{TO_USERNAME},	
@@ -88,6 +90,8 @@
 					TO_USERNAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
 					 or 
 					CONTENT LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
+					 or 
+					TITLE LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
 				)
 		</if>
 		<if test="pd.lastLoginStart!=null and pd.lastLoginStart!=''"><!-- 开始时间检索 -->
@@ -135,5 +139,4 @@
 		</foreach>
 	</delete>
 	
-	<!-- fh313596790qq(青苔) -->
 </mapper>

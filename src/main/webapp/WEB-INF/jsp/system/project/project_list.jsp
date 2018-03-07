@@ -17,6 +17,8 @@
 <%@ include file="../../system/index/top.jsp"%>
 <!-- 日期框 -->
 <link rel="stylesheet" href="static/ace/css/datepicker.css" />
+
+<link rel="stylesheet" href="plugins/layer/theme/default/layer.css" />
 </head>
 <body class="no-skin">
 
@@ -102,14 +104,14 @@
 									<c:forEach items="${varList}" var="var" varStatus="vs">
 										<tr>
 											<td class='center'>
-												<label class="pos-rel"><input type='checkbox' name='ids' value="${var.PROJECT_ID}" class="ace" /><span class="lbl"></span></label>
+												<label class="pos-rel"><input type='checkbox' name='ids' value="${var.PROJECT_ID}" project_name="${var.PROJECT_NAME}" project_type="${var.PROJECT_TYPE}" class="ace" /><span class="lbl"></span></label>
 											</td>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
 											<td class='center'><a  onclick="siMenu('z41','lm40','项目报备','<%=basePath%>project/goViewProject.do?PROJECT_ID=${var.PROJECT_ID}')" style="cursor:pointer;">${var.PROJECT_NAME}</a></td>
 <%-- 											<td class='center'>${var.DETAILS}</td> --%>
 <%-- 											<td class='center'>${var.PROVINCE_ID}</td> --%>
 <%-- 											<td class='center'>${var.BUSINESS_ID}</td> --%>
-											<td class='center'>${var.BUSINESS_NAME}</td>
+											<td class='center' >${var.BUSINESS_NAME}</td>
 											<td class='center'>${var.PROJECT_TYPE}</td>
 											<td class='center'>${var.BID_NUM}</td>
 											<td class='center'>${var.BUDGET}</td>
@@ -196,6 +198,9 @@
 									<c:if test="${QX.add == 1 }">
 									<a class="btn btn-mini btn-success" target="mainFrame" style="cursor:pointer;"  onclick="siMenu('z41','lm40','项目报备','<%=basePath%>project/goAddProject.do')">新增项目</a>
 									</c:if>
+									<c:if test="${QX.feedBack == 1 }">
+									<a class="btn btn-mini btn-success" target="mainFrame" style="cursor:pointer;"  onclick="addProjectfeedback()">新增项目反馈</a>
+									</c:if>
 									<c:if test="${QX.del == 1 }">
 									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要删除选中的数据吗?');" title="批量删除" ><i class='ace-icon fa fa-trash-o bigger-120'></i></a>
 									</c:if>
@@ -239,6 +244,7 @@
 	<script src="static/ace/js/date-time/bootstrap-datepicker.js"></script>
 	<!--提示框-->
 	<script type="text/javascript" src="static/js/jquery.tips.js"></script>
+	<script type="text/javascript" charset="utf-8" src="plugins/layer/layer.js"></script>
 	<script type="text/javascript">
 		$(top.hangge());//关闭加载状态
 		//检索
@@ -260,6 +266,80 @@
 // 			if(MENU_URL != "druid/index.html"){
 // 				jzts();
 // 			}
+		}
+		
+		//新增
+		function addProjectfeedback(){
+			var str = '';
+			var num = 0;
+			var name = "";
+			var type= '';
+			for(var i=0;i < document.getElementsByName('ids').length;i++){
+			  if(document.getElementsByName('ids')[i].checked){
+				  if(num == 1){
+					  layer.msg("只能选择一个项目");
+					  return;
+				  }
+			  	str = document.getElementsByName('ids')[i].value;
+			  	name = document.getElementsByName('ids')[i].getAttribute("project_name");
+			  	type = document.getElementsByName('ids')[i].getAttribute("project_type");
+			  	num += 1;
+			  }
+			}
+			if(str==''){
+				layer.msg("请选择项目");
+				return;
+			}
+// 			layer.msg(name);return;
+			if(type != "未中标"){
+				layer.msg("请选择未中标的项目");
+				return;
+			}
+			
+			if(!checkName(name)){
+				 layer.msg("项目【"+name+"】未中标反馈已存在");
+				 return;
+			}
+			
+			
+			 top.jzts();
+			 var diag = new top.Dialog();
+			 diag.Drag=true;
+			 diag.Title ="新增";
+			 diag.URL = '<%=basePath%>projectfeedback/goAdd.do?PROJECT_ID='+str+'&PROJECT_NAME='+name;
+			 diag.Width = 600;
+			 diag.Height = 455;
+			 diag.Modal = true;				//有无遮罩窗口
+			 diag. ShowMaxButton = true;	//最大化按钮
+		     diag.ShowMinButton = true;		//最小化按钮
+			 diag.CancelEvent = function(){ //关闭事件
+				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
+					 if('${page.currentPage}' == '0'){
+						 tosearch();
+					 }else{
+						 tosearch();
+					 }
+				}
+				diag.close();
+			 };
+			 diag.show();
+		}
+		
+		//判断名称是否存在
+		function checkName(NAME){
+			$.ajax({
+				type: "POST",
+				url: '<%=basePath%>projectfeedback/hasU.do',
+		    	data:{ NAME:NAME,tm:new Date().getTime()},
+				dataType:'json',
+				cache: false,
+				success: function(data){
+					 if("success" != data.result){
+						 return false;
+					 }
+					 return true;
+				}
+			});
 		}
 		
 		$(function() {

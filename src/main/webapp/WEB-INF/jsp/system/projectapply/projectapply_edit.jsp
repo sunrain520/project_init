@@ -417,6 +417,10 @@
 				success: function(data){
 					 if("success" != data.result){
 						 layer.msg("该项目已提交授权申请，请选择其他项目");
+						 console.log($('#Form').find('.search-choice-close:after'));
+						 var $projectDiv = $('#Form').find('#PROJECT_ID_chosen');
+						 $projectDiv.find('.chosen-single>span').text('请选择项目名称');
+						 $projectDiv.find('.search-choice-close').remove();
 						 return false;
 					 }
 				}

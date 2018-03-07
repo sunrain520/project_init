@@ -29,20 +29,37 @@
 					
 						<div id="zhongxin" style="padding-top: 13px;">
 						<table id="table_report" class="table table-striped table-bordered table-hover">
+							<c:if test="${pd.TYPE != '2' }">
+								<tr>
+								<td style="width:85px;text-align: right;">发信人：</td>	
+								<td>${pd.TO_USERNAME}</td>
+								</tr>
+								<tr>
+								<td style="width:85px;text-align: right;">收信人：</td>	
+								<td>${pd.FROM_USERNAME}</td>
+								</tr>
+							</c:if>
+							<c:if test="${pd.TYPE == '2' }">
+								<tr>
+								<td style="width:85px;text-align: right;">发信人：</td>	
+								<td>${pd.FROM_USERNAME}</td>
+								</tr>
+								<tr>
+								<td style="width:85px;text-align: right;">收信人：</td>	
+								<td>${pd.TO_USERNAME}</td>
+								</tr>
+							</c:if>
 							<tr>
-								<td style="padding-top: 13px;">
-								<c:if test="${pd.TYPE != '2' }">
-								发信人：${pd.TO_USERNAME}&nbsp;&nbsp;
-								收信人：${pd.FROM_USERNAME}&nbsp;&nbsp;
-								</c:if>
-								<c:if test="${pd.TYPE == '2' }">
-								发信人：${pd.FROM_USERNAME}&nbsp;&nbsp;
-								收信人：${pd.TO_USERNAME}&nbsp;&nbsp;
-								</c:if>
-								发信时间：${pd.SEND_TIME}
+								<td style="width:75px;text-align: right;">标题：</td>	
+								<td>${pd.TITLE}</td>
 							</tr>
 							<tr>
+								<td style="width:75px;text-align: right;">内容：</td>	
 								<td>${pd.CONTENT}</td>
+							</tr>
+							<tr>
+								<td style="width:75px;text-align: right;">发信时间：</td>	
+								<td>${pd.SEND_TIME}</td>
 							</tr>
 						</table>
 						</div>

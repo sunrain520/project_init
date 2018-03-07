@@ -68,6 +68,7 @@
 									<label class="pos-rel"><input type="checkbox" class="ace" id="zcheckbox" /><span class="lbl"></span></label>
 									</th>
 									<th class="center" style="width:50px;">序号</th>
+									<th class="center">标题</th>
 									<th class="center">发信人</th>
 									<th class="center">收信人</th>
 									<th class="center">发信时间</th>
@@ -88,6 +89,7 @@
 											</td>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
 											<c:if test="${pd.TYPE != '2' }">
+											<td class='center'><a onclick="viewx('STATUS${vs.index+1}','${var.STATUS}','${pd.TYPE == '2'?'2':'1' }','${var.FHSMS_ID}','${var.SANME_ID}');" style="cursor:pointer;">${var.TITLE}</a></td>
 											<td class='center'><a onclick="viewUser('${var.TO_USERNAME}')" style="cursor:pointer;">${var.TO_USERNAME}</a></td>
 											<td class='center'><a onclick="viewUser('${var.FROM_USERNAME}')" style="cursor:pointer;">${var.FROM_USERNAME}</a></td>
 											</c:if>
@@ -277,8 +279,8 @@
 			 diag.Drag=true;
 			 diag.Title ="站内信";
 			 diag.URL = '<%=basePath%>fhsms/goAdd.do?username='+username;
-			 diag.Width = 660;
-			 diag.Height = 444;
+			 diag.Width = 740;
+			 diag.Height = 500;
 			 diag.CancelEvent = function(){ //关闭事件
 				 top.jzts();
 				 setTimeout("self.location=self.location",100);
@@ -315,7 +317,7 @@
 			 diag.Title ="站内信";
 			 diag.URL = '<%=basePath%>fhsms/goView.do?FHSMS_ID='+Id+'&TYPE='+type+'&SANME_ID='+SANME_ID+'&STATUS='+STATUS;
 			 diag.Width = 600;
-			 diag.Height = 460;
+			 diag.Height = 360;
 			 diag.CancelEvent = function(){ //关闭事件
 				diag.close();
 			 };

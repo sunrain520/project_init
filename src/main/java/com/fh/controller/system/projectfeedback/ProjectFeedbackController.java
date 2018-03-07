@@ -28,7 +28,7 @@ import com.fh.service.system.projectfeedback.ProjectFeedbackManager;
 /** 
  * 说明：项目未中标反馈
  * 创建人：kuang 767375210
- * 创建时间：2018-01-20
+ * 创建时间：2018-03-03
  */
 @Controller
 @RequestMapping(value="/projectfeedback")
@@ -182,29 +182,31 @@ public class ProjectFeedbackController extends BaseController {
 		pd = this.getPageData();
 		Map<String,Object> dataMap = new HashMap<String,Object>();
 		List<String> titles = new ArrayList<String>();
-		titles.add("反馈人");	//1
-		titles.add("项目id");	//2
-		titles.add("项目名称");	//3
-		titles.add("项目丢标原因");	//4
-		titles.add("中标厂家");	//5
-		titles.add("中标金额");	//6
-		titles.add("中标设备型号");	//7
-		titles.add("中标设备数量");	//8
-		titles.add("创建时间");	//9
+		titles.add("项目名称");	//1
+		titles.add("项目ID");	//2
+		titles.add("项目丢标原因");	//3
+		titles.add("中标厂家");	//4
+		titles.add("中标金额");	//5
+		titles.add("中标设备型号");	//6
+		titles.add("中标设备数量");	//7
+		titles.add("反馈人ID");	//8
+		titles.add("反馈人名称");	//9
+		titles.add("创建时间");	//10
 		dataMap.put("titles", titles);
 		List<PageData> varOList = projectfeedbackService.listAll(pd);
 		List<PageData> varList = new ArrayList<PageData>();
 		for(int i=0;i<varOList.size();i++){
 			PageData vpd = new PageData();
-			vpd.put("var1", varOList.get(i).getString("USER_ID"));	    //1
+			vpd.put("var1", varOList.get(i).getString("PROJECT_NAME"));	    //1
 			vpd.put("var2", varOList.get(i).getString("PROJECT_ID"));	    //2
-			vpd.put("var3", varOList.get(i).getString("PROJECT_NAME"));	    //3
-			vpd.put("var4", varOList.get(i).getString("REASON"));	    //4
-			vpd.put("var5", varOList.get(i).getString("BID_COMPANY"));	    //5
-			vpd.put("var6", varOList.get(i).get("BID_MONEY").toString());	//6
-			vpd.put("var7", varOList.get(i).getString("BID_MODEL"));	    //7
-			vpd.put("var8", varOList.get(i).getString("BID_NUM"));	    //8
-			vpd.put("var9", varOList.get(i).getString("CREATE_TIME"));	    //9
+			vpd.put("var3", varOList.get(i).getString("REASON"));	    //3
+			vpd.put("var4", varOList.get(i).getString("COMPANY_NAME"));	    //4
+			vpd.put("var5", varOList.get(i).get("MONEY").toString());	//5
+			vpd.put("var6", varOList.get(i).getString("MODEL"));	    //6
+			vpd.put("var7", varOList.get(i).get("NUM").toString());	//7
+			vpd.put("var8", varOList.get(i).getString("USER_ID"));	    //8
+			vpd.put("var9", varOList.get(i).getString("USERNAME"));	    //9
+			vpd.put("var10", varOList.get(i).getString("CREATE_TIME"));	    //10
 			varList.add(vpd);
 		}
 		dataMap.put("varList", varList);

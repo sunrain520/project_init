@@ -32,40 +32,41 @@
 						<div id="zhongxin" style="padding-top: 13px;">
 						<table id="table_report" class="table table-striped table-bordered table-hover">
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">反馈人:</td>
-								<td><input type="text" name="USER_ID" id="USER_ID" value="${pd.USER_ID}" maxlength="255" placeholder="这里输入反馈人" title="反馈人" style="width:98%;"/></td>
-							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">项目id:</td>
-								<td><input type="text" name="PROJECT_ID" id="PROJECT_ID" value="${pd.PROJECT_ID}" maxlength="255" placeholder="这里输入项目id" title="项目id" style="width:98%;"/></td>
-							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">项目名称:</td>
-								<td><input type="text" name="PROJECT_NAME" id="PROJECT_NAME" value="${pd.PROJECT_NAME}" maxlength="255" placeholder="这里输入项目名称" title="项目名称" style="width:98%;"/></td>
-							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">项目丢标原因:</td>
-								<td><input type="text" name="REASON" id="REASON" value="${pd.REASON}" maxlength="500" placeholder="这里输入项目丢标原因" title="项目丢标原因" style="width:98%;"/></td>
+								<td style="width:110px;text-align: right;padding-top: 13px;">项目名称:</td>
+								<td><input type="text" name="PROJECT_NAME" id="PROJECT_NAME" value="${pd.PROJECT_NAME}" maxlength="255" readonly="readonly" title="项目名称" style="width:98%;"/></td>
+								<input type="hidden" name="PROJECT_ID" id="PROJECT_ID" value="${pd.PROJECT_ID}"/>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">中标厂家:</td>
-								<td><input type="text" name="BID_COMPANY" id="BID_COMPANY" value="${pd.BID_COMPANY}" maxlength="255" placeholder="这里输入中标厂家" title="中标厂家" style="width:98%;"/></td>
+								<td><input type="text" name="COMPANY_NAME" id="COMPANY_NAME" value="${pd.COMPANY_NAME}" maxlength="255" placeholder="这里输入中标厂家" title="中标厂家" style="width:98%;"/></td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">中标金额:</td>
-								<td><input type="number" name="BID_MONEY" id="BID_MONEY" value="${pd.BID_MONEY}" maxlength="32" placeholder="这里输入中标金额" title="中标金额" style="width:98%;"/></td>
+								<td><input type="number" name="MONEY" id="MONEY" value="${pd.MONEY}" maxlength="32" placeholder="这里输入中标金额" title="中标金额" style="width:98%;"/></td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">中标设备型号:</td>
-								<td><input type="text" name="BID_MODEL" id="BID_MODEL" value="${pd.BID_MODEL}" maxlength="255" placeholder="这里输入中标设备型号" title="中标设备型号" style="width:98%;"/></td>
+								<td><input type="text" name="MODEL" id="MODEL" value="${pd.MODEL}" maxlength="255" placeholder="这里输入中标设备型号" title="中标设备型号" style="width:98%;"/></td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">中标设备数量:</td>
-								<td><input type="text" name="BID_NUM" id="BID_NUM" value="${pd.BID_NUM}" maxlength="255" placeholder="这里输入中标设备数量" title="中标设备数量" style="width:98%;"/></td>
+								<td><input type="number" name="NUM" id="NUM" value="${pd.NUM}" maxlength="32" placeholder="这里输入中标设备数量" title="中标设备数量" style="width:98%;"/></td>
 							</tr>
 							<tr>
+								<td style="width:75px;text-align: right;padding-top: 13px;">项目丢标原因:</td>
+								<td><input type="text" name="REASON" id="REASON" value="${pd.REASON}" maxlength="255" placeholder="这里输入项目丢标原因" title="项目丢标原因" style="width:98%;"/></td>
+							</tr>
+<!-- 							<tr> -->
+<!-- 								<td style="width:75px;text-align: right;padding-top: 13px;">反馈人ID:</td> -->
+<%-- 								<td><input type="text" name="USER_ID" id="USER_ID" value="${pd.USER_ID}" maxlength="255" placeholder="这里输入反馈人ID" title="反馈人ID" style="width:98%;"/></td> --%>
+<!-- 							</tr> -->
+<!-- 							<tr> -->
+<!-- 								<td style="width:75px;text-align: right;padding-top: 13px;">反馈人名称:</td> -->
+<%-- 								<td><input type="text" name="USERNAME" id="USERNAME" value="${pd.USERNAME}" maxlength="255" placeholder="这里输入反馈人名称" title="反馈人名称" style="width:98%;"/></td> --%>
+<!-- 							</tr> -->
+							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">创建时间:</td>
-								<td><input type="text" name="CREATE_TIME" id="CREATE_TIME" value="${pd.CREATE_TIME}" maxlength="255" placeholder="这里输入创建时间" title="创建时间" style="width:98%;"/></td>
+								<td><input  name="CREATE_TIME" id="CREATE_TIME" value="${pd.CREATE_TIME}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" placeholder="创建时间" title="创建时间" style="width:98%;"/></td>
 							</tr>
 							<tr>
 								<td style="text-align: center;" colspan="10">
@@ -96,40 +97,52 @@
 	<script src="static/ace/js/chosen.jquery.js"></script>
 	<!-- 日期框 -->
 	<script src="static/ace/js/date-time/bootstrap-datepicker.js"></script>
+	
 	<!--提示框-->
 	<script type="text/javascript" src="static/js/jquery.tips.js"></script>
 		<script type="text/javascript">
 		$(top.hangge());
 		//保存
 		function save(){
-			if($("#USER_ID").val()==""){
-				$("#USER_ID").tips({
+			
+			if($("#COMPANY_NAME").val()==""){
+				$("#COMPANY_NAME").tips({
 					side:3,
-		            msg:'请输入反馈人',
+		            msg:'请输入中标厂家',
 		            bg:'#AE81FF',
 		            time:2
 		        });
-				$("#USER_ID").focus();
+				$("#COMPANY_NAME").focus();
 			return false;
 			}
-			if($("#PROJECT_ID").val()==""){
-				$("#PROJECT_ID").tips({
+			if($("#MONEY").val()==""){
+				$("#MONEY").tips({
 					side:3,
-		            msg:'请输入项目id',
+		            msg:'请输入中标金额',
 		            bg:'#AE81FF',
 		            time:2
 		        });
-				$("#PROJECT_ID").focus();
+				$("#MONEY").focus();
 			return false;
 			}
-			if($("#PROJECT_NAME").val()==""){
-				$("#PROJECT_NAME").tips({
+			if($("#MODEL").val()==""){
+				$("#MODEL").tips({
 					side:3,
-		            msg:'请输入项目名称',
+		            msg:'请输入中标设备型号',
 		            bg:'#AE81FF',
 		            time:2
 		        });
-				$("#PROJECT_NAME").focus();
+				$("#MODEL").focus();
+			return false;
+			}
+			if($("#NUM").val()==""){
+				$("#NUM").tips({
+					side:3,
+		            msg:'请输入中标设备数量',
+		            bg:'#AE81FF',
+		            time:2
+		        });
+				$("#NUM").focus();
 			return false;
 			}
 			if($("#REASON").val()==""){
@@ -142,56 +155,7 @@
 				$("#REASON").focus();
 			return false;
 			}
-			if($("#BID_COMPANY").val()==""){
-				$("#BID_COMPANY").tips({
-					side:3,
-		            msg:'请输入中标厂家',
-		            bg:'#AE81FF',
-		            time:2
-		        });
-				$("#BID_COMPANY").focus();
-			return false;
-			}
-			if($("#BID_MONEY").val()==""){
-				$("#BID_MONEY").tips({
-					side:3,
-		            msg:'请输入中标金额',
-		            bg:'#AE81FF',
-		            time:2
-		        });
-				$("#BID_MONEY").focus();
-			return false;
-			}
-			if($("#BID_MODEL").val()==""){
-				$("#BID_MODEL").tips({
-					side:3,
-		            msg:'请输入中标设备型号',
-		            bg:'#AE81FF',
-		            time:2
-		        });
-				$("#BID_MODEL").focus();
-			return false;
-			}
-			if($("#BID_NUM").val()==""){
-				$("#BID_NUM").tips({
-					side:3,
-		            msg:'请输入中标设备数量',
-		            bg:'#AE81FF',
-		            time:2
-		        });
-				$("#BID_NUM").focus();
-			return false;
-			}
-			if($("#CREATE_TIME").val()==""){
-				$("#CREATE_TIME").tips({
-					side:3,
-		            msg:'请输入创建时间',
-		            bg:'#AE81FF',
-		            time:2
-		        });
-				$("#CREATE_TIME").focus();
-			return false;
-			}
+			
 		    if($("#PROJECTFEEDBACK_ID").val()==""){
 				hasU();
 			}else{
@@ -208,7 +172,7 @@
 		
 		//判断名称是否存在
 		function hasU(){
-			var NAME = $.trim($("#NAME").val());
+			var NAME = $.trim($("#PROJECT_NAME").val());
 			$.ajax({
 				type: "POST",
 				url: '<%=basePath%>projectfeedback/hasU.do',
@@ -221,13 +185,13 @@
 						$("#zhongxin").hide();
 						$("#zhongxin2").show();
 					 }else{
-						 $("#NAME").tips({
+						 $("#PROJECT_NAME").tips({
 								side:4,
 					            msg:'此名称已存在',
 					            bg:'#AE81FF',
 					            time:2
 					        });
-							$("#NAME").focus();
+							$("#PROJECT_NAME").focus();
 							return false;
 					 }
 				}

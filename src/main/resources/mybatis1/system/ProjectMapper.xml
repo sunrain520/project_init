@@ -190,7 +190,7 @@
 		from 
 			<include refid="tableName"></include>
 		where 
-			NAME = #{NAME}
+			PROJECT_NAME = #{NAME}
 	</select>
 	
 	

@@ -58,17 +58,26 @@
 		<input type="hidden" name="TYPE" id="TYPE" value="1"/>
 		<table style="width:98%;margin-top: 10px;margin-left: 9px;" >
 			<tr>
+				<td style="width:75px;text-align: right;" >收件人：</td>
 				<td style="margin-top:0px;">
 					 <div style="float: left;" style="width:81%"><textarea  name="USERNAME" id="USERNAME" rows="1" cols="50" style="width:595px;height:32px;" title="请选输入对方用户名,多个请用(;)分号隔开">${pd.username}</textarea></div>
 					 <div style="float: right;margin-right: 12px;" style="width:19%"><a class='btn btn-mini btn-info' title="查看用户名" onclick="dialog_open();"><i class="ace-icon fa fa-search nav-search-icon"></i></a></div>
 				</td>
 			</tr>
 			<tr>
+				<td style="width:75px;text-align: right;">标题：</td>
+				<td style="padding-top: 3px;">
+					 <input type="text" value="${pd.title}" name="TITLE" id="TITLE" style="width: 595px;">
+				</td>
+			</tr>
+			<tr>
+				<td style="width:75px;text-align: right;">内容：</td>
 				<td style="padding-top: 3px;">
 					 <script id="editor" type="text/plain" style="width:643px;height:259px;"></script>
 				</td>
 			</tr>
 			<tr>
+			<td style="width:75px;text-align: right;"></td>
 				<td style="text-align: center;padding-top: 15px;" id="nr">
 					<a class="btn btn-mini btn-primary" onclick="sendFhsms();">发送</a>
 					<a class="btn btn-mini btn-danger" onclick="top.Dialog.close();">取消</a>
@@ -94,7 +103,7 @@
 	<script type="text/javascript" charset="utf-8" src="plugins/ueditor/ueditor.all.js"></script>
 	<!-- 编辑框-->
 	<!--引入属于此页面的js -->
-	<script type="text/javascript" src="static/js/myjs/fhsms.js"></script>
+	<script type="text/javascript" src="static/js/myjs/fhsms.js?1"></script>
 	<!--提示框-->
 	<script type="text/javascript" src="static/js/jquery.tips.js"></script>
 </body>

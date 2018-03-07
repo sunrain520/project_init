@@ -66,14 +66,15 @@
 									<label class="pos-rel"><input type="checkbox" class="ace" id="zcheckbox" /><span class="lbl"></span></label>
 									</th>
 									<th class="center" style="width:50px;">序号</th>
-									<th class="center">反馈人</th>
-									<th class="center">项目id</th>
 									<th class="center">项目名称</th>
+<!-- 									<th class="center">项目ID</th> -->
 									<th class="center">项目丢标原因</th>
 									<th class="center">中标厂家</th>
 									<th class="center">中标金额</th>
 									<th class="center">中标设备型号</th>
 									<th class="center">中标设备数量</th>
+									<th class="center">反馈人ID</th>
+									<th class="center">反馈人名称</th>
 									<th class="center">创建时间</th>
 									<th class="center">操作</th>
 								</tr>
@@ -90,14 +91,15 @@
 												<label class="pos-rel"><input type='checkbox' name='ids' value="${var.PROJECTFEEDBACK_ID}" class="ace" /><span class="lbl"></span></label>
 											</td>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
-											<td class='center'>${var.USER_ID}</td>
-											<td class='center'>${var.PROJECT_ID}</td>
 											<td class='center'>${var.PROJECT_NAME}</td>
+<%-- 											<td class='center'>${var.PROJECT_ID}</td> --%>
 											<td class='center'>${var.REASON}</td>
-											<td class='center'>${var.BID_COMPANY}</td>
-											<td class='center'>${var.BID_MONEY}</td>
-											<td class='center'>${var.BID_MODEL}</td>
-											<td class='center'>${var.BID_NUM}</td>
+											<td class='center'>${var.COMPANY_NAME}</td>
+											<td class='center'>${var.MONEY}</td>
+											<td class='center'>${var.MODEL}</td>
+											<td class='center'>${var.NUM}</td>
+											<td class='center'>${var.USER_ID}</td>
+											<td class='center'>${var.USERNAME}</td>
 											<td class='center'>${var.CREATE_TIME}</td>
 											<td class="center">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
@@ -271,8 +273,8 @@
 			 diag.Drag=true;
 			 diag.Title ="新增";
 			 diag.URL = '<%=basePath%>projectfeedback/goAdd.do';
-			 diag.Width = 450;
-			 diag.Height = 355;
+			 diag.Width = 600;
+			 diag.Height = 455;
 			 diag.Modal = true;				//有无遮罩窗口
 			 diag. ShowMaxButton = true;	//最大化按钮
 		     diag.ShowMinButton = true;		//最小化按钮
@@ -309,8 +311,8 @@
 			 diag.Drag=true;
 			 diag.Title ="编辑";
 			 diag.URL = '<%=basePath%>projectfeedback/goEdit.do?PROJECTFEEDBACK_ID='+Id;
-			 diag.Width = 450;
-			 diag.Height = 355;
+			 diag.Width = 600;
+			 diag.Height = 455;
 			 diag.Modal = true;				//有无遮罩窗口
 			 diag. ShowMaxButton = true;	//最大化按钮
 		     diag.ShowMinButton = true;		//最小化按钮 

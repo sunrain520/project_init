@@ -56,13 +56,13 @@
 						<div class="col-xs-12">
 
 <!-- 存放生成的hmlt开头  -->
-<form class="form-horizontal" action="project/${msg }.do" name="Form" id="Form"  method="post">
+<form class="form-horizontal" action="project/${msg }.do" name="Form" id="Form"  method="post" >
 <input type="hidden" name="PROJECT_ID" id="PROJECT_ID" value="${pd.PROJECT_ID}"/>
 <div class="col-md-12">
     <div class="form-group">
         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"><span class="need">*</span> 项目名称：</label>
         <div class="col-sm-9">
-            <input type="text" id="PROJECT_NAME" name="PROJECT_NAME" placeholder="" value="${pd.PROJECT_NAME}"
+            <input type="text" id="PROJECT_NAME" name="PROJECT_NAME" placeholder="" onblur="checkName()" value="${pd.PROJECT_NAME}" style="width: 41.666%;"
             nullmsg="请填写项目名称！"  datatype="s" <c:if test="${msg  eq 'view' }">readonly</c:if> >
         </div>
         <div class="checked-tip"></div>
@@ -71,7 +71,7 @@
       <div class="form-group">
         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"><span class="need">*</span>所属行业：</label>
         <div class="col-sm-9">
-            <select name="BUSINESS_ID" id="BUSINESS_ID" onchange="changeBussness(this.value)" style="width: 120px;" nullmsg="请选择所属行业！" datatype="*"  <c:if test="${msg  eq 'view' }">disabled</c:if>>
+            <select name="BUSINESS_ID" id="BUSINESS_ID" onchange="changeBussness(this.value)" style="width: 150px;" nullmsg="请选择所属行业！" datatype="*"  <c:if test="${msg  eq 'view' }">disabled</c:if>>
                 <option  value="">请选择</option>     					 
           	</select>
           	
@@ -82,11 +82,11 @@
      <div class="form-group">
         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"><span class="need">*</span>所在区域：</label>
         <div class="col-sm-9">
-            <select name="PROVINCE_ID" id="level1" onchange="change1(this.value)" style="width: 120px;" nullmsg="请选择所在区域！" datatype="*" <c:if test="${msg  eq 'view' }">disabled</c:if>>
+            <select name="PROVINCE_ID" id="level1" onchange="change1(this.value)" style="width: 150px;" nullmsg="请选择所在区域！" datatype="*" <c:if test="${msg  eq 'view' }">disabled</c:if>>
                 <option  value="">请选择</option>     					 
           	</select>
              <input type="hidden" name="PROVINCE_NAME" id="PROVINCE_NAME" value="${pd.PROVINCE_NAME}">
- 		<select id="level2" name="AREA_ID" onchange="change2(this.value)" style="width: 120px;" nullmsg="请选择所在区域！" datatype="*" <c:if test="${msg  eq 'view' }">disabled</c:if>>
+ 		<select id="level2" name="AREA_ID" onchange="change2(this.value)" style="width: 150px;" nullmsg="请选择所在区域！" datatype="*" <c:if test="${msg  eq 'view' }">disabled</c:if>>
  			<option  value="">请选择</option>                       
 		</select>
 		<input type="hidden" name="AREA_NAME" id="AREA_NAME" value="${pd.AREA_NAME}">
@@ -96,7 +96,7 @@
     <div class="form-group">
         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"><span class="need">*</span>项目状态：</label>
         <div class="col-sm-9">
-         	<select name="PROJECT_TYPE" id="PROJECT_TYPE_ID"  style="width: 120px;" nullmsg="请选择项目状态！" datatype="*" <c:if test="${msg  eq 'view' }">disabled</c:if>>
+         	<select name="PROJECT_TYPE" id="PROJECT_TYPE_ID"  style="width: 150px;" nullmsg="请选择项目状态！" datatype="*" <c:if test="${msg  eq 'view' }">disabled</c:if>>
                 <option>请选择</option>     					 
           	</select>
           	<input type="hidden" name="PROJECT_TYPE_TEMP" id="PROJECT_TYPE_TEMP" value="${pd.PROJECT_TYPE}">
@@ -149,7 +149,7 @@
      <div class="form-group">
         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"><span class="need">*</span>预计使用设备数量：</label>
         <div class="col-sm-9">
-            <input type="text" id="BID_NUM" name="BID_NUM" placeholder="" class="col-xs-10 col-sm-5" nullmsg="请填写！" datatype="n" value="${pd.BID_NUM}" <c:if test="${msg  eq 'view' }">readonly</c:if>>
+            <input type="text" id="BID_NUM" name="BID_NUM" placeholder="" class="col-xs-10 col-sm-5" nullmsg="请填写预计使用设备数量！" datatype="n" value="${pd.BID_NUM}" <c:if test="${msg  eq 'view' }">readonly</c:if>>
         </div>
     </div>
 
@@ -183,7 +183,8 @@
     <c:if test="${msg  ne 'view' }">
     <div class="form-group">
         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"></label>
-        <div class="col-sm-9"> <input class="btn btn-mini btn-primary" type="submit" value="保存"></input>
+        <div class="col-sm-9">  
+        <button class="btn btn-mini btn-primary"  id="btn_sub" onclick="save();">保存</button>
  		<a class="btn btn-mini btn-danger js-cancel" onclick="">取消</a>
         </div>
     </div>
@@ -221,6 +222,7 @@
 	<script type="text/javascript" charset="utf-8" src="plugins/ueditor/ueditor.all.js?1"></script>
 	<script type="text/javascript" charset="utf-8" src="plugins/layer/layer.js"></script>
 	<script type="text/javascript" charset="utf-8" src="plugins/validform_v5.3.2/Validform_v5.3.2_min.js"></script>
+	
 	<!-- 百度富文本编辑框-->
 	<!-- ace scripts -->
 	<script src="static/ace/js/ace/ace.js"></script>
@@ -231,13 +233,36 @@
 	<!-- 上传控件 -->
 	<script src="static/ace/js/ace/elements.fileinput.js"></script>
 	<script type="text/javascript">
-
 	$(function(){
 		var msg = "${msg}";
 		if( msg != "view"){
-			$("#Form").Validform({ tiptype: 3, });  
+			$("#Form").Validform({ tiptype: 3,btnSubmit:"#btn_sub"});  
 		}
-	})
+	});
+	
+	function save(){
+		console.log(11113333);
+		
+		$.ajax({
+			type : "POST",
+			url : $("#Form").attr("action"),
+			data : $("#Form").serialize(),
+			dataType : 'json',
+			cache : false,
+			success : function(data) {
+				console.log(data);
+				if(data.code == 200){
+					var iframeId = parent.$('#tab_menu .tab_item2_selected').closest('.tab_item').attr('id');
+					parent.closeTab(iframeId);
+					
+				}
+			}
+		});
+		
+// 		$("#Form").submit();
+// 		var iframeId = parent.$('#tab_menu .tab_item2_selected').closest('.tab_item').attr('id');
+// 		parent.closeTab(iframeId);
+	}
 	
 	   // 取消
     $('.js-cancel').on('click',function(){
@@ -245,7 +270,8 @@
                 {btn:['确定','取消'],title:'提示'},
                 function(index){
                 	layer.close(index);
-//                 	document.getElementById('zhongxin').style.display = 'none';
+					var iframeId = parent.$('#tab_menu .tab_item2_selected').closest('.tab_item').attr('id');
+					parent.closeTab(iframeId);
                 },
                 function(){}
         );
@@ -414,13 +440,44 @@
 		     return str.indexOf(substr) >= 0;
 		}
 		
-		
+		//判断名称是否存在
+		function checkName(){
+			var NAME = $.trim($("#PROJECT_NAME").val());
+			var id = $.trim($("#PROJECT_ID").val());
+			if(id != ""){
+				return;
+			}
+			$.ajax({
+				type: "POST",
+				url: '<%=basePath%>project/hasU.do',
+		    	data:{ NAME:NAME,tm:new Date().getTime()},
+				dataType:'json',
+				cache: false,
+				success: function(data){
+					 if("success" != data.result){
+// 						 layer.msg("项目【"+NAME+"】已存在");
+						 layer.tips("项目【"+NAME+"】已存在，请重新输入", '#PROJECT_NAME', {
+							  tips: [4, '#009f95']
+						 });
+						 $("#PROJECT_NAME").val('');
+						 return;
+					 }
+				}
+			});
+		}
 		
 		$(top.hangge());
 		
 		$(function() {
 			//日期框
-			$('.date-picker').datepicker({autoclose: true,todayHighlight: true});
+			$('#BID_TIME').datepicker({
+				autoclose: true,
+				todayHighlight: true,
+				language: "zh-CN",
+				clearBtn: false,//清除按钮
+	            todayBtn: false,//今日按钮
+	            format: "yyyy-mm-dd"//日期格式，详见 http://bootstrap-datepicker.readthedocs.org/en/release/options.html#format
+				});
 			
 			//下拉框
 			if(!ace.vars['touch']) {
@@ -468,12 +525,6 @@
 		function ueditor(){
 			UE.getEditor('editor');
 		}
-		
-		
-		
-		
-		
-		
 		
 	</script>
 

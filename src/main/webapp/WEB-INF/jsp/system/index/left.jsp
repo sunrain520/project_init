@@ -3,39 +3,39 @@
 					try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
 				</script>
 
-				<div class="sidebar-shortcuts" id="sidebar-shortcuts">
-					<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+<!-- 				<div class="sidebar-shortcuts" id="sidebar-shortcuts"> -->
+<!-- 					<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large"> -->
 						
-						<button class="btn btn-info" onclick="changeMenus('index');" title="业务菜单">
-							<i class="ace-icon fa fa-pencil"></i>
-						</button>
+<!-- 						<button class="btn btn-info" onclick="changeMenus('index');" title="业务菜单"> -->
+<!-- 							<i class="ace-icon fa fa-pencil"></i> -->
+<!-- 						</button> -->
 						
-						<button class="btn btn-success" onclick="changeMenus('2');" title="系统菜单">
-							<i class="ace-icon fa fa-signal"></i>
-						</button>
+<!-- 						<button class="btn btn-success" onclick="changeMenus('2');" title="系统菜单"> -->
+<!-- 							<i class="ace-icon fa fa-signal"></i> -->
+<!-- 						</button> -->
 
-						<!-- #section:basics/sidebar.layout.shortcuts -->
-						<button class="btn btn-warning" onclick="changeMenus('3');" title="菜单(类型三)">
-							<i class="ace-icon fa fa-book"></i>
-						</button>
+<!-- 						#section:basics/sidebar.layout.shortcuts -->
+<!-- 						<button class="btn btn-warning" onclick="changeMenus('3');" title="菜单(类型三)"> -->
+<!-- 							<i class="ace-icon fa fa-book"></i> -->
+<!-- 						</button> -->
 
-						<button class="btn btn-danger" onclick="changeMenus('4');" title="菜单(类型四)">
-							<i class="ace-icon fa fa-cogs"></i>
-						</button>
+<!-- 						<button class="btn btn-danger" onclick="changeMenus('4');" title="菜单(类型四)"> -->
+<!-- 							<i class="ace-icon fa fa-cogs"></i> -->
+<!-- 						</button> -->
 
-						<!-- /section:basics/sidebar.layout.shortcuts -->
-					</div>
+<!-- 						/section:basics/sidebar.layout.shortcuts -->
+<!-- 					</div> -->
 
-					<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
-						<span class="btn btn-success"></span>
+<!-- 					<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini"> -->
+<!-- 						<span class="btn btn-success"></span> -->
 
-						<span class="btn btn-info"></span>
+<!-- 						<span class="btn btn-info"></span> -->
 
-						<span class="btn btn-warning"></span>
+<!-- 						<span class="btn btn-warning"></span> -->
 
-						<span class="btn btn-danger"></span>
-					</div>
-				</div><!-- /.sidebar-shortcuts -->
+<!-- 						<span class="btn btn-danger"></span> -->
+<!-- 					</div> -->
+<!-- 				</div>/.sidebar-shortcuts -->
 
 				<ul class="nav nav-list">
 					<li class="">

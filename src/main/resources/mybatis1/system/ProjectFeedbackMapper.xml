@@ -9,29 +9,31 @@
 	
 	<!-- 字段 -->
 	<sql id="Field">
-		USER_ID,	
-		PROJECT_ID,	
 		PROJECT_NAME,	
+		PROJECT_ID,	
 		REASON,	
-		BID_COMPANY,	
-		BID_MONEY,	
-		BID_MODEL,	
-		BID_NUM,	
+		COMPANY_NAME,	
+		MONEY,	
+		MODEL,	
+		NUM,	
+		USER_ID,	
+		USERNAME,	
 		CREATE_TIME,	
 		PROJECTFEEDBACK_ID
 	</sql>
 	
 	<!-- 字段值 -->
 	<sql id="FieldValue">
-		#{USER_ID},	
-		#{PROJECT_ID},	
 		#{PROJECT_NAME},	
+		#{PROJECT_ID},	
 		#{REASON},	
-		#{BID_COMPANY},	
-		#{BID_MONEY},	
-		#{BID_MODEL},	
-		#{BID_NUM},	
-		#{CREATE_TIME},	
+		#{COMPANY_NAME},	
+		#{MONEY},	
+		#{MODEL},	
+		#{NUM},	
+		#{USER_ID},	
+		#{USERNAME},	
+		now(),	
 		#{PROJECTFEEDBACK_ID}
 	</sql>
 	
@@ -59,15 +61,11 @@
 		update
 		<include refid="tableName"></include>
 		set 
-			USER_ID = #{USER_ID},
-			PROJECT_ID = #{PROJECT_ID},
-			PROJECT_NAME = #{PROJECT_NAME},
 			REASON = #{REASON},
-			BID_COMPANY = #{BID_COMPANY},
-			BID_MONEY = #{BID_MONEY},
-			BID_MODEL = #{BID_MODEL},
-			BID_NUM = #{BID_NUM},
-			CREATE_TIME = #{CREATE_TIME},
+			COMPANY_NAME = #{COMPANY_NAME},
+			MONEY = #{MONEY},
+			MODEL = #{MODEL},
+			NUM = #{NUM},
 		PROJECTFEEDBACK_ID = PROJECTFEEDBACK_ID
 		where 
 		PROJECTFEEDBACK_ID = #{PROJECTFEEDBACK_ID}
@@ -93,11 +91,11 @@
 		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
 			and
 				(
-				<!--	根据需求自己加检索条件
-					字段1 LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+					COMPANY_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
 					 or 
-					字段2 LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
-				-->
+					PROJECT_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
+					 or 
+					MODEL LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
 				)
 		</if>
 	</select>
@@ -128,7 +126,7 @@
 		from 
 			<include refid="tableName"></include>
 		where 
-			NAME = #{NAME}
+			PROJECT_NAME = #{NAME}
 	</select>
 	
 	

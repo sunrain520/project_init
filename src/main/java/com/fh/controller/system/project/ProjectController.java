@@ -56,7 +56,8 @@ public class ProjectController extends BaseController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/save")
-	public ModelAndView save() throws Exception{
+	@ResponseBody
+	public Object save() throws Exception{
 		logBefore(logger, Jurisdiction.getUsername()+"新增Project");
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "add")){return null;} //校验权限
 		ModelAndView mv = this.getModelAndView();
@@ -73,10 +74,14 @@ public class ProjectController extends BaseController {
 		pd.put("USER_ID", USER_ID);
 		
 		//pd.put("PROJECT_NAME", "");	//项目名称
+		logger.info(JSON.toJSONString(pd));
 		projectService.save(pd);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
-		return mv;
+		
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("code", 200);
+		return AppUtil.returnObject(new PageData(), map);
 	}
 	
 	/**删除
@@ -99,7 +104,8 @@ public class ProjectController extends BaseController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/edit")
-	public ModelAndView edit() throws Exception{
+	@ResponseBody
+	public Object edit() throws Exception{
 		logBefore(logger, Jurisdiction.getUsername()+"修改Project");
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "edit")){return null;} //校验权限
 		ModelAndView mv = this.getModelAndView();
@@ -108,7 +114,10 @@ public class ProjectController extends BaseController {
 		projectService.edit(pd);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
-		return mv;
+		
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("code", 200);
+		return AppUtil.returnObject(new PageData(), map);
 	}
 	
 	/**列表
