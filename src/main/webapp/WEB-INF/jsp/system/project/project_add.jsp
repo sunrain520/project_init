@@ -240,6 +240,25 @@
 		}
 	});
 	
+	//查看未中标反馈
+	function view(){
+		 top.jzts();
+		 var diag = new top.Dialog();
+		 diag.Drag=true;
+		 diag.Title ="查看";
+		 diag.URL = '<%=basePath%>projectfeedback/goAdd.do';
+		 diag.Width = 600;
+		 diag.Height = 455;
+		 diag.Modal = true;				//有无遮罩窗口
+		 diag. ShowMaxButton = true;	//最大化按钮
+	     diag.ShowMinButton = true;		//最小化按钮
+		 diag.CancelEvent = function(){ //关闭事件
+			diag.close();
+		 };
+		 diag.show();
+	}
+	
+	
 	function save(){
 		console.log(11113333);
 		

@@ -1,3 +1,7 @@
+119.29.225.58:9989 用户名和密码：administrator    Jzlx20150714
+
+邮件服务器
+账号：SaleSupport@lxvision.com    密码：Jzlx20150714
 
 1. mysql不区分大小写配置  lower_case_table_names=1
 1、用root登录，修改 /etc/my.cnf；
@@ -6,3 +10,7 @@
 
 server.xml  URIEncoding="UTF-8"
 <Connector connectionTimeout="20000" port="8080" protocol="HTTP/1.1" redirectPort="8443" URIEncoding="UTF-8"/>
+
+
+创建软连接
+mklink /D  文件存放路径     tomcat部署下的路径

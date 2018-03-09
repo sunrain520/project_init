@@ -27,61 +27,53 @@
 				<div class="row">
 					<div class="col-xs-12">
 					
-					<form action="projectfeedback/${msg }.do" name="Form" id="Form" method="post">
-						<input type="hidden" name="PROJECTFEEDBACK_ID" id="PROJECTFEEDBACK_ID" value="${pd.PROJECTFEEDBACK_ID}"/>
+					<form action="weeklyreport/${msg }.do" name="Form" id="Form" method="post">
+						<input type="hidden" name="WEEKLYREPORT_ID" id="WEEKLYREPORT_ID" value="${pd.WEEKLYREPORT_ID}"/>
 						<div id="zhongxin" style="padding-top: 13px;">
 						<table id="table_report" class="table table-striped table-bordered table-hover">
 							<tr>
-								<td style="width:110px;text-align: right;padding-top: 13px;">项目名称:</td>
-								<td><input type="text" name="PROJECT_NAME" id="PROJECT_NAME" value="${pd.PROJECT_NAME}" maxlength="255" readonly="readonly" title="项目名称" style="width:98%;"/></td>
-								<input type="hidden" name="PROJECT_ID" id="PROJECT_ID" value="${pd.PROJECT_ID}" />
+								<td style="width:75px;text-align: right;padding-top: 13px;">项目名称:</td>
+								<td><input type="text" name="PROJECT_NAME" id="PROJECT_NAME" value="${pd.PROJECT_NAME}" maxlength="255"
+								 placeholder="这里输入项目名称" title="项目名称" style="width:98%;"/>
+								 <input type="hidden" name="PROJECT_ID" id="PROJECT_ID" value="${pd.PROJECT_ID}" />
+								 </td>
 							</tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">中标厂家:</td>
-								<td><input type="text" name="COMPANY_NAME" id="COMPANY_NAME" value="${pd.COMPANY_NAME}" maxlength="255" 
-								placeholder="这里输入中标厂家" title="中标厂家" style="width:98%;" <c:if test="${msg  eq 'view' }">readonly</c:if>/></td>
+								<td style="width:75px;text-align: right;padding-top: 13px;">进度%:</td>
+								<td><input type="number" name="PLAN" id="PLAN" value="${pd.PLAN}" maxlength="32" placeholder="这里输入进度%" title="进度%" style="width:98%;"/></td>
 							</tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">中标金额:</td>
-								<td><input type="number" name="MONEY" id="MONEY" value="${pd.MONEY}" maxlength="32"
-								 placeholder="这里输入中标金额" title="中标金额" style="width:98%;" <c:if test="${msg  eq 'view' }">readonly</c:if>/></td>
+								<td style="width:75px;text-align: right;padding-top: 13px;">概率%:</td>
+								<td><input type="number" name="PROB" id="PROB" value="${pd.PROB}" maxlength="32" placeholder="这里输入概率%" title="概率%" style="width:98%;"/></td>
 							</tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">中标设备型号:</td>
-								<td><input type="text" name="MODEL" id="MODEL" value="${pd.MODEL}" maxlength="255" 
-								placeholder="这里输入中标设备型号" title="中标设备型号" style="width:98%;" <c:if test="${msg  eq 'view' }">readonly</c:if>/></td>
+								<td style="width:75px;text-align: right;padding-top: 13px;">问题:</td>
+								<td>
+								<textarea rows="" cols="" name="PROBLEM" id="PROBLEM" value="${pd.PROBLEM}" style="width:97%; height: 88px;"  <c:if test="${msg  eq 'view' }">readonly</c:if>>${pd.PROBLEM}</textarea>
+								</td>
 							</tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">中标设备数量:</td>
-								<td><input type="number" name="NUM" id="NUM" value="${pd.NUM}" maxlength="32" 
-								placeholder="这里输入中标设备数量" title="中标设备数量" style="width:98%;" <c:if test="${msg  eq 'view' }">readonly</c:if>/></td>
-							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">项目丢标原因:</td>
-								<td><textarea rows="" cols="" name="REASON" id="REASON" value="${pd.REASON}" style="width:97%; height: 88px;"  <c:if test="${msg  eq 'view' }">readonly</c:if>>${pd.REASON}</textarea> 
+								<td style="width:75px;text-align: right;padding-top: 13px;">需要帮助:</td>
+								<td>
+								<textarea rows="" cols="" name="HELP" id="HELP" value="${pd.HELP}" style="width:97%; height: 88px;"  <c:if test="${msg  eq 'view' }">readonly</c:if>>${pd.HELP}</textarea>
 								</td>
 							</tr>
 							<c:if test="${msg  eq 'view' }">
- 							<tr> 
- 								<td style="width:75px;text-align: right;padding-top: 13px;">反馈人名称:</td> 
-								<td><input type="text" name="USERNAME" id="USERNAME" value="${pd.USERNAME}" maxlength="255" placeholder="这里输入反馈人名称" title="反馈人名称" style="width:98%;"/></td>
+							<tr>
+								<td style="width:75px;text-align: right;padding-top: 13px;">用户名称:</td>
+								<td><input type="text" name="USERNAME" id="USERNAME" value="${pd.USERNAME}" maxlength="255" placeholder="这里输入用户名称" title="用户名称" style="width:98%;"/></td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">创建时间:</td>
-								<td>
-								<input  name="CREATE_TIME" id="CREATE_TIME" value="${pd.CREATE_TIME}" type="text" 
-								data-date-format="yyyy-mm-dd" readonly="readonly" placeholder="" title="创建时间" style="width:98%;"/>
-								</td>
+								<td><input type="text" name="CREATE_TIME" id="CREATE_TIME" value="${pd.CREATE_TIME}" maxlength="255" placeholder="这里输入创建时间" title="创建时间" style="width:98%;"/></td>
 							</tr>
 							</c:if>
-							<c:if test="${msg  ne 'view' }">
 							<tr>
 								<td style="text-align: center;" colspan="10">
 									<a class="btn btn-mini btn-primary" onclick="save();">保存</a>
 									<a class="btn btn-mini btn-danger" onclick="top.Dialog.close();">取消</a>
 								</td>
 							</tr>
-							</c:if>
 						</table>
 						</div>
 						<div id="zhongxin2" class="center" style="display:none"><br/><br/><br/><br/><br/><img src="static/images/jiazai.gif" /><br/><h4 class="lighter block green">提交中...</h4></div>
@@ -105,73 +97,110 @@
 	<script src="static/ace/js/chosen.jquery.js"></script>
 	<!-- 日期框 -->
 	<script src="static/ace/js/date-time/bootstrap-datepicker.js"></script>
-	
 	<!--提示框-->
 	<script type="text/javascript" src="static/js/jquery.tips.js"></script>
 		<script type="text/javascript">
 		$(top.hangge());
+		//输入框高度自适应
 		$('textarea').each(function () {
 			  this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;width:98%;');
 			}).on('input', function () {
 			  this.style.height = 'auto';
 			  this.style.height = (this.scrollHeight) + 'px';
 			});
-		
 		//保存
 		function save(){
-			
-			if($("#COMPANY_NAME").val()==""){
-				$("#COMPANY_NAME").tips({
+			if($("#PROJECT_NAME").val()==""){
+				$("#PROJECT_NAME").tips({
 					side:3,
-		            msg:'请输入中标厂家',
+		            msg:'请输入项目名称',
 		            bg:'#AE81FF',
 		            time:2
 		        });
-				$("#COMPANY_NAME").focus();
+				$("#PROJECT_NAME").focus();
 			return false;
 			}
-			if($("#MONEY").val()==""){
-				$("#MONEY").tips({
+			if($("#PROJECT_ID").val()==""){
+				$("#PROJECT_ID").tips({
 					side:3,
-		            msg:'请输入中标金额',
+		            msg:'请输入项目ID',
 		            bg:'#AE81FF',
 		            time:2
 		        });
-				$("#MONEY").focus();
+				$("#PROJECT_ID").focus();
 			return false;
 			}
-			if($("#MODEL").val()==""){
-				$("#MODEL").tips({
+			if($("#PLAN").val()==""){
+				$("#PLAN").tips({
 					side:3,
-		            msg:'请输入中标设备型号',
+		            msg:'请输入进度%',
 		            bg:'#AE81FF',
 		            time:2
 		        });
-				$("#MODEL").focus();
+				$("#PLAN").focus();
 			return false;
 			}
-			if($("#NUM").val()==""){
-				$("#NUM").tips({
+			if($("#PROB").val()==""){
+				$("#PROB").tips({
 					side:3,
-		            msg:'请输入中标设备数量',
+		            msg:'请输入概率%',
 		            bg:'#AE81FF',
 		            time:2
 		        });
-				$("#NUM").focus();
+				$("#PROB").focus();
 			return false;
 			}
-			if($("#REASON").val()==""){
-				$("#REASON").tips({
+			if($("#PROBLEM").val()==""){
+				$("#PROBLEM").tips({
 					side:3,
-		            msg:'请输入项目丢标原因',
+		            msg:'请输入问题',
 		            bg:'#AE81FF',
 		            time:2
 		        });
-				$("#REASON").focus();
+				$("#PROBLEM").focus();
 			return false;
 			}
-			
-		    if($("#PROJECTFEEDBACK_ID").val()==""){
+			if($("#HELP").val()==""){
+				$("#HELP").tips({
+					side:3,
+		            msg:'请输入需要帮助',
+		            bg:'#AE81FF',
+		            time:2
+		        });
+				$("#HELP").focus();
+			return false;
+			}
+			if($("#USER_ID").val()==""){
+				$("#USER_ID").tips({
+					side:3,
+		            msg:'请输入用户id',
+		            bg:'#AE81FF',
+		            time:2
+		        });
+				$("#USER_ID").focus();
+			return false;
+			}
+			if($("#USERNAME").val()==""){
+				$("#USERNAME").tips({
+					side:3,
+		            msg:'请输入用户名称',
+		            bg:'#AE81FF',
+		            time:2
+		        });
+				$("#USERNAME").focus();
+			return false;
+			}
+			if($("#CREATE_TIME").val()==""){
+				$("#CREATE_TIME").tips({
+					side:3,
+		            msg:'请输入创建时间',
+		            bg:'#AE81FF',
+		            time:2
+		        });
+				$("#CREATE_TIME").focus();
+			return false;
+			}
+		    if($("#WEEKLYREPORT_ID").val()==""){
 				hasU();
 			}else{
 				$("#Form").submit();
@@ -187,10 +216,10 @@
 		
 		//判断名称是否存在
 		function hasU(){
-			var NAME = $.trim($("#PROJECT_NAME").val());
+			var NAME = $.trim($("#NAME").val());
 			$.ajax({
 				type: "POST",
-				url: '<%=basePath%>projectfeedback/hasU.do',
+				url: '<%=basePath%>weeklyreport/hasU.do',
 		    	data:{ NAME:NAME,tm:new Date().getTime()},
 				dataType:'json',
 				cache: false,
@@ -200,13 +229,13 @@
 						$("#zhongxin").hide();
 						$("#zhongxin2").show();
 					 }else{
-						 $("#PROJECT_NAME").tips({
+						 $("#NAME").tips({
 								side:4,
 					            msg:'此名称已存在',
 					            bg:'#AE81FF',
 					            time:2
 					        });
-							$("#PROJECT_NAME").focus();
+							$("#NAME").focus();
 							return false;
 					 }
 				}

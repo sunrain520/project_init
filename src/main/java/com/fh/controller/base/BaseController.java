@@ -48,11 +48,16 @@ public class BaseController {
 			String ROLE_ID = user.getROLE_ID();
 //			pd.put("ROLE_ID", ROLE_ID);	
 			logger.info("base:"+JSON.toJSONString(pd));
-			// 注册用户
-			if (ROLE_ID != "" && ROLE_ID.equals("fhadminzhuche")) {
+			// 注册用户  过滤掉邮件模块
+			System.out.println(this.getRequest().getRequestURI());
+			System.out.println(this.getRequest().getRequestURI().indexOf("fhsms") == -1);
+			if (ROLE_ID != "" && ROLE_ID.equals("fhadminzhuche") && this.getRequest().getRequestURI().indexOf("fhsms") == -1) {
 				pd.put("USERNAME", USERNAME);
 				pd.put("USER_ID", USER_ID);
-				pd.put("TYPE", 2);
+				if(pd.getString("TYPE") != null && !"".equals(pd.getString("TYPE"))){
+					pd.put("TYPE_TEMP", pd.getString("TYPE"));
+				}
+				pd.put("TYPE", "2"); //用户列表中只能查type为2代表注册用户
 			}
 			// 区域负责人
 			if(ROLE_ID != "" && ROLE_ID.equals("19666e042e6240e281d035237722fd2e")){
@@ -61,6 +66,7 @@ public class BaseController {
 				logger.info(JSON.toJSONString(areaList));
 				pd.put("AREA", areaList);
 			}
+			logger.info(JSON.toJSONString(pd));
 
 		}
 

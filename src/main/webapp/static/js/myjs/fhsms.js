@@ -20,6 +20,16 @@ function sendFhsms(){
 		$("#USERNAME").focus();
 		return false;
 	}
+	if($("#TITLE").val()==""){
+		$("#TITLE").tips({
+			side:3,
+            msg:'请输入标题',
+            bg:'#AE81FF',
+            time:2
+        });
+		$("#TITLE").focus();
+		return false;
+	}
 	if($("#CONTENT").val()==""){
 		$("#nr").tips({
 			side:1,
@@ -33,10 +43,11 @@ function sendFhsms(){
 	$("#zhongxin2").show();
 	var USERNAME = $("#USERNAME").val();
 	var CONTENT = $("#CONTENT").val();
+	var TITLE = $("#TITLE").val();
 	$.ajax({
 		type: "POST",
 		url: locat+'/fhsms/save.do?tm='+new Date().getTime(),
-    	data: {USERNAME:USERNAME,CONTENT:CONTENT},
+    	data: {USERNAME:USERNAME,CONTENT:CONTENT,TITLE:TITLE},
 		dataType:'json',
 		//beforeSend: validateData,
 		cache: false,

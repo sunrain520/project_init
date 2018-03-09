@@ -103,7 +103,7 @@
 	<script type="text/javascript" charset="utf-8" src="plugins/ueditor/ueditor.all.js"></script>
 	<!-- 编辑框-->
 	<!--引入属于此页面的js -->
-	<script type="text/javascript" src="static/js/myjs/fhsms.js?1"></script>
+	<script type="text/javascript" src="static/js/myjs/fhsms.js?2"></script>
 	<!--提示框-->
 	<script type="text/javascript" src="static/js/jquery.tips.js"></script>
 </body>

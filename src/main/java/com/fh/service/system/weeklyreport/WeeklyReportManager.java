@@ -1,16 +1,16 @@
-package com.fh.service.system.project;
+package com.fh.service.system.weeklyreport;
 
 import java.util.List;
 import com.fh.entity.Page;
 import com.fh.util.PageData;
 
 /** 
- * 说明： 项目管理接口
+ * 说明： 周报接口
  * 创建人：kuang 767375210
- * 创建时间：2018-02-26
+ * 创建时间：2018-03-07
  * @version
  */
-public interface ProjectManager{
+public interface WeeklyReportManager{
 
 	/**新增
 	 * @param pd
@@ -35,10 +35,6 @@ public interface ProjectManager{
 	 * @throws Exception
 	 */
 	public List<PageData> list(Page page)throws Exception;
-	
-	public List<PageData> listProject(Page page)throws Exception;
-	
-	public List<PageData> listProjectReport(Page page)throws Exception;
 	
 	/**列表(全部)
 	 * @param pd

@@ -17,6 +17,7 @@
 <%@ include file="../../system/index/top.jsp"%>
 <!-- 日期框 -->
 <link rel="stylesheet" href="static/ace/css/datepicker.css" />
+<link rel="stylesheet" href="plugins/layer/theme/default/layer.css" />
 </head>
 <body class="no-skin">
 
@@ -66,7 +67,7 @@
 									<label class="pos-rel"><input type="checkbox" class="ace" id="zcheckbox" /><span class="lbl"></span></label>
 									</th>
 									<th class="center" style="width:50px;">序号</th>
-									<th class="center">项目名称</th>
+									<th class="center" >项目名称</th>
 <!-- 									<th class="center">项目ID</th> -->
 									<th class="center">项目丢标原因</th>
 									<th class="center">中标厂家</th>
@@ -91,9 +92,9 @@
 												<label class="pos-rel"><input type='checkbox' name='ids' value="${var.PROJECTFEEDBACK_ID}" class="ace" /><span class="lbl"></span></label>
 											</td>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
-											<td class='center'>${var.PROJECT_NAME}</td>
+											<td class='center'><a onclick="view('${var.PROJECTFEEDBACK_ID}');" style="cursor:pointer;">${var.PROJECT_NAME}</a></td>
 <%-- 											<td class='center'>${var.PROJECT_ID}</td> --%>
-											<td class='center'>${var.REASON}</td>
+											<td class='center'><a onclick="viewReson('项目未中标原因','${var.REASON}')" style="cursor:pointer;">[详情]</a></td>
 											<td class='center'>${var.COMPANY_NAME}</td>
 											<td class='center'>${var.MONEY}</td>
 											<td class='center'>${var.MODEL}</td>
@@ -212,8 +213,21 @@
 	<script src="static/ace/js/date-time/bootstrap-datepicker.js"></script>
 	<!--提示框-->
 	<script type="text/javascript" src="static/js/jquery.tips.js"></script>
+	
+	<script type="text/javascript" charset="utf-8" src="plugins/layer/layer.js"></script>
+	
 	<script type="text/javascript">
 		$(top.hangge());//关闭加载状态
+		
+		function viewReson(title,reson){
+			layer.alert(reson, {
+				  title: title,
+				  area: ['420px', '280px'], //宽高
+				  skin: 'layui-layer-molv' //样式类名
+				  ,closeBtn: 0
+				} );
+		}
+		
 		//检索
 		function tosearch(){
 			top.jzts();
@@ -265,6 +279,31 @@
 				});
 			});
 		});
+		
+		//查看未中标反馈
+		function view(Id){
+			 top.jzts();
+			 var diag = new top.Dialog();
+			 diag.Drag=true;
+			 diag.Title ="查看";
+			 diag.URL = '<%=basePath%>projectfeedback/goView.do?PROJECTFEEDBACK_ID='+Id;
+			 diag.Width = 600;
+			 diag.Height = 455;
+			 diag.Modal = true;				//有无遮罩窗口
+			 diag. ShowMaxButton = true;	//最大化按钮
+		     diag.ShowMinButton = true;		//最小化按钮
+			 diag.CancelEvent = function(){ //关闭事件
+				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
+					 if('${page.currentPage}' == '0'){
+						 tosearch();
+					 }else{
+						 tosearch();
+					 }
+				}
+				diag.close();
+			 };
+			 diag.show();
+		}
 		
 		//新增
 		function add(){

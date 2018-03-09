@@ -17,6 +17,7 @@
 <%@ include file="../../system/index/top.jsp"%>
 <!-- 日期框 -->
 <link rel="stylesheet" href="static/ace/css/datepicker.css" />
+<link rel="stylesheet" href="plugins/layer/theme/default/layer.css" />
 </head>
 <body class="no-skin">
 
@@ -103,7 +104,7 @@
 											<td class='center'>${var.NUM}</td>
 											<td class='center'>${var.NAME}</td>
 											<td class='center'>${var.PHONE}</td>
-											<td class='center'>${var.ADDR}</td>
+											<td class='center'><a onclick="viewReson('邮寄地址','${var.ADDR}')" style="cursor:pointer;">[详情]</a></td>
 											<td class='center'>
 												<a style="cursor:pointer;" onclick="window.location.href='<%=basePath%>/fhfile/downloadAll.do?FHFILE_ID=${var.BID_DOCUMENT}&key=${var.PROJECT_NAME}_招标文件'" class="tooltip-success" data-rel="tooltip" title="下载">
 													<span class="green">
@@ -232,12 +233,22 @@
 	<script src="static/ace/js/date-time/bootstrap-datepicker.js"></script>
 	<!--提示框-->
 	<script type="text/javascript" src="static/js/jquery.tips.js"></script>
+	<script type="text/javascript" charset="utf-8" src="plugins/layer/layer.js"></script>
 	<script type="text/javascript">
 		$(top.hangge());//关闭加载状态
 		//检索
 		function tosearch(){
 			top.jzts();
 			$("#Form").submit();
+		}
+		
+		function viewReson(title,reson){
+			layer.alert(reson, {
+				  title: title,
+				  area: ['420px', '280px'], //宽高
+				  skin: 'layui-layer-molv' //样式类名
+				  ,closeBtn: 0
+				} );
 		}
 		
 		function research(){
