@@ -110,26 +110,22 @@
 											<td class='center'>${var.CREDIT_CODE}</td>
 											<td class='center'>${var.ADDR}</td>
 											<td class='center'><a href="http://${var.WEB_SITES}" target="_blank">${var.WEB_SITES}</a></td>
-<%-- 											<td class='center'>${var.PROVINCE_ID}</td> --%>
 											<td class='center'>${var.PROVINCE_NAME}</td>
 											<td class="center">
 											<a href="<%=basePath%>uploadFiles/uploadImgs/${var.LICENSE}" title="[营业执照]" class="bwGal">
 											<img src="<%=basePath%>uploadFiles/uploadImgs/${var.LICENSE}" alt="[营业执照]" width="100"></a>
 											</td>
-<%-- 											<td class='center'>${var.LICENSE}</td> --%>
 											<td class='center'>${var.BUSINESS_SCOPE}</td>
 											<td class="center">
 											<a href="<%=basePath%>uploadFiles/uploadImgs/${var.BILLING}" title="[盖章的开票信息]" class="bwGal">
 											<img src="<%=basePath%>uploadFiles/uploadImgs/${var.BILLING}" alt="[盖章的开票信息]" width="100"></a>
 											</td>
-<%-- 											<td class='center'>${var.BILLING}</td> --%>
 											<td class='center'>${var.LEGAL_PERSON}</td>
 											<td class='center'>${var.LEGAL_PHONE}</td>
 											<td class="center">
 											<a href="<%=basePath%>uploadFiles/uploadImgs/${var.LEGAL_NO}" title="[法人身份证]" class="bwGal">
 											<img src="<%=basePath%>uploadFiles/uploadImgs/${var.LEGAL_NO}" alt="[法人身份证]" width="100"></a>
 											</td>
-<%-- 											<td class='center'>${var.LEGAL_NO}</td> --%>
 											<td class='center'>${var.NAME}</td>
 											<td class='center'>${var.PHONE}</td>
 											<td class='center'>${var.EMAIL}</td>
@@ -365,6 +361,31 @@
 			 diag.show();
 		}
 		
+		//查看
+		function view(Id){
+			 top.jzts();
+			 var diag = new top.Dialog();
+			 diag.Drag=true;
+			 diag.Title ="查看";
+			 diag.URL = '<%=basePath%>company/goView.do?COMPANY_ID='+Id;
+			 diag.Width = 600;
+			 diag.Height = 455;
+			 diag.Modal = true;				//有无遮罩窗口
+			 diag. ShowMaxButton = true;	//最大化按钮
+		     diag.ShowMinButton = true;		//最小化按钮
+			 diag.CancelEvent = function(){ //关闭事件
+				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
+					 if('${page.currentPage}' == '0'){
+						 tosearch();
+					 }else{
+						 tosearch();
+					 }
+				}
+				diag.close();
+			 };
+			 diag.show();
+		}
+		
 		//批量操作
 		function makeAll(msg){
 			bootbox.confirm(msg, function(result) {
@@ -416,13 +437,13 @@
 			window.location.href='<%=basePath%>company/excel.do';
 		}
 	</script>
+</body>
 
-	<style type="text/css">
+<style type="text/css">
 	li {list-style-type:none;}
 	</style>
 	<ul class="navigationTabs">
            <li><a></a></li>
            <li></li>
        </ul>
-</body>
 </html>

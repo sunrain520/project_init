@@ -177,7 +177,8 @@
 				u.STATUS,
 				r.ROLE_ID,
 				r.ROLE_NAME,
-				c.COMPANY_NAME
+				c.COMPANY_NAME,
+				c.COMPANY_ID
 		from sys_user u LEFT JOIN sys_role r ON u.ROLE_ID = r.ROLE_ID LEFT JOIN tb_company c  ON u.USER_ID = c.COMPANY_ID
 		where u.USERNAME != 'admin'
 		and r.PARENT_ID = '1'

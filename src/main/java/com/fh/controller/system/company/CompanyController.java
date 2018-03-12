@@ -143,6 +143,21 @@ public class CompanyController extends BaseController {
 		return mv;
 	}	
 	
+	 /**去查看页面
+	 * @param
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/goView")
+	public ModelAndView goView()throws Exception{
+		ModelAndView mv = this.getModelAndView();
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		pd = companyService.findById(pd);	//根据ID读取
+		mv.setViewName("system/company/company_view");
+		mv.addObject("msg", "view");
+		mv.addObject("pd", pd);
+		return mv;
+	}	
 	 /**批量删除
 	 * @param
 	 * @throws Exception

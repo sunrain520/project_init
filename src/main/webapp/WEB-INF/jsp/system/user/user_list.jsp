@@ -101,7 +101,7 @@
 											<td class="center">${user.USER_ID }</td>
 											<td class="center"><a onclick="viewUser('${user.USERNAME}')" style="cursor:pointer;">${user.USERNAME }</a></td>
 											<td class="center">${user.NAME }</td>
-											<c:if test="${pd.TYPE == 2 }"><td class="center" ><a onclick="viewCompany('${user.USER_ID}')" style="cursor:pointer;">${user.COMPANY_NAME }</a></td></c:if>
+											<c:if test="${pd.TYPE == 2 }"><td class="center" ><a onclick="viewCompany('${user.COMPANY_ID}')" style="cursor:pointer;">${user.COMPANY_NAME }</a></td></c:if>
 											<td class="center">${user.ROLE_NAME }</td>
 											<td style="width: 60px;" class="center">
 												<c:if test="${user.STATUS == '0' }"><span class="label label-info arrowed-in">待审核</span></c:if>
@@ -295,6 +295,32 @@ function add(){
 				 setTimeout("self.location=self.location",100);
 			 }else{
 				 nextPage(${page.currentPage});
+			 }
+		}
+		diag.close();
+	 };
+	 diag.show();
+}
+
+
+//查看
+function viewCompany(Id){
+	 top.jzts();
+	 var diag = new top.Dialog();
+	 diag.Drag=true;
+	 diag.Title ="查看";
+	 diag.URL = '<%=basePath%>company/goView.do?COMPANY_ID='+Id;
+	 diag.Width = 600;
+	 diag.Height = 455;
+	 diag.Modal = true;				//有无遮罩窗口
+	 diag. ShowMaxButton = true;	//最大化按钮
+     diag.ShowMinButton = true;		//最小化按钮
+	 diag.CancelEvent = function(){ //关闭事件
+		 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
+			 if('${page.currentPage}' == '0'){
+				 tosearch();
+			 }else{
+				 tosearch();
 			 }
 		}
 		diag.close();
