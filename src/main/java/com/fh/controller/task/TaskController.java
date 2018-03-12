@@ -99,6 +99,7 @@ public class TaskController extends BaseController {
 			
 			data.put("PLAN", 0);
 			data.put("PROB", 0);
+			data.put("STATUS", 0);
 			data.put("PROBLEM", "");
 			data.put("HELP", "");
 			data.put("WEEKLYREPORT_ID", this.get32UUID());	//主键

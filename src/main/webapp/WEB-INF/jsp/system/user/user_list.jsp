@@ -310,8 +310,8 @@ function viewCompany(Id){
 	 diag.Drag=true;
 	 diag.Title ="查看";
 	 diag.URL = '<%=basePath%>company/goView.do?COMPANY_ID='+Id;
-	 diag.Width = 600;
-	 diag.Height = 455;
+	 diag.Width = 800;
+	 diag.Height = 600;
 	 diag.Modal = true;				//有无遮罩窗口
 	 diag. ShowMaxButton = true;	//最大化按钮
      diag.ShowMinButton = true;		//最小化按钮

@@ -16,6 +16,12 @@
 <!--查看图片插件 -->
 <link rel="stylesheet" media="screen" type="text/css" href="plugins/zoomimage/css/zoomimage.css" />
 <link rel="stylesheet" media="screen" type="text/css" href="plugins/zoomimage/css/custom.css" />
+<link rel="stylesheet" href="plugins/layer/theme/default/layer.css" />
+<script type="text/javascript" src="plugins/zoomimage/js/jquery.js"></script>
+<script type="text/javascript" src="plugins/zoomimage/js/eye.js"></script>
+<script type="text/javascript" src="plugins/zoomimage/js/utils.js"></script>
+<script type="text/javascript" src="plugins/zoomimage/js/zoomimage.js"></script>
+<script type="text/javascript" src="plugins/zoomimage/js/layout.js"></script>
 <!--查看图片插件 -->
 
 <!-- 下拉框 -->
@@ -242,12 +248,8 @@
 	<!--提示框-->
 	<script type="text/javascript" src="static/js/jquery.tips.js"></script>
 	
-<!-- 	<script type="text/javascript" src="plugins/zoomimage/js/jquery.js"></script> -->
-<script type="text/javascript" src="plugins/zoomimage/js/eye.js"></script>
-<script type="text/javascript" src="plugins/zoomimage/js/utils.js"></script>
-<script type="text/javascript" src="plugins/zoomimage/js/zoomimage.js"></script>
-<script type="text/javascript" src="plugins/zoomimage/js/layout.js"></script>
-	
+	<script type="text/javascript" charset="utf-8" src="plugins/layer/layer.js"></script>
+	</body>
 	<script type="text/javascript">
 		$(top.hangge());//关闭加载状态
 		//检索
@@ -255,8 +257,8 @@
 			top.jzts();
 			$("#Form").submit();
 		}
-		$(function() {
 		
+		$(function() {
 			//日期框
 			$('.date-picker').datepicker({
 				autoclose: true,
@@ -329,14 +331,16 @@
 		
 		//删除
 		function del(Id){
-			bootbox.confirm("确定要删除吗?", function(result) {
-				if(result) {
-					top.jzts();
-					var url = "<%=basePath%>company/delete.do?COMPANY_ID="+Id+"&tm="+new Date().getTime();
-					$.get(url,function(data){
-						tosearch();
-					});
-				}
+<%-- 					var url = "<%=basePath%>company/delete.do?COMPANY_ID="+Id+"&tm="+new Date().getTime(); --%>
+		layer.confirm('确定删除该公司吗？', {
+			  btn: ['删除','取消'] //按钮
+			}, function(){
+			  layer.msg('的确很重要', {icon: 1});
+			}, function(){
+			  layer.msg('也可以这样', {
+			    time: 20000, //20s后自动关闭
+			    btn: ['明白了', '知道了']
+			  });
 			});
 		}
 		
@@ -437,7 +441,7 @@
 			window.location.href='<%=basePath%>company/excel.do';
 		}
 	</script>
-</body>
+
 
 <style type="text/css">
 	li {list-style-type:none;}

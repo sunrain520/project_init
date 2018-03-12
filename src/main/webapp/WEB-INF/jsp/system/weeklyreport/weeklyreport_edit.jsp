@@ -58,6 +58,17 @@
 								<textarea rows="" cols="" name="HELP" id="HELP" value="${pd.HELP}" style="width:97%; height: 88px;"  <c:if test="${msg  eq 'view' }">readonly</c:if>>${pd.HELP}</textarea>
 								</td>
 							</tr>
+							
+							<tr>
+								<td style="width:79px;text-align: right;padding-top: 13px;">状态:</td>
+								<td>
+									<select name="STATUS" title="状态">
+									<option value="0" <c:if test="${pd.STATUS == '0' }">selected</c:if> >草稿</option>
+									<option value="1" <c:if test="${pd.STATUS == '1' }">selected</c:if> >发布</option>
+									</select>
+								</td>
+							</tr>
+							
 							<c:if test="${msg  eq 'view' }">
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">用户名称:</td>

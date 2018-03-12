@@ -58,17 +58,24 @@ public class CompanyController extends BaseController {
 	
 	/**删除
 	 * @param out
+	 * @return 
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/delete")
-	public void delete(PrintWriter out) throws Exception{
+	@ResponseBody
+	public Object delete(PrintWriter out) throws Exception{
 		logBefore(logger, Jurisdiction.getUsername()+"删除Company");
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "del")){return;} //校验权限
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "del")){return null;} //校验权限
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		companyService.delete(pd);
-		out.write("success");
-		out.close();
+		pd.put("msg", "ok");
+		
+		Map<String,Object> map = new HashMap<String,Object>();
+		List<PageData> pdList = new ArrayList<PageData>();
+		pdList.add(pd);
+		map.put("list", pdList);
+		return AppUtil.returnObject(pd, map);
 	}
 	
 	/**修改

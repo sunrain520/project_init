@@ -90,12 +90,12 @@
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
 											<c:if test="${pd.TYPE != '2' }">
 											<td class='center'><a onclick="viewx('STATUS${vs.index+1}','${var.STATUS}','${pd.TYPE == '2'?'2':'1' }','${var.FHSMS_ID}','${var.SANME_ID}');" style="cursor:pointer;">${var.TITLE}</a></td>
-											<td class='center'><a onclick="viewUser('${var.TO_USERNAME}')" style="cursor:pointer;">${var.TO_USERNAME}</a></td>
-											<td class='center'><a onclick="viewUser('${var.FROM_USERNAME}')" style="cursor:pointer;">${var.FROM_USERNAME}</a></td>
+											<td class='center'>${var.TO_USERNAME}</td>
+											<td class='center'>${var.FROM_USERNAME}</td>
 											</c:if>
 											<c:if test="${pd.TYPE == '2' }">
-											<td class='center'><a onclick="viewUser('${var.FROM_USERNAME}')" style="cursor:pointer;">${var.FROM_USERNAME}</a></td>
-											<td class='center'><a onclick="viewUser('${var.TO_USERNAME}')" style="cursor:pointer;">${var.TO_USERNAME}</a></td>
+											<td class='center'>${var.FROM_USERNAME}</td>
+											<td class='center'>${var.TO_USERNAME}</td>
 											</c:if>
 											<td class='center'>${var.SEND_TIME}</td>
 											<td class='center' id="STATUS${vs.index+1}"><c:if test="${var.STATUS == '2' }"><span class="label label-important arrowed-in">未读</span></c:if><c:if test="${var.STATUS == '1' }"><span class="label label-success arrowed">已读</span></c:if></td>

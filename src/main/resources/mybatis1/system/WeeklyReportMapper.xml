@@ -17,6 +17,7 @@
 		HELP,	
 		USER_ID,	
 		USERNAME,	
+		STATUS,	
 		CREATE_TIME,	
 		WEEKLYREPORT_ID
 	</sql>
@@ -31,6 +32,7 @@
 		#{HELP},	
 		#{USER_ID},	
 		#{USERNAME},	
+		#{STATUS},	
 		now(),	
 		#{WEEKLYREPORT_ID}
 	</sql>
@@ -65,6 +67,7 @@
 			PROB = #{PROB},
 			PROBLEM = #{PROBLEM},
 			HELP = #{HELP},
+			STATUS = #{STATUS},
 		WEEKLYREPORT_ID = WEEKLYREPORT_ID
 		where 
 		WEEKLYREPORT_ID = #{WEEKLYREPORT_ID}
@@ -94,6 +97,9 @@
 					 or 
 					USERNAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
 				)
+		</if>
+		<if test="pd.STATUS != null and pd.STATUS != ''">
+			and STATUS = #{pd.STATUS}
 		</if>
 		<if test="pd.lastStart!= null and pd.lastStart != ''">
 			and CREATE_TIME &gt;= #{pd.lastStart}

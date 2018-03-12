@@ -444,10 +444,10 @@
 					</c:forEach>
 				</c:when>
 				<c:otherwise>
-					<div data-src="static/login/images/banner_slide_01.jpg"></div>
 					<div data-src="static/login/images/banner_slide_02.jpg"></div>
-					<div data-src="static/login/images/banner_slide_03.jpg"></div>
-					<div data-src="static/login/images/banner_slide_04.jpg"></div>
+					<div data-src="static/login/images/banner_slide_01.jpg"></div>
+<!-- 					<div data-src="static/login/images/banner_slide_03.jpg"></div> -->
+<!-- 					<div data-src="static/login/images/banner_slide_04.jpg"></div> -->
 					<div data-src="static/login/images/banner_slide_05.jpg"></div>
 				</c:otherwise>
 			</c:choose>

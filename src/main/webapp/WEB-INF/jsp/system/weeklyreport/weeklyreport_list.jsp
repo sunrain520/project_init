@@ -17,6 +17,9 @@
 <%@ include file="../../system/index/top.jsp"%>
 <!-- 日期框 -->
 <link rel="stylesheet" href="static/ace/css/datepicker.css" />
+
+<link rel="stylesheet" href="plugins/layer/theme/default/layer.css" />
+
 </head>
 <body class="no-skin">
 
@@ -69,12 +72,13 @@
 									</th>
 									<th class="center" style="width:50px;">序号</th>
 									<th class="center">项目名称</th>
-									<th class="center">项目ID</th>
+<!-- 									<th class="center">项目ID</th> -->
 									<th class="center">进度%</th>
 									<th class="center">概率%</th>
 									<th class="center">问题</th>
 									<th class="center">需要帮助</th>
-									<th class="center">用户id</th>
+									<th class="center">状态</th>
+<!-- 									<th class="center">用户id</th> -->
 									<th class="center">用户名称</th>
 									<th class="center">创建时间</th>
 									<th class="center">操作</th>
@@ -93,12 +97,16 @@
 											</td>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
 											<td class='center'>${var.PROJECT_NAME}</td>
-											<td class='center'>${var.PROJECT_ID}</td>
+<%-- 											<td class='center'>${var.PROJECT_ID}</td> --%>
 											<td class='center'>${var.PLAN}</td>
 											<td class='center'>${var.PROB}</td>
-											<td class='center'>${var.PROBLEM}</td>
-											<td class='center'>${var.HELP}</td>
-											<td class='center'>${var.USER_ID}</td>
+											<td class='center'><a onclick="viewReson('问题','${var.PROBLEM}')" style="cursor:pointer;">[详情]</a></td>
+											<td class='center'><a onclick="viewReson('需要帮助','${var.HELP}')" style="cursor:pointer;">[详情]</a></td>
+											<td style="width: 60px;" class="center">
+												<c:if test="${var.STATUS == '0' }"><span class="label label-info arrowed-in">待提交</span></c:if>
+												<c:if test="${var.STATUS == '1' }"><span class="label label-success arrowed">完成</span></c:if>
+											</td>
+<%-- 											<td class='center'>${var.USER_ID}</td> --%>
 											<td class='center'>${var.USERNAME}</td>
 											<td class='center'>${var.CREATE_TIME}</td>
 											<td class="center">
@@ -167,14 +175,14 @@
 						<div class="page-header position-relative">
 						<table style="width:100%;">
 							<tr>
-								<td style="vertical-align:top;">
-									<c:if test="${QX.add == 1 }">
-									<a class="btn btn-mini btn-success" onclick="add();">新增</a>
-									</c:if>
-									<c:if test="${QX.del == 1 }">
-									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要删除选中的数据吗?');" title="批量删除" ><i class='ace-icon fa fa-trash-o bigger-120'></i></a>
-									</c:if>
-								</td>
+<!-- 								<td style="vertical-align:top;"> -->
+<%-- 									<c:if test="${QX.add == 1 }"> --%>
+<!-- 									<a class="btn btn-mini btn-success" onclick="add();">新增</a> -->
+<%-- 									</c:if> --%>
+<%-- 									<c:if test="${QX.del == 1 }"> --%>
+<!-- 									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要删除选中的数据吗?');" title="批量删除" ><i class='ace-icon fa fa-trash-o bigger-120'></i></a> -->
+<%-- 									</c:if> --%>
+<!-- 								</td> -->
 								<td style="vertical-align:top;"><div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div></td>
 							</tr>
 						</table>
@@ -212,6 +220,9 @@
 	<script src="static/ace/js/date-time/bootstrap-datepicker.js"></script>
 	<!--提示框-->
 	<script type="text/javascript" src="static/js/jquery.tips.js"></script>
+	
+	<script type="text/javascript" charset="utf-8" src="plugins/layer/layer.js"></script>
+	
 	<script type="text/javascript">
 		$(top.hangge());//关闭加载状态
 		//检索
@@ -219,6 +230,16 @@
 			top.jzts();
 			$("#Form").submit();
 		}
+		
+		function viewReson(title,reson){
+			layer.alert(reson, {
+				  title: title,
+				  area: ['420px', '280px'], //宽高
+				  skin: 'layui-layer-molv' //样式类名
+				  ,closeBtn: 0
+				} );
+		}
+		
 		function research(){
 			$("#nav-search-input").val("");
 			$("#lastStart").val("");

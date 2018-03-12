@@ -5,13 +5,14 @@ jQuery(function()
     //templatemo_banner_slide camera function
     $('#templatemo_banner_slide > div').camera({
         height: 'auto',
-        loader: 'bar',
+        loader: 'none', //bar
         playPause: false,
         pagination: false,
         thumbnails: false,
         hover: false,
         opacityOnGrid: false,
-        imagePath: 'images/'
+        imagePath: 'images/',
+        time:30000
     });
     //banner slider height window height 
     //(top banner height + logo height + main menu height )
