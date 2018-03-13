@@ -49,8 +49,6 @@ public class BaseController {
 //			pd.put("ROLE_ID", ROLE_ID);	
 			logger.info("base:"+JSON.toJSONString(pd));
 			// 注册用户  过滤掉邮件模块
-			System.out.println(this.getRequest().getRequestURI());
-			System.out.println(this.getRequest().getRequestURI().indexOf("fhsms") == -1);
 			if (ROLE_ID != "" && ROLE_ID.equals("fhadminzhuche") && this.getRequest().getRequestURI().indexOf("fhsms") == -1) {
 				pd.put("USERNAME", USERNAME);
 				pd.put("USER_ID", USER_ID);

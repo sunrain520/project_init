@@ -1,5 +1,12 @@
 119.29.225.58:9989 用户名和密码：administrator    Jzlx20150714
 
+$cfg_dbhost = 'localhost';
+$cfg_dbname = 'a0315185517';
+$cfg_dbuser = 'root';
+$cfg_dbpwd = 'cnoa.cn2016pwddd';
+$cfg_dbprefix = 'dede_';
+$cfg_db_language = 'utf8';
+
 邮件服务器
 账号：SaleSupport@lxvision.com    密码：Jzlx20150714
 

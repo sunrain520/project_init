@@ -1,11 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>FH</groupId>
-	<artifactId>MVNFHM</artifactId>
+	<groupId>system</groupId>
+	<artifactId>project_op</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>MVNFHM</name>
+	<name>project_op</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
@@ -507,7 +507,7 @@
 
 	</dependencies>
 	<build>
-		<finalName>MVNFHM</finalName>
+		<finalName>${artifactId}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -516,9 +516,31 @@
 				<configuration>
 					<source>1.7</source>
 					<target>1.7</target>
+					<encoding>UTF-8</encoding>
 					<compilerArgument>-XDignore.symbol.file</compilerArgument>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
+	
+	
+	<profiles>
+		<profile>
+			<id>local</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<profile.properties>classpath:properties</profile.properties>
+				<profile.product>false</profile.product>
+			</properties>
+		</profile>
+		<profile>
+			<id>product</id>
+			<properties>
+				<profile.properties>${basedir}/${project.artifactId}/properties</profile.properties>
+				<profile.product>true</profile.product>
+			</properties>
+		</profile>
+	</profiles>
 </project>
