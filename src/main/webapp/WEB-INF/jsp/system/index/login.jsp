@@ -238,7 +238,7 @@
 						<div class="main_input_box">
 							<span class="add-on bg_lg">
 							<i><img height="37" src="static/login/user.png" /></i>
-							</span><input type="text" name="registered_capital" id="registered_capital" value="" placeholder="请输入公司注册资本" />
+							</span><input type="text" name="registered_capital" id="registered_capital" value="" placeholder="请输入公司注册资本（万）" />
 						</div>
 					</div>
 				</div>
@@ -345,7 +345,7 @@
 						<div class="main_input_box">
 							<span class="add-on bg_lg">
 							<i><img height="37" src="static/login/user.png" /></i>
-							</span><input type="text" name="username" id="username" value="" placeholder="请输入用户名" />
+							</span><input type="text" name="username" id="username" value="" placeholder="请输入登录用户名" />
 						</div>
 					</div>
 				</div>

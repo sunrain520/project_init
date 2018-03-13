@@ -20,11 +20,6 @@
 	<!--查看图片插件 -->
 	<link rel="stylesheet" media="screen" type="text/css" href="plugins/zoomimage/css/zoomimage.css" />
 	<link rel="stylesheet" media="screen" type="text/css" href="plugins/zoomimage/css/custom.css" />
-	<script type="text/javascript" src="plugins/zoomimage/js/jquery.js"></script>
-	<script type="text/javascript" src="plugins/zoomimage/js/eye.js"></script>
-	<script type="text/javascript" src="plugins/zoomimage/js/utils.js"></script>
-	<script type="text/javascript" src="plugins/zoomimage/js/zoomimage.js"></script>
-	<script type="text/javascript" src="plugins/zoomimage/js/layout.js"></script>
 	<!--查看图片插件 -->
 
 </head>
@@ -80,7 +75,10 @@
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">盖章的开票信息:</td>
-								<td><input type="text" name="BILLING" id="BILLING" value="${pd.BILLING}" maxlength="255" readonly="readonly" style="width:98%;"/></td>
+								<td>
+								<a href="<%=basePath%>uploadFiles/uploadImgs/${pd.BILLING}" title="[盖章的开票信息]" class="bwGal">
+								<img src="<%=basePath%>uploadFiles/uploadImgs/${pd.BILLING}" alt="[盖章的开票信息]" width="100"></a>
+								</td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">法人姓名:</td>
@@ -92,7 +90,10 @@
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">法人身份证:</td>
-								<td><input type="text" name="LEGAL_NO" id="LEGAL_NO" value="${pd.LEGAL_NO}" readonly="readonly" style="width:98%;"/></td>
+								<td>
+								<a href="<%=basePath%>uploadFiles/uploadImgs/${pd.LEGAL_NO}" title="[法人身份证]" class="bwGal">
+								<img src="<%=basePath%>uploadFiles/uploadImgs/${pd.LEGAL_NO}" alt="[法人身份证]" width="100"></a>
+								</td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">联系人:</td>
@@ -135,12 +136,13 @@
 	<script src="static/ace/js/date-time/bootstrap-datepicker.js"></script>
 	<!--提示框-->
 	<script type="text/javascript" src="static/js/jquery.tips.js"></script>
-		<!-- ace scripts -->
+	<!-- ace scripts -->
 	<script src="static/ace/js/ace/ace.js"></script>
+	<script type="text/javascript" src="plugins/zoomimage/js/jquery.js"></script>
 	<script type="text/javascript" src="plugins/zoomimage/js/eye.js"></script>
-<script type="text/javascript" src="plugins/zoomimage/js/utils.js"></script>
-<script type="text/javascript" src="plugins/zoomimage/js/zoomimage.js"></script>
-<script type="text/javascript" src="plugins/zoomimage/js/layout.js"></script>
+	<script type="text/javascript" src="plugins/zoomimage/js/utils.js"></script>
+	<script type="text/javascript" src="plugins/zoomimage/js/zoomimage.js"></script>
+	<script type="text/javascript" src="plugins/zoomimage/js/layout.js"></script>
 		<script type="text/javascript">
 		$(top.hangge());
 		

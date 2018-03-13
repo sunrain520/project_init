@@ -17,11 +17,6 @@
 <link rel="stylesheet" media="screen" type="text/css" href="plugins/zoomimage/css/zoomimage.css" />
 <link rel="stylesheet" media="screen" type="text/css" href="plugins/zoomimage/css/custom.css" />
 <link rel="stylesheet" href="plugins/layer/theme/default/layer.css" />
-<script type="text/javascript" src="plugins/zoomimage/js/jquery.js"></script>
-<script type="text/javascript" src="plugins/zoomimage/js/eye.js"></script>
-<script type="text/javascript" src="plugins/zoomimage/js/utils.js"></script>
-<script type="text/javascript" src="plugins/zoomimage/js/zoomimage.js"></script>
-<script type="text/javascript" src="plugins/zoomimage/js/layout.js"></script>
 <!--查看图片插件 -->
 
 <!-- 下拉框 -->
@@ -73,7 +68,7 @@
 									<th class="center">注册资本</th>
 									<th class="center">统一社会信用代码</th>
 									<th class="center">办公地址</th>
-									<th class="center">公司网站</th>
+<!-- 									<th class="center">公司网站</th> -->
 <!-- 									<th class="center">省份ID</th> -->
 									<th class="center">省份</th>
 									<th class="center">营业执照</th>
@@ -101,10 +96,10 @@
 												<label class="pos-rel"><input type='checkbox' name='ids' value="${var.COMPANY_ID}" class="ace" /><span class="lbl"></span></label>
 											</td>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
-											<td class='center'>${var.COMPANY_NAME}</td>
+											<td class='center'><a onclick="viewCompany('${var.COMPANY_ID}')" style="cursor:pointer;">${var.COMPANY_NAME }</a></td>
 											<td class='center'>${var.REGISTERED_CAPITAL}</td>
 											<td class='center'>${var.CREDIT_CODE}</td>
-											<td class='center'>${var.ADDR}</td>
+<%-- 											<td class='center'>${var.ADDR}</td> --%>
 											<td class='center'><a href="http://${var.WEB_SITES}" target="_blank">${var.WEB_SITES}</a></td>
 											<td class='center'>${var.PROVINCE_NAME}</td>
 											<td class="center">
@@ -240,6 +235,12 @@
 	
 	<script type="text/javascript" charset="utf-8" src="plugins/layer/layer.js"></script>
 	
+	<script type="text/javascript" src="plugins/zoomimage/js/jquery.js"></script>
+	<script type="text/javascript" src="plugins/zoomimage/js/eye.js"></script>
+	<script type="text/javascript" src="plugins/zoomimage/js/utils.js"></script>
+	<script type="text/javascript" src="plugins/zoomimage/js/zoomimage.js"></script>
+	<script type="text/javascript" src="plugins/zoomimage/js/layout.js"></script>
+	
 	<script type="text/javascript">
 		$(top.hangge());//关闭加载状态
 		//检索
@@ -263,8 +264,8 @@
 			 diag.Drag=true;
 			 diag.Title ="新增";
 			 diag.URL = '<%=basePath%>company/goAdd.do';
-			 diag.Width = 450;
-			 diag.Height = 355;
+			 diag.Width = 800;
+			 diag.Height = 600;
 			 diag.Modal = true;				//有无遮罩窗口
 			 diag. ShowMaxButton = true;	//最大化按钮
 		     diag.ShowMinButton = true;		//最小化按钮
@@ -283,17 +284,39 @@
 		
 		//删除
 		function del(Id){
-			bootbox.confirm("确定要删除吗?", function(result) {
-				if(result) {
-					top.jzts();
-					var url = "<%=basePath%>company/delete.do?PROJECT_ID="+Id+"&tm="+new Date().getTime();
-					$.get(url,function(data){
-						tosearch();
-					});
-				}
-			});
+			if(confirm("确定要删除?")){ 
+				top.jzts();
+				var url = "<%=basePath%>company/delete.do?COMPANY_ID="+Id+"&tm="+new Date().getTime();
+				$.get(url,function(data){
+					tosearch();
+				});
+			}
 		}
-		
+		//查看
+		function viewCompany(Id){
+			 top.jzts();
+			 var diag = new top.Dialog();
+			 diag.Drag=true;
+			 diag.Title ="查看";
+			 diag.URL = '<%=basePath%>company/goView.do?COMPANY_ID='+Id;
+			 diag.Width = 800;
+			 diag.Height = 600;
+			 diag.Modal = true;				//有无遮罩窗口
+			 diag. ShowMaxButton = true;	//最大化按钮
+		     diag.ShowMinButton = true;		//最小化按钮
+			 diag.CancelEvent = function(){ //关闭事件
+				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
+					 if('${page.currentPage}' == '0'){
+						 tosearch();
+					 }else{
+						 tosearch();
+					 }
+				}
+				diag.close();
+			 };
+			 diag.show();
+		}
+
 		//修改
 		function edit(Id){
 			 top.jzts();
@@ -301,8 +324,8 @@
 			 diag.Drag=true;
 			 diag.Title ="编辑";
 			 diag.URL = '<%=basePath%>company/goEdit.do?COMPANY_ID='+Id;
-			 diag.Width = 450;
-			 diag.Height = 355;
+			 diag.Width = 800;
+			 diag.Height = 600;
 			 diag.Modal = true;				//有无遮罩窗口
 			 diag. ShowMaxButton = true;	//最大化按钮
 		     diag.ShowMinButton = true;		//最小化按钮 
@@ -368,7 +391,7 @@
 	</script>
 
 
-<style type="text/css">
+	<style type="text/css">
 	li {list-style-type:none;}
 	</style>
 	<ul class="navigationTabs">
