@@ -135,6 +135,18 @@
 			AREA_NAME = #{NAME}
 	</select>
 	
+	<!-- 通过NAME获取数据 -->
+	<select id="getUserName" parameterType="String" resultType="String" >
+		SELECT 
+		  ap.USER_NAME 
+		FROM
+		  TB_PRINCIPAL ap 
+		  LEFT JOIN tb_project p 
+		    ON ap.area_id = p.area_id 
+		WHERE p.PROJECT_ID = #{PROJECT_ID}  
+		LIMIT 1 
+	</select>
+	
 	
 	<!-- kuang 767375210 -->
 </mapper>

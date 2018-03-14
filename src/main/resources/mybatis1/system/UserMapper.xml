@@ -330,6 +330,15 @@
 				USER_ID != '1'
 	</delete>
 	
+	<!-- 审核用户 -->
+	<delete id="checkUser" parameterType="pd" flushCache="false">
+		UPDATE <include refid="tableName"></include> set STATUS = #{STATUS}
+		where 
+			USER_ID = #{USER_ID}
+		and 
+			USER_ID != '1'
+	</delete>
+	
 	<!-- 批量删除用户 -->
 	<delete id="deleteAllU" parameterType="String" >
 		delete from <include refid="tableName"></include>

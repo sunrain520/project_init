@@ -56,7 +56,7 @@
 						<div class="col-xs-12">
 
 <!-- 存放生成的hmlt开头  -->
-<form class="form-horizontal" action="project/${msg }.do" name="Form" id="Form"  method="post" >
+<form class="form-horizontal"  name="Form" id="Form"  method="post" >
 <input type="hidden" name="PROJECT_ID" id="PROJECT_ID" value="${pd.PROJECT_ID}"/>
 <div class="col-md-12">
     <div class="form-group">
@@ -128,7 +128,8 @@
         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"><span class="need">*</span>预计投标时间：</label>
         <div class="col-sm-9">
             <input class="span10 date-picker" name="BID_TIME" id="BID_TIME"  type="text" data-date-format="yyyy-mm-dd" 
-            readonly="readonly" style="width:150px;" placeholder="YYYY-MM-DD" title="日期" nullmsg="请选择投标时间！" datatype="*" value="${pd.BID_TIME}" >
+            readonly="readonly" style="width:150px;" placeholder="YYYY-MM-DD" title="日期" 
+             value="${pd.BID_TIME}" >
         </div>
     </div>
     
@@ -234,10 +235,43 @@
 	<script src="static/ace/js/ace/elements.fileinput.js"></script>
 	<script type="text/javascript">
 	$(function(){
-		var msg = "${msg}";
-		if( msg != "view"){
-			$("#Form").Validform({ tiptype: 3,btnSubmit:"#btn_sub"});  
-		}
+// 		var msg = "${msg}";
+// 		if( msg != "view"){
+// 			$("#Form").Validform({ tiptype: 3,btnSubmit:"#btn_sub"});  
+// 		}
+		$("#Form").Validform({ tiptype: 3,btnSubmit:"#btn_sub",
+		
+			beforeSubmit:function(curform){
+				
+				if($("#BID_TIME").val() == ""){
+					layer.msg("预计投标时间不能为空");
+					return false;
+				}
+				
+// 				action="project/${msg }.do"
+				var msg = "${msg}";
+				$.ajax({
+					type : "POST",
+					url : "project/${msg }.do",
+					data : $("#Form").serialize(),
+					dataType : 'json',
+					cache : false,
+					success : function(data) {
+						console.log(data);
+						if(data.code == 200){
+							var iframeId = parent.$('#tab_menu .tab_item2_selected').closest('.tab_item').attr('id');
+							parent.closeTab(iframeId);
+							
+						}
+					}
+				});
+				
+				return false;
+			}
+			
+		});
+
+
 	});
 	
 	//查看未中标反馈
@@ -262,21 +296,7 @@
 	function save(){
 		console.log(11113333);
 		
-		$.ajax({
-			type : "POST",
-			url : $("#Form").attr("action"),
-			data : $("#Form").serialize(),
-			dataType : 'json',
-			cache : false,
-			success : function(data) {
-				console.log(data);
-				if(data.code == 200){
-					var iframeId = parent.$('#tab_menu .tab_item2_selected').closest('.tab_item').attr('id');
-					parent.closeTab(iframeId);
-					
-				}
-			}
-		});
+		
 		
 // 		$("#Form").submit();
 // 		var iframeId = parent.$('#tab_menu .tab_item2_selected').closest('.tab_item').attr('id');

@@ -1,8 +1,6 @@
 package com.fh.controller.app.sysuser;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -14,14 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
-import com.fh.controller.base.BaseController;
+import com.fh.controller.base.BaseEmailController;
 import com.fh.service.system.company.CompanyManager;
 import com.fh.service.system.fhlog.FHlogManager;
-import com.fh.service.system.fhsms.FhsmsManager;
 import com.fh.service.system.user.UserManager;
 import com.fh.util.AppUtil;
 import com.fh.util.Const;
-import com.fh.util.DateUtil;
 import com.fh.util.Jurisdiction;
 import com.fh.util.PageData;
 import com.fh.util.Tools;
@@ -32,7 +28,7 @@ import com.fh.util.Tools;
  */
 @Controller
 @RequestMapping(value = "/appSysUser")
-public class SysUserController extends BaseController {
+public class SysUserController extends BaseEmailController {
 
 	@Resource(name = "userService")
 	private UserManager userService;
@@ -40,8 +36,6 @@ public class SysUserController extends BaseController {
 	private FHlogManager FHLOG;
 	@Resource(name = "companyService")
 	private CompanyManager companyService;
-	@Resource(name = "fhsmsService")
-	private FhsmsManager fhsmsService;
 
 	/**
 	 * 系统用户注册接口
@@ -121,7 +115,7 @@ public class SysUserController extends BaseController {
 	 * 
 	 * @param
 	 * @throws Exception
-	 */
+	 *//*
 	public String save(Map<String, String> parameters) throws Exception {
 		PageData pd = new PageData();
 		pd = this.getPageData();
@@ -149,5 +143,5 @@ public class SysUserController extends BaseController {
 		}
 
 		return msg;
-	}
+	}*/
 }

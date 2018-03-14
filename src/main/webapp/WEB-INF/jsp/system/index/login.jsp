@@ -18,6 +18,7 @@
 <link rel="stylesheet" href="static/login/matrix-login.css" />
 <link href="static/login/font-awesome.css" rel="stylesheet" />
 <script type="text/javascript" src="static/login/js/jquery-1.5.1.min.js"></script>
+<link rel="stylesheet" href="plugins/layer/theme/default/layer.css" />
 <!-- 软键盘控件start -->
 <!-- <link href="static/login/keypad/css/framework/form.css" rel="stylesheet" type="text/css"/> -->
 <!-- 软键盘控件end -->
@@ -100,6 +101,7 @@
 	}
 	
   </style>
+  
   <script>
   		//window.setTimeout(showfh,3000); 
   		var timer;
@@ -238,7 +240,7 @@
 						<div class="main_input_box">
 							<span class="add-on bg_lg">
 							<i><img height="37" src="static/login/user.png" /></i>
-							</span><input type="text" name="registered_capital" id="registered_capital" value="" placeholder="请输入公司注册资本（万）" />
+							</span><input type="text" name="registered_capital" id="registered_capital" onkeyup="value=value.replace(/[^\d]/g,'')" value="" placeholder="请输入公司注册资本（万）" />
 						</div>
 					</div>
 				</div>
@@ -955,13 +957,23 @@
 					if("00" == data.result){
 						$("#windows2").hide();
 						$("#windows1").show();
-						$("#loginbox").tips({
-							side : 1,
-							msg : '注册成功,请等待后台管理员审核通过',
-							bg : '#68B500',
-							time : 10
+						
+						//墨绿深蓝风
+						layer.alert('您的注册申请已提交，请等待系统审核，审核通过后会有专人与您联系，谢谢', {
+						  skin: 'layui-layer-molv' //样式类名
+						  ,closeBtn: 0
+						}, function(){
+							changeCode1();
 						});
-						changeCode1();
+						
+// 						$("#loginbox").tips({
+// 							side : 1,
+// 							msg : '您的注册申请已提交，请等待系统审核，审核通过后会有专人与您联系，谢谢',
+// 							bg : '#68B500',
+// 							time : 20
+// 						});
+						
+						
 					}else if("04" == data.result){
 						$("#username").tips({
 							side : 1,
@@ -1047,6 +1059,7 @@
 	<script type="text/javascript" src="static/js/jquery.tips.js"></script>
 	<script type="text/javascript" src="static/js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="static/login/js/jquery.form.js"></script>
+	<script type="text/javascript" charset="utf-8" src="plugins/layer/layer.js"></script>
 	
 	<script type="text/javascript">  
 	    function uploadPic(forms, ids ) {  

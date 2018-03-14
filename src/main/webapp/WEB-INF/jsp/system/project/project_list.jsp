@@ -201,9 +201,9 @@
 									<c:if test="${QX.feedBack == 1 }">
 									<a class="btn btn-mini btn-success" target="mainFrame" style="cursor:pointer;"  onclick="addProjectfeedback()">新增项目反馈</a>
 									</c:if>
-									<c:if test="${QX.feedBack == 1 }">
-									<a class="btn btn-mini btn-success" target="mainFrame" style="cursor:pointer;"  onclick="addProjectReport()">新增项目周报</a>
-									</c:if>
+<%-- 									<c:if test="${QX.feedBack == 1 }"> --%>
+<!-- 									<a class="btn btn-mini btn-success" target="mainFrame" style="cursor:pointer;"  onclick="addProjectReport()">新增项目周报</a> -->
+<%-- 									</c:if> --%>
 									<c:if test="${QX.del == 1 }">
 									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要删除选中的数据吗?');" title="批量删除" ><i class='ace-icon fa fa-trash-o bigger-120'></i></a>
 									</c:if>

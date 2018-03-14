@@ -19,6 +19,8 @@
 <%@ include file="../index/top.jsp"%>
 <!-- 日期框 -->
 <link rel="stylesheet" href="static/ace/css/datepicker.css" />
+
+<link rel="stylesheet" href="plugins/layer/theme/default/layer.css" />
 </head>
 <body class="no-skin">
 
@@ -105,7 +107,7 @@
 											<td class="center">${user.ROLE_NAME }</td>
 											<td style="width: 60px;" class="center">
 												<c:if test="${user.STATUS == '0' }"><span class="label label-info arrowed-in">待审核</span></c:if>
-												<c:if test="${user.STATUS == '1' }"><span class="label label-success arrowed">正常</span></c:if>
+												<c:if test="${user.STATUS == '1' }"><span class="label label-success arrowed">通过</span></c:if>
 												<c:if test="${user.STATUS == '2' }"><span class="label label-warning arrowed-in">拒绝</span></c:if>
 											</td>
 											<td class="center"><a title="发送电子邮件" style="text-decoration:none;cursor:pointer;" <c:if test="${QX.email == 1 }">onclick="sendEmail('${user.EMAIL }');"</c:if>>${user.EMAIL }&nbsp;<i class="ace-icon fa fa-envelope-o"></i></a></td>
@@ -116,6 +118,11 @@
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
 												</c:if>
 												<div class="hidden-sm hidden-xs btn-group">
+													<c:if test="${QX.userCheck == 1 }">
+													<a class="btn btn-xs btn-info" title='用户审核' onclick="checkUser('${user.USER_ID }');">
+														<i class="ace-icon fa fa-flag bigger-120" title="用户审核">审核</i>
+													</a>
+													</c:if>
 													<c:if test="${QX.FHSMS == 1 }">
 													<a class="btn btn-xs btn-info" title='发送站内信' onclick="sendFhsms('${user.USERNAME }');">
 														<i class="ace-icon fa fa-envelope-o bigger-120" title="发送站内信"></i>
@@ -253,6 +260,8 @@
 	<script src="static/ace/js/chosen.jquery.js"></script>
 	<!--提示框-->
 	<script type="text/javascript" src="static/js/jquery.tips.js"></script>
+	
+	<script type="text/javascript" charset="utf-8" src="plugins/layer/layer.js"></script>
 	</body>
 
 <script type="text/javascript">
@@ -265,6 +274,27 @@ function searchs(){
 }
 
 var type = $("#type").val();
+
+function checkUser(Id){
+	layer.confirm('', {
+		  title:"用户审核",
+		  btn: ['通过','拒绝'], //按钮
+		  btnAlign: 'c'
+		}, function(){
+			top.jzts();
+			var url = "<%=basePath%>user/checkUser.do?USER_ID="+Id+"&STATUS=1&tm="+new Date().getTime();
+			$.get(url,function(data){
+				nextPage(${page.currentPage});
+			});
+		}, function(){
+			top.jzts();
+			var url = "<%=basePath%>user/checkUser.do?USER_ID="+Id+"&STATUS=2&tm="+new Date().getTime();
+			$.get(url,function(data){
+				nextPage(${page.currentPage});
+			});
+		});
+	
+}
 
 //删除
 function delUser(userId,msg){

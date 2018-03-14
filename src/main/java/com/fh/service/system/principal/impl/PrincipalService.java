@@ -91,5 +91,14 @@ public class PrincipalService implements PrincipalManager{
 	public PageData findByName(PageData pd)throws Exception{
 		return (PageData)dao.findForObject("PrincipalMapper.findByName", pd);
 	}
+	
+	/**通过NAME获取数据
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public String getUserName(String PORJECT_ID)throws Exception{
+		return (String) dao.findForObject("PrincipalMapper.getUserName", PORJECT_ID);
+	}
 }
 

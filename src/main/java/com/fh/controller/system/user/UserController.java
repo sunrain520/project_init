@@ -92,6 +92,7 @@ public class UserController extends BaseController {
 			pd.put("TYPE", type);
 		} 
 		
+		mv.addObject("pd", pd);
 		page.setPd(pd);
 		List<PageData>	userList = userService.listUsers(page);	//列出用户列表
 		pd.put("ROLE_ID", "1");
@@ -99,7 +100,6 @@ public class UserController extends BaseController {
 		mv.setViewName("system/user/user_list");
 		mv.addObject("userList", userList);
 		mv.addObject("roleList", roleList);
-		mv.addObject("pd", pd);
 		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
 		return mv;
 	}
@@ -150,6 +150,24 @@ public class UserController extends BaseController {
 		out.write("success");
 		out.close();
 	}
+	
+	
+
+	/**审核用户
+	 * @param out
+	 * @throws Exception 
+	 */
+	@RequestMapping(value="/checkUser")
+	public void checkUser(PrintWriter out) throws Exception{
+		logBefore(logger, Jurisdiction.getUsername()+"审核用户user");
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		userService.checkUser(pd);
+		FHLOG.save(Jurisdiction.getUsername(), "审核用户："+pd);
+		out.write("success");
+		out.close();
+	}
+	
 	
 	/**去新增用户页面
 	 * @return

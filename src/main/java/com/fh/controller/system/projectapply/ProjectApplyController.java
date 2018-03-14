@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.apache.shiro.session.Session;
@@ -21,26 +22,27 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
-import com.fh.controller.base.BaseController;
+import com.fh.controller.base.BaseEmailController;
 import com.fh.entity.Page;
 import com.fh.entity.system.Dictionaries;
 import com.fh.entity.system.User;
-import com.fh.util.AppUtil;
-import com.fh.util.Const;
-import com.fh.util.ObjectExcelView;
-import com.fh.util.PageData;
-import com.fh.util.Jurisdiction;
-import com.fh.util.Tools;
 import com.fh.service.system.dictionaries.DictionariesManager;
+import com.fh.service.system.principal.PrincipalManager;
 import com.fh.service.system.project.ProjectManager;
 import com.fh.service.system.projectapply.ProjectApplyManager;
+import com.fh.util.AppUtil;
+import com.fh.util.Const;
+import com.fh.util.Jurisdiction;
+import com.fh.util.ObjectExcelView;
+import com.fh.util.PageData;
+import com.fh.util.Tools;
 
 /**
  * 说明：项目授权申请 创建人：kuang 767375210 创建时间：2018-02-28
  */
 @Controller
 @RequestMapping(value = "/projectapply")
-public class ProjectApplyController extends BaseController {
+public class ProjectApplyController extends BaseEmailController {
 
 	String menuUrl = "projectapply/list.do"; // 菜单地址(权限用)
 	@Resource(name = "projectapplyService")
@@ -51,6 +53,9 @@ public class ProjectApplyController extends BaseController {
 	
 	@Resource(name="projectService")
 	private ProjectManager projectService;
+	
+	@Resource(name="principalService")
+	private PrincipalManager principalService;
 
 	/**
 	 * 保存
@@ -76,8 +81,20 @@ public class ProjectApplyController extends BaseController {
 		String USER_ID = user.getUSER_ID();
 		pd.put("USERNAME", USERNAME);
 		pd.put("USER_ID", USER_ID);
-
 		projectapplyService.save(pd);
+		
+		//查询当前项目下的负责人  没有的话 给管理员发信息
+		String areaUserName = principalService.getUserName(pd.getString("PORJECT_ID"));
+		System.out.println(areaUserName);
+		if("".equals(areaUserName)){
+			areaUserName = "admin";
+		}
+		Map<String, String> smsmap = new HashMap<String, String>();
+		smsmap.put("USERNAME", areaUserName);
+		smsmap.put("TITLE", "项目报备申请");
+		smsmap.put("CONTENT", "收到【"+pd.getString("PROJECT_NAME")+"】的项目报备申请，请及时跟进处理");
+		save(smsmap);
+
 		mv.addObject("msg", "success");
 		mv.setViewName("save_result");
 		return mv;

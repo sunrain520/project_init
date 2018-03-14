@@ -148,6 +148,14 @@ public class UserService implements UserManager{
 		dao.delete("UserMapper.deleteU", pd);
 	}
 	
+	/**审核用户
+	 * @param pd
+	 * @throws Exception
+	 */
+	public void checkUser(PageData pd)throws Exception{
+		dao.delete("UserMapper.checkUser", pd);
+	}
+	
 	/**批量删除用户
 	 * @param USER_IDS
 	 * @throws Exception

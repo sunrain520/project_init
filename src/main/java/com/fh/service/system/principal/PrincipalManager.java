@@ -62,5 +62,7 @@ public interface PrincipalManager{
 	 */
 	public PageData findByName(PageData pd)throws Exception;
 	
+	public String getUserName(String PORJECT_ID)throws Exception;
+	
 }
 

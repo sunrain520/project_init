@@ -105,6 +105,11 @@ public interface UserManager {
 	 * @throws Exception
 	 */
 	public void deleteU(PageData pd)throws Exception;
+	/**审核用户
+	 * @param pd
+	 * @throws Exception
+	 */
+	public void checkUser(PageData pd)throws Exception;
 	
 	/**批量删除用户
 	 * @param USER_IDS
