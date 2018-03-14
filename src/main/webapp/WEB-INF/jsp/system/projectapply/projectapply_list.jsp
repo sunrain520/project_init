@@ -97,7 +97,7 @@
 												<label class="pos-rel"><input type='checkbox' name='ids' value="${var.PROJECTAPPLY_ID}" class="ace" /><span class="lbl"></span></label>
 											</td>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
-											<td class='center'>${var.PROJECT_NAME}</td>
+											<td class='center'><a  onclick="siMenu('z41','lm40','项目报备','<%=basePath%>project/goViewProject.do?PROJECT_ID=${var.PROJECT_ID}')" style="cursor:pointer;">${var.PROJECT_NAME}</a></td>
 <%-- 											<td class='center'>${var.USER_ID}</td> --%>
 											<td class='center'>${var.FILE_NAME}</td>
 <%-- 											<td class='center'>${var.PROJECT_ID}</td> --%>
@@ -343,6 +343,15 @@
 				}
 			});
 		}
+		function siMenu(id,fid,MENU_NAME,MENU_URL){
+			$("#"+fid).attr("class","active open");
+			$("#"+id).attr("class","active");
+			top.mainFrame.tabAddHandler(id,MENU_NAME,MENU_URL);
+// 			if(MENU_URL != "druid/index.html"){
+// 				jzts();
+// 			}
+		}
+		
 		
 		//修改
 		function edit(Id){

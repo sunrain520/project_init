@@ -84,13 +84,13 @@ public class ProjectApplyController extends BaseEmailController {
 		projectapplyService.save(pd);
 		
 		//查询当前项目下的负责人  没有的话 给管理员发信息
-		String areaUserName = principalService.getUserName(pd.getString("PORJECT_ID"));
+		String areaUserName = principalService.getUserName(pd.getString("PROJECT_ID"));
 		System.out.println(areaUserName);
-		if("".equals(areaUserName)){
+		if("".equals(areaUserName) || areaUserName == null){
 			areaUserName = "admin";
 		}
 		Map<String, String> smsmap = new HashMap<String, String>();
-		smsmap.put("USERNAME", areaUserName);
+		smsmap.put("TOUSERNAME", areaUserName);
 		smsmap.put("TITLE", "项目报备申请");
 		smsmap.put("CONTENT", "收到【"+pd.getString("PROJECT_NAME")+"】的项目报备申请，请及时跟进处理");
 		save(smsmap);

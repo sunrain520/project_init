@@ -96,6 +96,8 @@
 					PROJECT_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
 					 or 
 					MODEL LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
+					 or 
+					USERNAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
 				)
 		</if>
 	</select>

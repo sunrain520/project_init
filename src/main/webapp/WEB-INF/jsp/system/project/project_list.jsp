@@ -107,7 +107,8 @@
 												<label class="pos-rel"><input type='checkbox' name='ids' value="${var.PROJECT_ID}" project_name="${var.PROJECT_NAME}" project_type="${var.PROJECT_TYPE}" class="ace" /><span class="lbl"></span></label>
 											</td>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
-											<td class='center'><a  onclick="siMenu('z41','lm40','项目报备','<%=basePath%>project/goViewProject.do?PROJECT_ID=${var.PROJECT_ID}')" style="cursor:pointer;">${var.PROJECT_NAME}</a></td>
+											<td class='center'>
+											<a  onclick="siMenu('z41','lm40','项目报备','<%=basePath%>project/goViewProject.do?PROJECT_ID=${var.PROJECT_ID}')" style="cursor:pointer;">${var.PROJECT_NAME}</a></td>
 <%-- 											<td class='center'>${var.DETAILS}</td> --%>
 <%-- 											<td class='center'>${var.PROVINCE_ID}</td> --%>
 <%-- 											<td class='center'>${var.BUSINESS_ID}</td> --%>

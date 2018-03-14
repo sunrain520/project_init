@@ -958,20 +958,13 @@
 						$("#windows2").hide();
 						$("#windows1").show();
 						
-						//墨绿深蓝风
-						layer.alert('您的注册申请已提交，请等待系统审核，审核通过后会有专人与您联系，谢谢', {
-						  skin: 'layui-layer-molv' //样式类名
-						  ,closeBtn: 0
-						}, function(){
-							changeCode1();
+						$("#loginbox").tips({
+							side : 1,
+							msg : '您的注册申请已提交，请等待系统审核，审核通过后会有专人与您联系，谢谢',
+							bg : '#68B500',
+							time : 15
 						});
-						
-// 						$("#loginbox").tips({
-// 							side : 1,
-// 							msg : '您的注册申请已提交，请等待系统审核，审核通过后会有专人与您联系，谢谢',
-// 							bg : '#68B500',
-// 							time : 20
-// 						});
+						changeCode1();
 						
 						
 					}else if("04" == data.result){
@@ -979,7 +972,7 @@
 							side : 1,
 							msg : "用户名已存在",
 							bg : '#FF5080',
-							time : 15
+							time : 10
 						});
 						showfh();
 						$("#username").focus();
@@ -988,7 +981,7 @@
 							side : 1,
 							msg : "验证码输入有误",
 							bg : '#FF5080',
-							time : 15
+							time : 10
 						});
 						showfh();
 						$("#rcode").focus();

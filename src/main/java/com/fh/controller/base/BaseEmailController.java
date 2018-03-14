@@ -54,7 +54,8 @@ public class BaseEmailController extends BaseController {
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		String msg = "ok"; // 发送状态
-		String usernane = parameters.get("USERNAME"); // 对方用户名
+		String usernane = parameters.get("USERNAME")==null?"admin":parameters.get("USERNAME"); // 对方用户名
+		String admin = parameters.get("TOUSERNAME")==null?"admin":parameters.get("TOUSERNAME"); // 对方用户名
 		String title = parameters.get("TITLE"); // 对方用户名
 		try {
 			pd.put("STATUS", "2"); // 状态
@@ -65,12 +66,12 @@ public class BaseEmailController extends BaseController {
 			pd.put("FHSMS_ID", this.get32UUID()); // 主键1
 			pd.put("TYPE", "2"); // 类型2：发信
 			pd.put("TO_USERNAME", usernane); // 发信人
-			pd.put("FROM_USERNAME", "admin"); // 收信人
+			pd.put("FROM_USERNAME", admin); // 收信人
 			fhsmsService.save(pd); // 存入发信
 			pd.put("FHSMS_ID", this.get32UUID()); // 主键2
 			pd.put("TYPE", "1"); // 类型1：收信
 			pd.put("TO_USERNAME", usernane); // 发信人
-			pd.put("FROM_USERNAME", "admin"); // 收信人
+			pd.put("FROM_USERNAME", admin); // 收信人
 			fhsmsService.save(pd);
 		} catch (Exception e) {
 			msg = "error";

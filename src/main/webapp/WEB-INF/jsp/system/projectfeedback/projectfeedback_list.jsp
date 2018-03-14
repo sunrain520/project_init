@@ -42,18 +42,21 @@
 										</span>
 									</div>
 								</td>
-								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastStart" id="lastStart"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="开始日期" title="开始日期"/></td>
-								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastEnd" name="lastEnd"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="结束日期" title="结束日期"/></td>
-								<td style="vertical-align:top;padding-left:2px;">
-								 	<select class="chosen-select form-control" name="name" id="id" data-placeholder="请选择" style="vertical-align:top;width: 120px;">
-									<option value=""></option>
-									<option value="">全部</option>
-									<option value="">1</option>
-									<option value="">2</option>
-								  	</select>
-								</td>
+								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastStart" id="lastStart"  value="${pd.lastStart }" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="开始日期" title="开始日期"/></td>
+								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastEnd" id="lastEnd"  value="${pd.lastEnd }" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="结束日期" title="结束日期"/></td>
+								
+								<!-- 								<td style="vertical-align:top;padding-left:2px;"> -->
+<!-- 								 	<select class="chosen-select form-control" name="name" id="id" data-placeholder="请选择" style="vertical-align:top;width: 120px;"> -->
+<!-- 									<option value=""></option> -->
+<!-- 									<option value="">全部</option> -->
+<!-- 									<option value="">1</option> -->
+<!-- 									<option value="">2</option> -->
+<!-- 								  	</select> -->
+<!-- 								</td> -->
 								<c:if test="${QX.cha == 1 }">
 								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
+								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="research();"  title="清空">
+								<i id="" class="ace-icon fa  bigger-110  blue">清空</i></a></td>
 								</c:if>
 								<c:if test="${QX.toExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="toExcel();" title="导出到EXCEL"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td></c:if>
 							</tr>
@@ -74,7 +77,7 @@
 									<th class="center">中标金额</th>
 									<th class="center">中标设备型号</th>
 									<th class="center">中标设备数量</th>
-									<th class="center">反馈人ID</th>
+<!-- 									<th class="center">反馈人ID</th> -->
 									<th class="center">反馈人名称</th>
 									<th class="center">创建时间</th>
 									<th class="center">操作</th>
@@ -92,14 +95,14 @@
 												<label class="pos-rel"><input type='checkbox' name='ids' value="${var.PROJECTFEEDBACK_ID}" class="ace" /><span class="lbl"></span></label>
 											</td>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
-											<td class='center'><a onclick="view('${var.PROJECTFEEDBACK_ID}');" style="cursor:pointer;">${var.PROJECT_NAME}</a></td>
+											<td class='center'><a  onclick="siMenu('z41','lm40','项目报备','<%=basePath%>project/goViewProject.do?PROJECT_ID=${var.PROJECT_ID}')" style="cursor:pointer;">${var.PROJECT_NAME}</a></td>
 <%-- 											<td class='center'>${var.PROJECT_ID}</td> --%>
 											<td class='center'><a onclick="viewReson('项目未中标原因','${var.REASON}')" style="cursor:pointer;">[详情]</a></td>
 											<td class='center'>${var.COMPANY_NAME}</td>
 											<td class='center'>${var.MONEY}</td>
 											<td class='center'>${var.MODEL}</td>
 											<td class='center'>${var.NUM}</td>
-											<td class='center'>${var.USER_ID}</td>
+<%-- 											<td class='center'>${var.USER_ID}</td> --%>
 											<td class='center'>${var.USERNAME}</td>
 											<td class='center'>${var.CREATE_TIME}</td>
 											<td class="center">
@@ -169,12 +172,12 @@
 						<table style="width:100%;">
 							<tr>
 								<td style="vertical-align:top;">
-									<c:if test="${QX.add == 1 }">
-									<a class="btn btn-mini btn-success" onclick="add();">新增</a>
-									</c:if>
-									<c:if test="${QX.del == 1 }">
-									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要删除选中的数据吗?');" title="批量删除" ><i class='ace-icon fa fa-trash-o bigger-120'></i></a>
-									</c:if>
+<%-- 									<c:if test="${QX.add == 1 }"> --%>
+<!-- 									<a class="btn btn-mini btn-success" onclick="add();">新增</a> -->
+<%-- 									</c:if> --%>
+<%-- 									<c:if test="${QX.del == 1 }"> --%>
+<!-- 									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要删除选中的数据吗?');" title="批量删除" ><i class='ace-icon fa fa-trash-o bigger-120'></i></a> -->
+<%-- 									</c:if> --%>
 								</td>
 								<td style="vertical-align:top;"><div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div></td>
 							</tr>
@@ -227,7 +230,22 @@
 				  ,closeBtn: 0
 				} );
 		}
+		function siMenu(id,fid,MENU_NAME,MENU_URL){
+			$("#"+fid).attr("class","active open");
+			$("#"+id).attr("class","active");
+			top.mainFrame.tabAddHandler(id,MENU_NAME,MENU_URL);
+// 			if(MENU_URL != "druid/index.html"){
+// 				jzts();
+// 			}
+		}
 		
+		function research(){
+			$("#nav-search-input").val("");
+			$("#lastStart").val("");
+			$("#lastEnd").val("");
+			$("#STATUS").val("");
+			tosearch();
+		}
 		//检索
 		function tosearch(){
 			top.jzts();
