@@ -399,7 +399,7 @@
 		select 
 			count(USER_ID) userCount
 		from 
-		<include refid="tableName"></include>
+		<include refid="tableName"></include> where TYPE = #{_parameter}
 	</select>
 	
 </mapper>

@@ -280,9 +280,6 @@
 			$("#"+fid).attr("class","active open");
 			$("#"+id).attr("class","active");
 			top.mainFrame.tabAddHandler(id,MENU_NAME,MENU_URL);
-// 			if(MENU_URL != "druid/index.html"){
-// 				jzts();
-// 			}
 		}
 		
 		//打开上传excel页面
@@ -316,10 +313,10 @@
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
-			 diag.Title ="EXCEL 导入到数据库";
+			 diag.Title ="上传设备采购清单";
 			 diag.URL = '<%=basePath%>project/goUploadExcel.do?PROJECT_ID='+str+'&PROJECT_NAME='+name;
 			 diag.Width = 600;
-			 diag.Height = 300;
+			 diag.Height = 200;
 			 diag.CancelEvent = function(){ //关闭事件
 				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 					 if('${page.currentPage}' == '0'){

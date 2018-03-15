@@ -32,7 +32,7 @@
 								<table id="table_report" class="table table-striped table-bordered table-hover">
 								
 									<tr>
-										<td style="width:85px;text-align: right;padding-top: 13px;">项目名称:</td>
+										<td style="width:95px;text-align: right;padding-top: 13px;">项目名称:</td>
 										<td><input type="text" name="PROJECT_NAME" id="PROJECT_NAME" value="${pd.PROJECT_NAME}" maxlength="255" style="width:98%;" readonly="readonly"/></td>
 										<input type="hidden" id="PROJECT_ID" name="PROJECT_ID" style="width:50px;" value="${pd.PROJECT_ID }" />
 									</tr>
@@ -47,10 +47,9 @@
 										</td>
 									</tr>
 									
-									<tr>
-										<td style="width:75px;text-align: right;padding-top: 13px;"></td>
-										<td style="text-align: center;padding-top: 10px;">
-											<a class="btn btn-mini btn-primary" onclick="save();">导入</a>
+									<tr >
+										<td style="text-align: center;padding-top: 10px;" colspan="2">
+											<a class="btn btn-mini btn-primary" onclick="save();">上传</a>
 											<a class="btn btn-mini btn-danger" onclick="top.Dialog.close();">取消</a>
 											<a class="btn btn-mini btn-success" onclick="window.location.href='<%=basePath%>/project/downExcel.do'">下载模版</a>
 										</td>

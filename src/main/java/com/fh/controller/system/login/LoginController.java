@@ -438,8 +438,8 @@ public class LoginController extends BaseController {
 	public ModelAndView defaultPage() throws Exception {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
-		pd.put("userCount", Integer.parseInt(userService.getUserCount("").get("userCount").toString()) - 1); // 系统用户数
-		pd.put("appUserCount", Integer.parseInt(appuserService.getAppUserCount("").get("appUserCount").toString())); // 会员数
+		pd.put("userCount", Integer.parseInt(userService.getUserCount("1").get("userCount").toString()) - 1); // 系统用户数
+		pd.put("registerCount", Integer.parseInt(userService.getUserCount("2").get("userCount").toString())); // 会员数
 		mv.addObject("pd", pd);
 		mv.setViewName("system/index/default");
 		return mv;

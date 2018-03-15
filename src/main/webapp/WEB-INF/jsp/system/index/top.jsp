@@ -1,4 +1,4 @@
-﻿		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<meta charset="utf-8" />
 		<title>${pd.SYSNAME}</title>
 		<meta name="description" content="" />
@@ -9,6 +9,9 @@
 		<!-- page specific plugin styles -->
 		<!-- text fonts -->
 		<link rel="stylesheet" href="static/ace/css/ace-fonts.css" />
+		
+		<link rel="stylesheet" href="static/ace/css/ace-rtl.css" />
+		<link rel="stylesheet" href="static/ace/css/ace-skins.css" />
 		<!-- ace styles -->
 		<link rel="stylesheet" href="static/ace/css/ace.css" class="ace-main-stylesheet" id="main-ace-style" />
 		<!--[if lte IE 9]>

@@ -38,33 +38,28 @@ setTimeout("top.hangge()",500);
 									<i class="ace-icon fa fa-times"></i>
 								</button>
 								<i class="ace-icon fa fa-check green"></i>
-								欢迎使用项目报备管理系统&nbsp;&nbsp;
-								<strong class="green">
-									
-								</strong>
+								欢迎使用项目报备管理系统
 							</div>
-							
 							
 							<div id="main" style="width: 600px;height:300px;"></div>
 							<script type="text/javascript">
 						        // 基于准备好的dom，初始化echarts实例
 						        var myChart = echarts.init(document.getElementById('main'));
-						
 						        // 指定图表的配置项和数据
 								var option = {
 						            title: {
-						                text: 'FH Admin用户统计'
+						                text: '用户统计'
 						            },
 						            tooltip: {},
 						            xAxis: {
-						                data: ["系统用户","系统会员"]
+						                data: ["系统用户","注册用户"]
 						            },
 						            yAxis: {},
 						            series: [
 						               {
 						                name: '',
 						                type: 'bar',
-						                data: [${pd.userCount},${pd.appUserCount}],
+						                data: [${pd.userCount},${pd.registerCount}],
 						                itemStyle: {
 						                    normal: {
 						                        color: function(params) {

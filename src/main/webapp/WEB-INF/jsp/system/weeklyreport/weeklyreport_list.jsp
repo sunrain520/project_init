@@ -75,6 +75,7 @@
 <!-- 									<th class="center">项目ID</th> -->
 									<th class="center">进度%</th>
 									<th class="center">概率%</th>
+									<th class="center">库存</th>
 									<th class="center">问题</th>
 									<th class="center">需要帮助</th>
 									<th class="center">状态</th>
@@ -96,10 +97,11 @@
 												<label class="pos-rel"><input type='checkbox' name='ids' value="${var.WEEKLYREPORT_ID}" class="ace" /><span class="lbl"></span></label>
 											</td>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
-											<td class='center'>${var.PROJECT_NAME}</td>
+											<td class='center'><a  onclick="siMenu('z41','lm40','项目报备','<%=basePath%>project/goViewProject.do?PROJECT_ID=${var.PROJECT_ID}')" style="cursor:pointer;">${var.PROJECT_NAME}</a></td>
 <%-- 											<td class='center'>${var.PROJECT_ID}</td> --%>
 											<td class='center'>${var.PLAN}</td>
 											<td class='center'>${var.PROB}</td>
+											<td class='center'>${var.STOCK}</td>
 											<td class='center'><a onclick="viewReson('问题','${var.PROBLEM}')" style="cursor:pointer;">[详情]</a></td>
 											<td class='center'><a onclick="viewReson('需要帮助','${var.HELP}')" style="cursor:pointer;">[详情]</a></td>
 											<td style="width: 60px;" class="center">
@@ -236,10 +238,15 @@
 				  title: title,
 				  area: ['420px', '280px'], //宽高
 				  skin: 'layui-layer-molv' //样式类名
-				  ,closeBtn: 0
+				  ,closeBtn: 0,
+				  shadeClose: true, //点击遮罩关闭层
 				} );
 		}
-		
+		function siMenu(id,fid,MENU_NAME,MENU_URL){
+			$("#"+fid).attr("class","active open");
+			$("#"+id).attr("class","active");
+			top.mainFrame.tabAddHandler(id,MENU_NAME,MENU_URL);
+		}
 		function research(){
 			$("#nav-search-input").val("");
 			$("#lastStart").val("");
