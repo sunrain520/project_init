@@ -23,6 +23,11 @@ public interface ProjectApplyManager{
 	 * @throws Exception
 	 */
 	public void delete(PageData pd)throws Exception;
+	/**审核
+	 * @param pd
+	 * @throws Exception
+	 */
+	public void checkProjectApply(PageData pd)throws Exception;
 	
 	/**修改
 	 * @param pd
@@ -60,6 +65,6 @@ public interface ProjectApplyManager{
 	 * @throws Exception
 	 */
 	public PageData findByName(PageData pd)throws Exception;
-	
+
 }
 

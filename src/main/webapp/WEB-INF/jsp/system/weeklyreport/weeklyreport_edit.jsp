@@ -66,6 +66,7 @@
 									<option value="0" <c:if test="${pd.STATUS == '0' }">selected</c:if> >草稿</option>
 									<option value="1" <c:if test="${pd.STATUS == '1' }">selected</c:if> >发布</option>
 									</select>
+									<span style="font-size: 11px;color: #b9b1b1;">&nbsp;&nbsp;注：草稿状态下仅自己可见</span>
 								</td>
 							</tr>
 							

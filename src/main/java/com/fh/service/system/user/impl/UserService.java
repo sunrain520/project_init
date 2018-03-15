@@ -153,7 +153,7 @@ public class UserService implements UserManager{
 	 * @throws Exception
 	 */
 	public void checkUser(PageData pd)throws Exception{
-		dao.delete("UserMapper.checkUser", pd);
+		dao.update("UserMapper.checkUser", pd);
 	}
 	
 	/**批量删除用户

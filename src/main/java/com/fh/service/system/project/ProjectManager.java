@@ -24,6 +24,12 @@ public interface ProjectManager{
 	 */
 	public void delete(PageData pd)throws Exception;
 	
+	/**项目采购单
+	 * @param pd
+	 * @throws Exception
+	 */
+	public void uploadPurchaseOrder(PageData pd)throws Exception;
+	
 	/**修改
 	 * @param pd
 	 * @throws Exception

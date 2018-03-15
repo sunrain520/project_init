@@ -86,5 +86,14 @@ public class ProjectApplyService implements ProjectApplyManager{
 	public PageData findByName(PageData pd)throws Exception{
 		return (PageData)dao.findForObject("ProjectApplyMapper.findByName", pd);
 	}
+
+	/**
+	 * 审核
+	 */
+	@Override
+	public void checkProjectApply(PageData pd) throws Exception {
+		// TODO Auto-generated method stub
+		dao.update("ProjectApplyMapper.checkProjectApply", pd);
+	}
 }
 

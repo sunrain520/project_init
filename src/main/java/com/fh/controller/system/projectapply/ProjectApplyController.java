@@ -118,6 +118,22 @@ public class ProjectApplyController extends BaseEmailController {
 		out.write("success");
 		out.close();
 	}
+	
+	/**
+	 * 审核
+	 * 
+	 * @param out
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/checkProjectApply")
+	public void checkProjectApply(PrintWriter out) throws Exception {
+		logBefore(logger, Jurisdiction.getUsername() + "删除ProjectApply");
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		projectapplyService.checkProjectApply(pd);
+		out.write("success");
+		out.close();
+	}
 
 	/**
 	 * 修改

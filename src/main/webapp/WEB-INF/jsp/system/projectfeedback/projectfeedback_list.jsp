@@ -227,7 +227,8 @@
 				  title: title,
 				  area: ['420px', '280px'], //宽高
 				  skin: 'layui-layer-molv' //样式类名
-				  ,closeBtn: 0
+				  ,closeBtn: 0,
+				  shadeClose: true, //点击遮罩关闭层
 				} );
 		}
 		function siMenu(id,fid,MENU_NAME,MENU_URL){

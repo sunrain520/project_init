@@ -62,6 +62,15 @@
 			PROJECTAPPLY_ID = #{PROJECTAPPLY_ID}
 	</delete>
 	
+	<!-- 审核-->
+	<update id="checkProjectApply" parameterType="pd">
+		update
+		<include refid="tableName"></include>
+		set STATUS = #{STATUS}
+		where 
+			PROJECTAPPLY_ID = #{PROJECTAPPLY_ID}
+	</update>
+	
 	<!-- 修改 -->
 	<update id="edit" parameterType="pd">
 		update

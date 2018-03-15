@@ -16,3 +16,10 @@ server.xml  URIEncoding="UTF-8"
 
 创建软连接
 mklink /D  文件存放路径     tomcat部署下的路径
+
+创建软连接
+mklink /D    tomcat部署下的路径[初始不存在]   文件存放路径【已存在d源文件】  
+
+mklink /D D:\system_repost\apache-tomcat-7.0.85\webapps\project_op\uploadFiles  D:\system_repost\project_file\uploadFiles
+
+

@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.session.Session;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -28,8 +29,10 @@ import com.fh.entity.system.Role;
 import com.fh.entity.system.User;
 import com.fh.util.AppUtil;
 import com.fh.util.Const;
+import com.fh.util.FileDownload;
 import com.fh.util.ObjectExcelView;
 import com.fh.util.PageData;
+import com.fh.util.PathUtil;
 import com.fh.util.Jurisdiction;
 import com.fh.util.Tools;
 import com.fh.service.system.dictionaries.DictionariesManager;
@@ -101,6 +104,22 @@ public class ProjectController extends BaseController {
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		projectService.delete(pd);
+		out.write("success");
+		out.close();
+	}
+	
+	/**
+	 * 删除
+	 * 
+	 * @param out
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/uploadPurchaseOrder")
+	public void uploadPurchaseOrder(PrintWriter out) throws Exception {
+		logBefore(logger, Jurisdiction.getUsername() + "删除Project");
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		projectService.uploadPurchaseOrder(pd);
 		out.write("success");
 		out.close();
 	}
@@ -450,5 +469,30 @@ public class ProjectController extends BaseController {
 		}
 		map.put("result", errInfo); // 返回结果
 		return AppUtil.returnObject(new PageData(), map);
+	}
+	
+	/**打开上传EXCEL页面
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/goUploadExcel")
+	public ModelAndView goUploadExcel()throws Exception{
+		
+		ModelAndView mv = this.getModelAndView();
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		mv.setViewName("system/project/uploadexcel");
+		mv.addObject("msg", "view");
+		mv.addObject("pd", pd);
+		return mv;
+	}
+	
+	/**下载模版
+	 * @param response
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/downExcel")
+	public void downExcel(HttpServletResponse response)throws Exception{
+		FileDownload.fileDownload(response, PathUtil.getClasspath() + Const.FILEPATHFILE + "设备采购单模版.xls", "设备采购单模版.xls");
 	}
 }

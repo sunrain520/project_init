@@ -60,6 +60,9 @@
 								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="research();"  title="清空">
 								<i id="" class="ace-icon fa  bigger-110  blue">清空</i></a></td>
 								</c:if>
+								<c:if test="${QX.PURCHASE_ORDER == 1 }">
+									<td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="fromExcel();" title="设备采购单申请"><i id="nav-search-icon" class="ace-icon fa fa-cloud-upload bigger-110 nav-search-icon blue" > 设备采购单</i></a></td>
+								</c:if>
 <%-- 								<c:if test="${QX.toExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="toExcel();" title="导出到EXCEL"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td></c:if> --%>
 							</tr>
 						</table>
@@ -87,6 +90,7 @@
 									<th class="center">最终客户</th>
 									<th class="center">竞争对手</th>
 									<th class="center">预计投标时间</th>
+									<th class="center">设备采购单</th>
 <!-- 									<th class="center">预计使用设备型号ID</th> -->
 									<th class="center">项目负责人姓名</th>
 									<th class="center">手机</th>
@@ -118,15 +122,24 @@
 											<td class='center'>${var.BUDGET}</td>
 											<td class='center'>${var.MODEL_NAME}</td>
 											<td class='center'>${var.PROVINCE_NAME}</td>
-<%-- 											<td class='center'>${var.AREA_ID}</td> --%>
 											<td class='center'>${var.AREA_NAME}</td>
 											<td class='center'>${var.CLIENT}</td>
 											<td class='center'>${var.OPPONENT}</td>
 											<td class='center'>${var.BID_TIME}</td>
-<%-- 											<td class='center'>${var.MODEL_ID}</td> --%>
+											<td class='center'>
+											<c:if test="${empty  var.PURCHASE_ORDER}">
+												--
+											</c:if>
+											<c:if test="${not empty var.PURCHASE_ORDER}">
+												<a style="cursor:pointer;" onclick="window.location.href='<%=basePath%>/fhfile/downloadAll.do?FHFILE_ID=${var.PURCHASE_ORDER}&key=${var.PROJECT_NAME}_采购单'" class="tooltip-success" data-rel="tooltip" title="下载">
+													<span class="green">
+														<i class="ace-icon fa fa-cloud-download bigger-120"></i>
+													</span>
+												</a>
+											</c:if>
+											</td>
 											<td class='center'>${var.LEADER_NAME}</td>
 											<td class='center'>${var.LEADER_PHONE}</td>
-<%-- 											<td class='center'>${var.BZ}</td> --%>
 											<td class='center'>${var.CREATE_TIME}</td>
 											<td class="center">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
@@ -271,6 +284,55 @@
 // 				jzts();
 // 			}
 		}
+		
+		//打开上传excel页面
+		function fromExcel(){
+			var str = '';
+			var num = 0;
+			var name = "";
+			var type= '';
+			for(var i=0;i < document.getElementsByName('ids').length;i++){
+			  if(document.getElementsByName('ids')[i].checked){
+				  if(num == 1){
+					  layer.msg("只能选择一个项目");
+					  return;
+				  }
+			  	str = document.getElementsByName('ids')[i].value;
+			  	name = document.getElementsByName('ids')[i].getAttribute("project_name");
+			  	type = document.getElementsByName('ids')[i].getAttribute("project_type");
+			  	num += 1;
+			  }
+			}
+			if(str==''){
+				layer.msg("请选择项目");
+				return;
+			}
+// 			layer.msg(name);return;
+			if(type != "中标"){
+				layer.msg("请选择中标的项目");
+				return;
+			}
+			
+			 top.jzts();
+			 var diag = new top.Dialog();
+			 diag.Drag=true;
+			 diag.Title ="EXCEL 导入到数据库";
+			 diag.URL = '<%=basePath%>project/goUploadExcel.do?PROJECT_ID='+str+'&PROJECT_NAME='+name;
+			 diag.Width = 600;
+			 diag.Height = 300;
+			 diag.CancelEvent = function(){ //关闭事件
+				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
+					 if('${page.currentPage}' == '0'){
+						 top.jzts();
+						 setTimeout("self.location.reload()",100);
+					 }else{
+						 nextPage(${page.currentPage});
+					 }
+				}
+				diag.close();
+			 };
+			 diag.show();
+		}	
 		
 		//新增项目反馈
 	 function addProjectfeedback(){

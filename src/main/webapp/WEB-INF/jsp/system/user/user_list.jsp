@@ -276,9 +276,11 @@ function searchs(){
 var type = $("#type").val();
 
 function checkUser(Id){
-	layer.confirm('', {
-		  title:"用户审核",
+	layer.confirm('用户审核', {
+		  title:"",
+		  icon: 3,
 		  btn: ['通过','拒绝'], //按钮
+          shadeClose: true, //点击遮罩关闭层 
 		  btnAlign: 'c'
 		}, function(){
 			top.jzts();

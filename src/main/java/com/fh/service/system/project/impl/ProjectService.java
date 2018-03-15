@@ -36,6 +36,14 @@ public class ProjectService implements ProjectManager{
 		dao.delete("ProjectMapper.delete", pd);
 	}
 	
+	/**删除
+	 * @param pd
+	 * @throws Exception
+	 */
+	public void uploadPurchaseOrder(PageData pd)throws Exception{
+		dao.update("ProjectMapper.uploadPurchaseOrder", pd);
+	}
+	
 	/**修改
 	 * @param pd
 	 * @throws Exception

@@ -17,11 +17,57 @@
 <link rel="stylesheet" href="static/login/bootstrap-responsive.min.css" />
 <link rel="stylesheet" href="static/login/matrix-login.css" />
 <link href="static/login/font-awesome.css" rel="stylesheet" />
-<script type="text/javascript" src="static/login/js/jquery-1.5.1.min.js"></script>
 <link rel="stylesheet" href="plugins/layer/theme/default/layer.css" />
+<script type="text/javascript" src="static/login/js/jquery-1.5.1.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="plugins/layer/layer.js"></script>
 <!-- 软键盘控件start -->
 <!-- <link href="static/login/keypad/css/framework/form.css" rel="stylesheet" type="text/css"/> -->
 <!-- 软键盘控件end -->
+<style>
+    #msg{
+        width:374px;
+        position: fixed;
+        z-index:999;
+        top: 49%;
+        margin-top:-80px;
+        left:50%;
+        margin-left:-133px;
+        background:#fff;
+        box-shadow:5px 5px 8px #999;
+        font-size:17px;
+        color:#666;
+        border:1px solid #f8f8f8;
+        text-align: center;
+        line-height: 2rem;
+        display:inline-block;
+        padding-bottom:20px;
+        border-radius:2px;
+    }
+    #msg_top{
+        background:#f8f8f8;
+        padding:5px 15px 5px 20px;
+        text-align:left;
+    }
+    #msg_top span{
+        font-size:22px;
+        float:right;
+        cursor:pointer;
+    }
+    #msg_cont{
+        padding:15px 20px 20px;
+        text-align:left;
+    }
+    #msg_clear{
+        display:inline-block;
+        color:#fff;
+        padding:1px 15px;
+        background:#8fc31f;
+        border-radius:2px;
+        float:right;
+        margin-right:15px;
+        cursor:pointer;
+    }
+</style>
  <style type="text/css">
  
     /*
@@ -148,7 +194,7 @@
 			<form action="" method="post" name="loginForm1" id="loginForm1" >
 				<div class="control-group normal_text" style="width: 100%">
 					<h3>
-						后台管理系统
+						项目备案管理系统
 <!-- 						<img src="static/login/logo.png" alt="Logo" /> -->
 					</h3>
 				</div>
@@ -213,7 +259,7 @@
 			<form action="" method="post" name="loginForm" id="loginForm" enctype="multipart/form-data">
 				<div class="control-group normal_text" style="width: 100%">
 					<h3>
-						用户注册
+						项目备案管理系统注册
 <!-- 						<img src="static/login/logo.png" alt="Logo" /> -->
 					</h3>
 				</div>
@@ -458,6 +504,14 @@
 	</div>
 
 	<script type="text/javascript">
+	
+	  function alert(e){
+	        $("body").append('<div id="msg"><div id="msg_top">提示<span class="msg_close">×</span></div><div id="msg_cont">'+e+'</div><div class="msg_close" id="msg_clear">确定</div></div>');
+	        $(".msg_close").click(function (){
+	            $("#msg").remove();
+	        });
+	    }
+		
 		//服务器校验
 		function severCheck(){
 			if(check()){
@@ -641,7 +695,6 @@
 		
 	//注册
 	function rcheck(){
-		
 		if($("#company_name").val()==""){
 			$("#company_name").tips({
 				side:3,
@@ -921,6 +974,7 @@
 	
 	//提交注册
 	function register(){
+		
 		if(rcheck()){
 			var nowtime = date2str(new Date(),"yyyyMMdd");
 			var data = {
@@ -958,15 +1012,8 @@
 						$("#windows2").hide();
 						$("#windows1").show();
 						
-						$("#loginbox").tips({
-							side : 1,
-							msg : '您的注册申请已提交，请等待系统审核，审核通过后会有专人与您联系，谢谢',
-							bg : '#68B500',
-							time : 15
-						});
+						alert("您的注册申请已提交，请等待系统审核，审核通过后会有专人与您联系，谢谢");
 						changeCode1();
-						
-						
 					}else if("04" == data.result){
 						$("#username").tips({
 							side : 1,
@@ -1052,7 +1099,7 @@
 	<script type="text/javascript" src="static/js/jquery.tips.js"></script>
 	<script type="text/javascript" src="static/js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="static/login/js/jquery.form.js"></script>
-	<script type="text/javascript" charset="utf-8" src="plugins/layer/layer.js"></script>
+	
 	
 	<script type="text/javascript">  
 	    function uploadPic(forms, ids ) {  

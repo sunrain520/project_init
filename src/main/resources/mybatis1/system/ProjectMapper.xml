@@ -31,7 +31,8 @@
 		CREATE_TIME,
 		USER_ID,
 		USERNAME,
-		PROJECT_ID
+		PROJECT_ID,
+		PURCHASE_ORDER
 	</sql>
 
 	<!-- 字段值 -->
@@ -58,7 +59,8 @@
 		now(),
 		#{USER_ID},
 		#{USERNAME},
-		#{PROJECT_ID}
+		#{PROJECT_ID},
+		''
 	</sql>
 
 	<!-- 新增 -->
@@ -79,6 +81,15 @@
 		where
 		PROJECT_ID = #{PROJECT_ID}
 	</delete>
+	
+	<!-- 项目采购单 -->
+	<update id="uploadPurchaseOrder" parameterType="pd">
+		update
+		<include refid="tableName"></include>
+		set PURCHASE_ORDER = #{PURCHASE_ORDER}
+		where
+		PROJECT_ID = #{PROJECT_ID}
+	</update>
 
 	<!-- 修改 -->
 	<update id="edit" parameterType="pd">

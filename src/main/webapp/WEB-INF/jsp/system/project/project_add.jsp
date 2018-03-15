@@ -63,7 +63,8 @@
         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"><span class="need">*</span> 项目名称：</label>
         <div class="col-sm-9">
             <input type="text" id="PROJECT_NAME" name="PROJECT_NAME" placeholder="" onblur="checkName()" value="${pd.PROJECT_NAME}" style="width: 41.666%;"
-            nullmsg="请填写项目名称！"  datatype="s" <c:if test="${msg  eq 'view' }">readonly</c:if> >
+            nullmsg="请填写项目名称！"  datatype="s" <c:if test="${msg  ne 'save' }">readonly</c:if> >
+         <c:if test="${msg  eq 'save' }"><span style="font-size: 10px;color: #478fca !important">项目名称不支持修改</span></c:if>
         </div>
         <div class="checked-tip"></div>
     </div>

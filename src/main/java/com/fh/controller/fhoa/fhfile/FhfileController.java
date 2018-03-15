@@ -271,7 +271,8 @@ public class FhfileController extends BaseController {
 		pd = this.getPageData();
 //		pd = fhfileService.findById(pd);
 		String fileName = pd.getString("FHFILE_ID");
-		String name = new String(pd.getString("key").getBytes("iso-8859-1"), "utf-8"); 
+		String name = pd.getString("key");
+//		String name = new String(pd.getString("key").getBytes("iso-8859-1"), "utf-8"); 
 		logger.info(name+fileName.substring(fileName.indexOf(".")));
 		logger.info( PathUtil.getClasspath() + Const.FILEPATHIMG + fileName);
 		
