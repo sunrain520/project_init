@@ -75,7 +75,6 @@
 <!-- 									<th class="center">项目ID</th> -->
 									<th class="center">进度%</th>
 									<th class="center">概率%</th>
-									<th class="center">库存</th>
 									<th class="center">问题</th>
 									<th class="center">需要帮助</th>
 									<th class="center">状态</th>
@@ -101,7 +100,6 @@
 <%-- 											<td class='center'>${var.PROJECT_ID}</td> --%>
 											<td class='center'>${var.PLAN}</td>
 											<td class='center'>${var.PROB}</td>
-											<td class='center'>${var.STOCK}</td>
 											<td class='center'><a onclick="viewReson('问题','${var.PROBLEM}')" style="cursor:pointer;">[详情]</a></td>
 											<td class='center'><a onclick="viewReson('需要帮助','${var.HELP}')" style="cursor:pointer;">[详情]</a></td>
 											<td style="width: 60px;" class="center">

@@ -67,13 +67,14 @@
 									<th class="center">公司名称</th>
 									<th class="center">注册资本</th>
 									<th class="center">统一社会信用代码</th>
-									<th class="center">办公地址</th>
+<!-- 									<th class="center">办公地址</th> -->
 <!-- 									<th class="center">公司网站</th> -->
 <!-- 									<th class="center">省份ID</th> -->
 									<th class="center">省份</th>
 									<th class="center">营业执照</th>
 									<th class="center">经营范围</th>
 									<th class="center">盖章的开票信息</th>
+									<th class="center">库存</th>
 									<th class="center">法人姓名</th>
 									<th class="center">法人手机号</th>
 									<th class="center">法人身份证</th>
@@ -100,7 +101,7 @@
 											<td class='center'>${var.REGISTERED_CAPITAL}</td>
 											<td class='center'>${var.CREDIT_CODE}</td>
 <%-- 											<td class='center'>${var.ADDR}</td> --%>
-											<td class='center'><a href="http://${var.WEB_SITES}" target="_blank">${var.WEB_SITES}</a></td>
+<%-- 											<td class='center'><a href="http://${var.WEB_SITES}" target="_blank">${var.WEB_SITES}</a></td> --%>
 											<td class='center'>${var.PROVINCE_NAME}</td>
 											<td class="center">
 											<a href="<%=basePath%>uploadFiles/uploadImgs/${var.LICENSE}" title="[营业执照]" class="bwGal">
@@ -111,6 +112,7 @@
 											<a href="<%=basePath%>uploadFiles/uploadImgs/${var.BILLING}" title="[盖章的开票信息]" class="bwGal">
 											<img src="<%=basePath%>uploadFiles/uploadImgs/${var.BILLING}" alt="[盖章的开票信息]" width="100"></a>
 											</td>
+											<td class='center'>${var.STOCK}</td>
 											<td class='center'>${var.LEGAL_PERSON}</td>
 											<td class='center'>${var.LEGAL_PHONE}</td>
 											<td class="center">

@@ -96,6 +96,10 @@
 								<td><input type="text" name="EMAIL" id="EMAIL" value="${pd.EMAIL}" maxlength="255" placeholder="这里输入联系人邮箱" title="联系人邮箱" style="width:98%;"/></td>
 							</tr>
 							<tr>
+								<td style="width:75px;text-align: right;padding-top: 13px;">库存:</td>
+								<td><input type="number" name="STOCK" id="STOCK" value="${pd.STOCK}" maxlength="255" placeholder="这里输入库存" title="库存" style="width:98%;"/></td>
+							</tr>
+							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">注册时间:</td>
 								<td><input type="text" name="REGTIME" id="REGTIME" value="${pd.REGTIME}" maxlength="255" placeholder="这里输入注册时间" title="注册时间" style="width:98%;"/></td>
 							</tr>

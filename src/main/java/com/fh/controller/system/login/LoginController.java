@@ -258,6 +258,7 @@ public class LoginController extends BaseController {
 		}
 		pd.put("SYSNAME", Tools.readTxtFile(Const.SYSNAME)); // 读取系统名称
 		mv.addObject("pd", pd);
+		mv.addObject("QX", Jurisdiction.getHC()); // 按钮权限
 		return mv;
 	}
 
@@ -442,6 +443,7 @@ public class LoginController extends BaseController {
 		pd.put("registerCount", Integer.parseInt(userService.getUserCount("2").get("userCount").toString())); // 会员数
 		mv.addObject("pd", pd);
 		mv.setViewName("system/index/default");
+		mv.addObject("QX", Jurisdiction.getHC()); // 按钮权限
 		return mv;
 	}
 

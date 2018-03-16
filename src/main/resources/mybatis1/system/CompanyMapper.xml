@@ -26,6 +26,7 @@
 		PHONE,	
 		EMAIL,	
 		REGTIME,	
+		STOCK,
 		COMPANY_ID
 	</sql>
 	
@@ -48,6 +49,7 @@
 		#{PHONE},	
 		#{EMAIL},	
 		now(),	
+		0,
 		#{COMPANY_ID}
 	</sql>
 	
@@ -91,6 +93,7 @@
 			NAME = #{NAME},
 			PHONE = #{PHONE},
 			EMAIL = #{EMAIL},
+			STOCK = #{STOCK},
 			REGTIME = #{REGTIME},
 		COMPANY_ID = COMPANY_ID
 		where 

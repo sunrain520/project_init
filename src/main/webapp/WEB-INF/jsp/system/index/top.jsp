@@ -14,6 +14,9 @@
 		<link rel="stylesheet" href="static/ace/css/ace-skins.css" />
 		<!-- ace styles -->
 		<link rel="stylesheet" href="static/ace/css/ace.css" class="ace-main-stylesheet" id="main-ace-style" />
+<!-- 		<link rel="stylesheet" href="static/ace/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" /> -->
+		
+		<link rel="stylesheet" href="static/ace/css/ace-skins.min.css" />
 		<!--[if lte IE 9]>
 			<link rel="stylesheet" href="static/ace/css/ace-part2.css" class="ace-main-stylesheet" />
 		<![endif]-->

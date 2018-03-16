@@ -108,6 +108,10 @@
 								<td><input type="text" name="EMAIL" id="EMAIL" value="${pd.EMAIL}" readonly="readonly" style="width:98%;"/></td>
 							</tr>
 							<tr>
+								<td style="width:75px;text-align: right;padding-top: 13px;">库存:</td>
+								<td><input type="text" name="STOCK" id="STOCK" value="${pd.STOCK}" readonly="readonly" style="width:98%;"/></td>
+							</tr>
+							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">注册时间:</td>
 								<td><input type="text" name="REGTIME" id="REGTIME" value="${pd.REGTIME}" readonly="readonly" style="width:98%;"/></td>
 							</tr>

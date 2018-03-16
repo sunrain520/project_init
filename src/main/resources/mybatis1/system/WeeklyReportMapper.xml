@@ -18,7 +18,6 @@
 		USER_ID,	
 		USERNAME,	
 		STATUS,	
-		STOCK,
 		CREATE_TIME,	
 		WEEKLYREPORT_ID
 	</sql>
@@ -34,7 +33,6 @@
 		#{USER_ID},	
 		#{USERNAME},	
 		#{STATUS},
-		0,	
 		now(),	
 		#{WEEKLYREPORT_ID}
 	</sql>
@@ -67,7 +65,6 @@
 			PROJECT_ID = #{PROJECT_ID},
 			PLAN = #{PLAN},
 			PROB = #{PROB},
-			STOCK = #{STOCK},
 			PROBLEM = #{PROBLEM},
 			HELP = #{HELP},
 			STATUS = #{STATUS},

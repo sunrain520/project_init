@@ -47,10 +47,6 @@
 								<td><input type="number" name="PROB" id="PROB" value="${pd.PROB}" maxlength="32" placeholder="这里输入概率%" title="概率%" style="width:98%;"/></td>
 							</tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">库存:</td>
-								<td><input type="number" name="STOCK" id="STOCK" value="${pd.STOCK}" maxlength="32" placeholder="这里输入库存" title="库存" style="width:98%;"/></td>
-							</tr>
-							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">问题:</td>
 								<td>
 								<textarea rows="" cols="" name="PROBLEM" id="PROBLEM" value="${pd.PROBLEM}" style="width:97%; height: 88px;"  <c:if test="${msg  eq 'view' }">readonly</c:if>>${pd.PROBLEM}</textarea>

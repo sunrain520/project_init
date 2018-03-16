@@ -51,7 +51,7 @@
 <!-- 								</li> -->
 <!-- 							</ul> -->
 <!-- 						</li> -->
-
+						<c:if test="${QX.chat == 1 }">
 						<li title="即时聊天" class="purple"  onclick="creatw();"><!-- creatw()在 WebRoot\plugins\websocketInstantMsg\websocket.js中 -->
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="ace-icon fa fa-bell icon-animated-bell"></i>
@@ -65,6 +65,7 @@
 								</li>
 							</ul>
 						</li>
+						</c:if>
 
 						<li title="站内信" class="green" onclick="fhsms();" id="fhsmstss"><!-- fhsms()在 WebRoot\static\js\myjs\head.js中 -->
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
