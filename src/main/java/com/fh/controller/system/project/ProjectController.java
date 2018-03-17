@@ -168,7 +168,9 @@ public class ProjectController extends BaseController {
 			pd.put("keywords", keywords.trim());
 		}
 		logger.info("project_list" + JSON.toJSONString(pd));
+		
 		page.setPd(pd);
+		
 		List<PageData> varList = projectService.list(page); // 列出Project列表
 		mv.setViewName("system/project/project_list");
 		mv.addObject("varList", varList);
@@ -494,5 +496,38 @@ public class ProjectController extends BaseController {
 	@RequestMapping(value="/downExcel")
 	public void downExcel(HttpServletResponse response)throws Exception{
 		FileDownload.fileDownload(response, PathUtil.getClasspath() + Const.FILEPATHFILE + "设备采购单模版.xls", "设备采购单模版.xls");
+	}
+	
+	/**
+	 * 获取权限下的项目列表
+	 * @param pd
+	 * @return
+	 */
+	public PageData getProjectCheckList(PageData pd){
+		if(pd.get("PROJECT_CHECK") == null){
+			return pd;
+		}
+		
+		//获取区域负责人的项目列表
+		List<String> projectList = new ArrayList<String>();
+		List<PageData> varList;
+		try {
+			Page page = new Page();
+			page.setPd(pd);
+			varList = projectService.listProject(page);
+			System.out.println("项目"+JSON.toJSONString(varList));
+			if (varList != null && varList.size() > 0) {
+				for (PageData data : varList) {
+					projectList.add(data.getString("PROJECT_ID"));
+				}
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} // 列出Principal列表
+		logger.info("过滤项目id列表"+JSON.toJSONString(projectList));
+		pd.put("PROJECT_LIST", projectList);
+		
+		return pd;
 	}
 }

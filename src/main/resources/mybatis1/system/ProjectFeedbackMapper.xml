@@ -100,6 +100,13 @@
 					USERNAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
 				)
 		</if>
+		<if test="pd.PROJECT_LIST != null">
+			and PROJECT_ID in
+			<foreach collection="pd.PROJECT_LIST" index="index" item="custid"
+				open="(" separator="," close=")">
+				#{pd.PROJECT_LIST[${index}]}
+			</foreach>
+		</if>
 	</select>
 	
 	<!-- 列表(全部) -->

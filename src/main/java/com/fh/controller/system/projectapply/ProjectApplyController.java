@@ -13,6 +13,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.apache.shiro.session.Session;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -23,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
 import com.fh.controller.base.BaseEmailController;
+import com.fh.controller.system.project.ProjectController;
 import com.fh.entity.Page;
 import com.fh.entity.system.Dictionaries;
 import com.fh.entity.system.User;
@@ -56,6 +58,9 @@ public class ProjectApplyController extends BaseEmailController {
 	
 	@Resource(name="principalService")
 	private PrincipalManager principalService;
+	
+	@Autowired
+	ProjectController projectController;
 
 	/**
 	 * 保存
@@ -85,7 +90,6 @@ public class ProjectApplyController extends BaseEmailController {
 		
 		//查询当前项目下的负责人  没有的话 给管理员发信息
 		String areaUserName = principalService.getUserName(pd.getString("PROJECT_ID"));
-		System.out.println(areaUserName);
 		if("".equals(areaUserName) || areaUserName == null){
 			areaUserName = "admin";
 		}
@@ -177,6 +181,10 @@ public class ProjectApplyController extends BaseEmailController {
 		if (null != keywords && !"".equals(keywords)) {
 			pd.put("keywords", keywords.trim());
 		}
+		
+		pd = projectController.getProjectCheckList(pd);
+		System.out.println("pd----"+JSON.toJSONString(pd));
+		
 		page.setPd(pd);
 		List<PageData> varList = projectapplyService.list(page); // 列出ProjectApply列表
 		mv.setViewName("system/projectapply/projectapply_list");

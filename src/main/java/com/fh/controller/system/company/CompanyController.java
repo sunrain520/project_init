@@ -277,4 +277,21 @@ public class CompanyController extends BaseController {
 		map.put("result", errInfo);				//返回结果
 		return AppUtil.returnObject(new PageData(), map);
 	}
+	
+	/**
+	 * 更新k库存
+	 * 
+	 * @param out
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/updateStock")
+	public void updateStock(PrintWriter out) throws Exception {
+		logBefore(logger, Jurisdiction.getUsername() + "删除ProjectApply");
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		pd.put("COMPANY_ID", pd.get("USER_ID"));
+		companyService.updateStock(pd);
+		out.write("success");
+		out.close();
+	}
 }

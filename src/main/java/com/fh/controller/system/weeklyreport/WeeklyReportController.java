@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.fh.controller.base.BaseController;
+import com.fh.controller.system.project.ProjectController;
 import com.fh.entity.Page;
 import com.fh.util.AppUtil;
 import com.fh.util.ObjectExcelView;
@@ -37,6 +40,9 @@ public class WeeklyReportController extends BaseController {
 	String menuUrl = "weeklyreport/list.do"; //菜单地址(权限用)
 	@Resource(name="weeklyreportService")
 	private WeeklyReportManager weeklyreportService;
+	
+	@Autowired
+	ProjectController projectController;
 	
 	/**保存
 	 * @param
@@ -103,6 +109,8 @@ public class WeeklyReportController extends BaseController {
 		if(null != keywords && !"".equals(keywords)){
 			pd.put("keywords", keywords.trim());
 		}
+		
+		pd = projectController.getProjectCheckList(pd);
 		page.setPd(pd);
 		List<PageData>	varList = weeklyreportService.list(page);	//列出WeeklyReport列表
 		mv.setViewName("system/weeklyreport/weeklyreport_list");

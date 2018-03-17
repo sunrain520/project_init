@@ -130,4 +130,10 @@ public interface UserManager {
 	 */
 	public PageData getUserCount(String value)throws Exception;
 	
+	/**获取总数
+	 * @param pd
+	 * @throws Exception
+	 */
+	public PageData getUserCheckCount(String value)throws Exception;
+	
 }

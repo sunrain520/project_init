@@ -2,12 +2,15 @@ package com.fh.controller.base;
 
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.session.Session;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
@@ -15,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.fastjson.JSON;
 import com.fh.entity.Page;
 import com.fh.entity.system.User;
+import com.fh.service.system.project.ProjectManager;
+import com.fh.service.system.project.impl.ProjectService;
 import com.fh.util.Const;
 import com.fh.util.Jurisdiction;
 import com.fh.util.Logger;
@@ -24,16 +29,18 @@ import com.fh.util.UuidUtil;
 /**
  * @author
  */
+@Controller
 public class BaseController {
 
 	protected Logger logger = Logger.getLogger(this.getClass());
 
 	private static final long serialVersionUID = 6357869213649815390L;
-
+	
 	/**
 	 * new PageData对象
 	 * 
 	 * @return
+	 * @throws Exception 
 	 */
 	public PageData getPageData() {
 		PageData pd = new PageData(this.getRequest());
@@ -61,9 +68,19 @@ public class BaseController {
 			if(ROLE_ID != "" && ROLE_ID.equals("19666e042e6240e281d035237722fd2e")){
 				// 获取区域负责人省份列表
 				List<String> areaList = (List<String>) session.getAttribute(Const.SESSION_USER_AREA); 
-				logger.info(JSON.toJSONString(areaList));
+				logger.info("区域列表"+JSON.toJSONString(areaList));
 				pd.put("AREA", areaList);
+				
+				//需要过滤项目列表
+				if(areaList != null && areaList.size() > 0){
+					pd.put("PROJECT_CHECK", 1);
+				}
+				
 			}
+			
+			
+			
+			
 			logger.info(JSON.toJSONString(pd));
 
 		}

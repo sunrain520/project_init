@@ -164,6 +164,15 @@
 			NAME = #{NAME}
 	</select>
 	
+	<!-- 通过NAME获取数据 -->
+	<update id="updateStock" parameterType="pd"  >
+		update 
+			<include refid="tableName"></include>
+			set STOCK = #{STOCK}
+		where 
+			COMPANY_ID = #{COMPANY_ID}
+	</update>
+	
 	
 	<!-- kuang 767375210 -->
 </mapper>

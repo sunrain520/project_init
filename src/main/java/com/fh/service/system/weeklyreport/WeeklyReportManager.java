@@ -61,5 +61,11 @@ public interface WeeklyReportManager{
 	 */
 	public PageData findByName(PageData pd)throws Exception;
 	
+	/**列表
+	 * @param page
+	 * @throws Exception
+	 */
+	public PageData proReportCount(Page pd)throws Exception;
+	
 }
 

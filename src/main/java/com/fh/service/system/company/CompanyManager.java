@@ -61,5 +61,12 @@ public interface CompanyManager{
 	 */
 	public PageData findByName(PageData pd)throws Exception;
 	
+	/**通过NAEME获取数据
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public void updateStock(PageData pd)throws Exception;
+	
 }
 

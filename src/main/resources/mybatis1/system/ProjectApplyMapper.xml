@@ -130,6 +130,13 @@
 		<if test="pd.USER_ID!= null and pd.USER_ID != ''">
 			and USER_ID = #{pd.USER_ID}
 		</if>
+		<if test="pd.PROJECT_LIST != null">
+			and PROJECT_ID in
+			<foreach collection="pd.PROJECT_LIST" index="index" item="custid"
+				open="(" separator="," close=")">
+				#{pd.PROJECT_LIST[${index}]}
+			</foreach>
+		</if>
 		ORDER BY STATUS asc, CREATE_TIME DESC
 	</select>
 	
@@ -162,6 +169,20 @@
 			PROJECT_ID = #{NAME}
 	</select>
 	
+	<!-- 获取总数 -->
+	<select id="getProAppCheckCount" parameterType="page" resultType="pd">
+		select 
+			count(PROJECTAPPLY_ID) proAppCheckCount
+		from 
+		<include refid="tableName"></include> where  STATUS = #{pd.STATUS}
+		<if test="pd.PROJECT_LIST != null">
+			and PROJECT_ID in
+			<foreach collection="pd.PROJECT_LIST" index="index" item="custid"
+				open="(" separator="," close=")">
+				#{pd.PROJECT_LIST[${index}]}
+			</foreach>
+		</if>
+	</select>
 	
 	<!-- kuang 767375210 -->
 </mapper>

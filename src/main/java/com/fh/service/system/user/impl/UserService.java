@@ -181,4 +181,12 @@ public class UserService implements UserManager{
 		return (PageData)dao.findForObject("UserMapper.getUserCount", value);
 	}
 	
+	/**获取总数
+	 * @param pd
+	 * @throws Exception
+	 */
+	public PageData getUserCheckCount(String value)throws Exception{
+		return (PageData)dao.findForObject("UserMapper.getUserCheckCount", value);
+	}
+	
 }

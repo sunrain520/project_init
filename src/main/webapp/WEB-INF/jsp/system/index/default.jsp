@@ -16,7 +16,7 @@
 <!-- jsp文件头和头部 -->
 <%@ include file="../index/top.jsp"%>
 <!-- 百度echarts -->
-<script src="plugins/echarts/echarts.min.js"></script>
+<script src="plugins/echarts/echarts.js"></script>
 <script src="plugins/echarts/macarons.js"></script>
 <script type="text/javascript">
 setTimeout("top.hangge()",500);
@@ -26,6 +26,7 @@ setTimeout("top.hangge()",500);
 	margin-left: 20px;
 }
 </style>
+<link rel="stylesheet" href="plugins/layer/theme/default/layer.css" />
 </head>
 <body class="no-skin">
 
@@ -49,41 +50,59 @@ setTimeout("top.hangge()",500);
 						<div class="space-6"></div>
 
 						<div class="col-sm-12 ">
-							<a href="#" class="btn btn-app btn-default btn-sm no-radius" style="width: 180px;">
-								<i class="ace-icon fa fa-cog bigger-230"></i>
+							<c:if test="${QX.userCheck == 1 }">
+							<a href="javascript:void(0)" onclick="siMenu('z125','lm40','待审核用户','user/listUsers.do?TYPE=2&STATUS=0')" class="btn btn-app btn-info btn-sm no-radius" style="width: 180px;">
+								<i class="ace-icon fa fa-user-plus bigger-230"></i>
 								待审核用户
-								<span class="badge badge-pink">+3</span>
+								<span class="badge badge-pink">+${pd.checkCount}</span>
 							</a>
-							
-							<a href="#" class="btn btn-app btn-info btn-sm no-radius" style="width: 180px;">
-								<i class="ace-icon fa fa-envelope bigger-200"></i>
-								待审核项目
-								<span class="label label-inverse arrowed-in">6+</span>
+							</c:if>
+							<c:if test="${QX.applyCheck == 1 }">
+							<a href="javascript:void(0)" onclick="siMenu('z131','lm129','待审批项目','projectapply/list.do?STATUS=0')" class="btn btn-app btn-info btn-sm no-radius" style="width: 180px;">
+								<i class="ace-icon fa fa-tasks bigger-230"></i>
+								待审批项目
+								<span class="badge badge-danger">+${pd.proAppCheckCount}</span>
 							</a>
+							</c:if>
 							
-							<a href="#" class="btn btn-app btn-info btn-sm no-radius" style="width: 180px;">
-								<i class="ace-icon fa fa-envelope bigger-200"></i>
-								库存
-								<span class="label label-inverse arrowed-in">6+</span>
-							</a>
-							
-							<a href="#" class="btn btn-app btn-info btn-sm no-radius" style="width: 180px;">
-								<i class="ace-icon fa fa-envelope bigger-200"></i>
+							<c:if test="${QX.userCheck == 1 }">
+							<a href="javascript:void(0)" onclick="siMenu('z125','lm40','注册用户','user/listUsers.do?TYPE=2')" class="btn btn-app btn-info btn-sm no-radius" style="width: 180px;">
+								<i class="ace-icon fa fa-users bigger-230"> ${pd.registerCount}</i>
 								注册用户
-								<span class="label label-inverse arrowed-in">6+</span>
+<!-- 								<span class="badge badge-warning">+11</span> -->
+							</a>
+							<a href="javascript:void(0)" onclick="siMenu('z125','lm40','系统用户','user/listUsers.do?TYPE=1')" class="btn btn-app btn-info btn-sm no-radius" style="width: 180px;">
+								<i class="ace-icon fa fa-user-circle-o bigger-230" aria-hidden="true"> ${pd.userCount}</i>
+								系统用户
+								<span class="label label-inverse arrowed-in"></span>
+							</a>
+							<a href="javascript:void(0)" onclick="siMenu('z20','lm1','在线管理','onlinemanager/list.do')" class="btn btn-app btn-info btn-sm no-radius" style="width: 180px;">
+								<i class="ace-icon fa fa fa-comments-o bigger-230" id="onlineCount"> </i>
+								在线用户
+								<span class="label label-inverse arrowed-in"></span>
+							</a>
+							</c:if>
+							
+							<c:if test="${QX.feedBack == 1 }">
+							<a href="javascript:void(0)" onclick="siMenu('z41','lm40','新增项目','http://localhost:8080/MVNFHM/project/goAddProject.do')" class="btn btn-app btn-info btn-sm no-radius" style="width: 180px;">
+								<i class="ace-icon fa fa-plus bigger-230"> </i>
+								新增项目
+								<span class="badge badge-warning badge-left"></span>
 							</a>
 							
-							<a href="#" class="btn btn-app btn-info btn-sm no-radius" style="width: 180px;">
-								<i class="ace-icon fa fa-envelope bigger-200"></i>
+							<a href="javascript:void(0)" class="btn btn-app btn-info btn-sm no-radius" onclick="editStock(${pd.stock})" style="width: 180px;" title="点击编辑库存">
+								<i class="ace-icon fa fa-pencil-square-o bigger-230" id="stock_js"> ${pd.stock}</i>
 								库存
-								<span class="label label-inverse arrowed-in">6+</span>
+								<span class="badge badge-warning badge-left"></span>
 							</a>
 							
-							<a href="#" class="btn btn-app btn-primary btn-sm no-radius" style="width: 180px;">
-								<i class="ace-icon fa fa-pencil-square-o bigger-230">多萨达</i>
-								Edit
-								<span class="badge badge-warning badge-left">11</span>
+							<a href="javascript:void(0)" onclick="siMenu('z134','lm129','待添加周报列表','weeklyreport/list.do?STATUS=0')" class="btn btn-app btn-info btn-sm no-radius" style="width: 180px;">
+								<i class="ace-icon fa fa-pencil-square-o bigger-230"></i>
+								待提交周报
+								<span class="badge badge-warning badge-right">+${pd.proReportCount}</span>
 							</a>
+							</c:if>
+							
 						</div>
 					</div><!-- /row -->
 					
@@ -93,7 +112,7 @@ setTimeout("top.hangge()",500);
 						<div class="col-sm-6 widget-container-span ui-sortable">
 							<div class="widget-box transparent">
 								<div class="widget-header">
-									<h4 class="lighter">当前报备状态分布</h4>
+									<h4 class="lighter">项目报备状态分布</h4>
 								</div>
 
 								<div class="widget-body">
@@ -103,6 +122,7 @@ setTimeout("top.hangge()",500);
 								</div>
 							</div>
 						</div>
+						
 						<div class="col-sm-6 widget-container-span ui-sortable">
 							<div class="widget-box transparent">
 								<div class="widget-header">
@@ -116,6 +136,7 @@ setTimeout("top.hangge()",500);
 								</div>
 							</div>
 						</div>
+						
 					</div>
 					
 					<div class="space-12"></div>
@@ -134,13 +155,6 @@ setTimeout("top.hangge()",500);
 								</div>
 							</div>
 						</div>
-					</div>
-					
-					<div class="row">
-						<div class="col-xs-12">
-							<div id="main" style="width: 600px;height:300px;"></div>
-						</div>
-						<!-- /.col -->
 					</div>
 					
 					<!-- /.row -->
@@ -164,53 +178,97 @@ setTimeout("top.hangge()",500);
 	<%@ include file="../index/foot.jsp"%>
 	<!-- ace scripts -->
 	<script src="static/ace/js/ace/ace.js"></script>
+	<script type="text/javascript" charset="utf-8" src="plugins/layer/layer.js"></script>
 	<!-- inline scripts related to this page -->
 	<script type="text/javascript">
 		$(top.hangge());
+		
+		function editStock(num){
+			layer.prompt({title: '更新库存', value: num,formType: 0}, function(stock, index){
+			   if(isNaN(stock)){
+				  layer.msg('请输入数字');
+				  return;
+			   }
+			  $("#stock_js").html(stock);
+			  layer.close(index);
+			  
+			var url = "<%=basePath%>company/updateStock.do?STOCK="+stock;
+				$.get(url,function(data){
+				});
+			})
+		}
+		
+		//初始化
+		$(function(){
+			online();
+		});
+		
+		var websocketonline;//websocke对象
+		var userCount = 0;	//在线总数
+		function online(){
+			if (window.WebSocket) {
+				websocketonline = new WebSocket(encodeURI('ws://'+top.oladress)); //oladress在main.jsp页面定义
+				websocketonline.onopen = function() {
+					websocketonline.send('[QQ313596790]fhadmin');//连接成功
+				};
+				websocketonline.onerror = function() {
+					//连接失败
+				};
+				websocketonline.onclose = function() {
+					//连接断开
+				};
+				//消息接收
+				websocketonline.onmessage = function(message) {
+					var message = JSON.parse(message.data);
+					if (message.type == 'count') {
+						userCount = message.msg;
+					}else if(message.type == 'userlist'){
+						$("#userlist").html('');
+						 $.each(message.list, function(i, user){
+							 $("#userlist").append(
+								'<tr>'+	 
+									 '<td class="center">'+
+										'<label><input type="checkbox" name="ids" value="'+user+'" class="ace" /><span class="lbl"></span></label>'+
+									'</td>'+
+									'<td class="center">'+(i+1)+'</td>'+
+									'<td><a onclick="editUser(\''+user+'\')" style="cursor:pointer;">'+user+'</a></td>'+
+									'<td class="center">'+
+										'<button class="btn btn-mini btn-danger" onclick="goOutTUser(\''+user+'\')">强制下线</button>'+
+									'</td>'+
+								'</tr>'
+							 );
+							 userCount = i+1;
+						 });
+						 $("#onlineCount").html(userCount);
+					}else if(message.type == 'addUser'){
+						 $("#userlist").append(
+							'<tr>'+	 
+								 '<td class="center">'+
+									'<label><input type="checkbox" name="ids" value="'+message.user+'" class="ace" /><span class="lbl"></span></label>'+
+								'</td>'+
+								'<td class="center">'+(userCount+1)+'</td>'+
+								'<td><a onclick="editUser(\''+message.user+'\')" style="cursor:pointer;">'+message.user+'</a></td>'+
+								'<td class="center">'+
+									'<button class="btn btn-mini btn-danger" onclick="goOutTUser(\''+message.user+'\')">强制下线</button>'+
+								'</td>'+
+							'</tr>'
+						);
+						 userCount = userCount+1;
+						 $("#onlineCount").html(userCount);
+					}
+				};
+			}
+		}
 	</script>
-	<script type="text/javascript">
-       // 基于准备好的dom，初始化echarts实例
-       var myChart = echarts.init(document.getElementById('main'),"macarons");
-	       // 指定图表的配置项和数据
-		var option = {
-	           title: {
-	               text: '用户统计'
-	           },
-	           tooltip: {},
-	           xAxis: {
-	               data: ["系统用户","注册用户"]
-	           },
-	           yAxis: {},
-	           series: [
-	              {
-	               name: '',
-	               type: 'bar',
-	               data: [${pd.userCount},${pd.registerCount}],
-	               itemStyle: {
-	                   normal: {
-	                       color: function(params) {
-	                           // build a color map as your need.
-	                           var colorList = ['#6FB3E0','#87B87F'];
-	                           return colorList[params.dataIndex];
-	                       }
-	                   }
-	               }
-	              }
-	           ]
-	       };	        
-	
-	       // 使用刚指定的配置项和数据显示图表。
-	       myChart.setOption(option);
-	   </script>
-	   
 	   <script type="text/javascript">
+	   // 项目报备记录
 	   var reportHistoryChart = echarts.init(document.getElementById('reportHistory'),"macarons");
 	   option = {
 			    tooltip : {
 			        trigger: 'axis'
 			    },
 			    legend: {
-			        data:['蒸发量','降水量']
+			        data:['新报备','审核通过','中标']
 			    },
 			    toolbox: {
 			        show : true,
@@ -225,18 +283,25 @@ setTimeout("top.hangge()",500);
 			    calculable : true,
 			    xAxis : [
 			        {
+			        	name:"代理商",
+			        	nameLocation:'end',//坐标轴名称显示位置。
 			            type : 'category',
-			            data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+			            data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
+			            axisLabel : {//坐标轴刻度标签的相关设置。
+			                interval:0,
+			                rotate:"45"
+			            }
 			        }
 			    ],
 			    yAxis : [
 			        {
+			        	name:"单位：个",
 			            type : 'value'
 			        }
 			    ],
 			    series : [
 			        {
-			            name:'蒸发量',
+			            name:'新报备',
 			            type:'bar',
 			            data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
 			            markPoint : {
@@ -252,7 +317,7 @@ setTimeout("top.hangge()",500);
 			            }
 			        },
 			        {
-			            name:'降水量',
+			            name:'审核通过',
 			            type:'bar',
 			            data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
 			            markPoint : {
@@ -266,13 +331,31 @@ setTimeout("top.hangge()",500);
 			                    {type : 'average', name : '平均值'}
 			                ]
 			            }
+			        },
+			        {
+			            name:'中标',
+			            type:'bar',
+			            data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 122.3],
+			            markPoint : {
+			                data : [
+			                    {name : '年最高', value : 182.2, xAxis: 7, yAxis: 183, symbolSize:18},
+			                    {name : '年最低', value : 2.3, xAxis: 11, yAxis: 3}
+			                ]
+			            },
+			            markLine : {
+			                data : [
+			                    {type : 'average', name : '平均值'}
+			                ]
+			            }
 			        }
+			        
 			    ]
 			};
 	   reportHistoryChart.setOption(option);                   
 	   </script>
 	   
 	   <script type="text/javascript">
+	   // 项目状态分布
 	   option = {
 			    tooltip : {
 			        trigger: 'item',
@@ -281,7 +364,7 @@ setTimeout("top.hangge()",500);
 			    legend: {
 			        orient : 'vertical',
 			        x : 'left',
-			        data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
+			        data:['待审批','审批通过','审批不通过','报备失效','其他']
 			    },
 			    toolbox: {
 			        show : true,
@@ -307,17 +390,18 @@ setTimeout("top.hangge()",500);
 			    calculable : true,
 			    series : [
 			        {
-			            name:'访问来源',
+			            name:'报备状态',
 			            type:'pie',
 			            radius : '55%',
 			            center: ['50%', '60%'],
 			            data:[
-			                {value:335, name:'直接访问'},
-			                {value:310, name:'邮件营销'},
-			                {value:234, name:'联盟广告'},
-			                {value:135, name:'视频广告'},
-			                {value:1548, name:'搜索引擎'}
-			            ]
+			                {value:335, name:'待审批'},
+			                {value:310, name:'审批通过'},
+			                {value:234, name:'审批不通过'},
+			                {value:135, name:'报备失效'},
+			                {value:1548, name:'其他'}
+			            ],
+			            color:['#2ec0e8','#52be7f','#ff7474','#ffd03e','#b2b2b2']
 			        }
 			    ]
 			};
@@ -327,6 +411,7 @@ setTimeout("top.hangge()",500);
 	   </script>
 	   
 	    <script type="text/javascript">
+	    // 项目赢率
 	   option = {
 			    tooltip : {
 			        trigger: 'item',
@@ -335,7 +420,7 @@ setTimeout("top.hangge()",500);
 			    legend: {
 			        orient : 'vertical',
 			        x : 'left',
-			        data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
+			        data:['0%-30%','30%-50%','50%-70%','70%以上']
 			    },
 			    toolbox: {
 			        show : true,
@@ -361,17 +446,17 @@ setTimeout("top.hangge()",500);
 			    calculable : true,
 			    series : [
 			        {
-			            name:'访问来源',
+			            name:'赢率分布',
 			            type:'pie',
 			            radius : '55%',
 			            center: ['50%', '60%'],
 			            data:[
-			                {value:335, name:'直接访问'},
-			                {value:310, name:'邮件营销'},
-			                {value:234, name:'联盟广告'},
-			                {value:135, name:'视频广告'},
-			                {value:1548, name:'搜索引擎'}
-			            ]
+			                {value:335, name:'0%-30%'},
+			                {value:310, name:'30%-50%'},
+			                {value:234, name:'50%-70%'},
+			                {value:135, name:'70%以上'},
+			            ],
+			            color:['#2ec0e8','#ffd03e','#ff7474','#52be7f']
 			        }
 			    ]
 			};
@@ -379,7 +464,35 @@ setTimeout("top.hangge()",500);
 	   projectRateChart.setOption(option);  
 	   
 	   </script>
-	   
+	   <script type="text/javascript">
+	   var fmid = "fhindex";	//菜单点中状态
+	   var mid = "fhindex";	//菜单点中状态
+	   function siMenu(id,fid,MENU_NAME,MENU_URL){
+			if(id != mid){
+				$("#"+mid).removeClass();
+				mid = id;
+			}
+			if(fid != fmid){
+				$("#"+fmid).removeClass();
+				fmid = fid;
+			}
+			$("#"+fid).attr("class","active open");
+			$("#"+id).attr("class","active");
+			top.mainFrame.tabAddHandler(id,MENU_NAME,MENU_URL);
+			if(MENU_URL != "druid/index.html"){
+				jzts();
+			}
+		}
+	 //清除加载进度
+	   function hangge(){
+	   	$("#jzts").hide();
+	   }
+
+	   //显示加载进度
+	   function jzts(){
+	   	$("#jzts").show();
+	   }
+	   </script>
 <script type="text/javascript" src="static/ace/js/jquery.js"></script>
 </body>
 </html>

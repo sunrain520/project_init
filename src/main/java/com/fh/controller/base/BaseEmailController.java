@@ -54,8 +54,8 @@ public class BaseEmailController extends BaseController {
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		String msg = "ok"; // 发送状态
-		String usernane = parameters.get("USERNAME")==null?"admin":parameters.get("USERNAME"); // 对方用户名
-		String admin = parameters.get("TOUSERNAME")==null?"admin":parameters.get("TOUSERNAME"); // 对方用户名
+		String usernane = parameters.get("USERNAME")==null?"admin_op":parameters.get("USERNAME"); // 对方用户名
+		String admin = parameters.get("TOUSERNAME")==null?"admin_op":parameters.get("TOUSERNAME"); // 对方用户名
 		String title = parameters.get("TITLE"); // 对方用户名
 		try {
 			pd.put("STATUS", "2"); // 状态

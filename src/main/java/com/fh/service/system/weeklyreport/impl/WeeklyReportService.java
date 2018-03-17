@@ -86,5 +86,14 @@ public class WeeklyReportService implements WeeklyReportManager{
 	public PageData findByName(PageData pd)throws Exception{
 		return (PageData)dao.findForObject("WeeklyReportMapper.findByName", pd);
 	}
+	
+	/**获取周报数量
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public PageData proReportCount(Page pd)throws Exception{
+		return (PageData)dao.findForObject("WeeklyReportMapper.proReportCount", pd);
+	}
 }
 

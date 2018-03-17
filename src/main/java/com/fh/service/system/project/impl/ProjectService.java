@@ -112,5 +112,14 @@ public class ProjectService implements ProjectManager{
 	public PageData findByName(PageData pd)throws Exception{
 		return (PageData)dao.findForObject("ProjectMapper.findByName", pd);
 	}
+	
+	/**通过NAME获取数据
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PageData> findListByArea(Page page)throws Exception{
+		return (List<PageData>)dao.findForObject("ProjectMapper.findListByArea", page);
+	}
 }
 

@@ -57,6 +57,14 @@
 									</c:forEach>
 								  	</select>
 								</td>
+								
+								<td>
+									<select name="STATUS" title="状态" style="width: 100px;height: 32px;background: #FAFAFA;line-height: 28px; margin-left: 2px;">
+									<option value="1" <c:if test="${pd.STATUS == '1' }">selected</c:if> >正常</option>
+									<option value="0" <c:if test="${pd.STATUS == '0' }">selected</c:if> >待审核</option>
+									<option value="2" <c:if test="${pd.STATUS == '2' }">selected</c:if> >拒绝</option>
+									</select>
+								</td>
 								<c:if test="${QX.cha == 1 }">
 								<td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="searchs();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
 								<c:if test="${QX.toExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="toExcel();" title="导出到EXCEL"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td></c:if>

@@ -14,6 +14,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,22 +23,27 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
 import com.fh.controller.base.BaseController;
+import com.fh.controller.system.project.ProjectController;
+import com.fh.entity.Page;
+import com.fh.entity.system.Dictionaries;
+import com.fh.entity.system.Menu;
+import com.fh.entity.system.Role;
+import com.fh.entity.system.User;
 import com.fh.service.fhoa.datajur.DatajurManager;
 import com.fh.service.system.appuser.AppuserManager;
 import com.fh.service.system.buttonrights.ButtonrightsManager;
+import com.fh.service.system.company.CompanyManager;
 import com.fh.service.system.dictionaries.DictionariesManager;
 import com.fh.service.system.fhbutton.FhbuttonManager;
 import com.fh.service.system.fhlog.FHlogManager;
 import com.fh.service.system.loginimg.LogInImgManager;
 import com.fh.service.system.menu.MenuManager;
 import com.fh.service.system.principal.PrincipalManager;
-import com.fh.entity.Page;
-import com.fh.entity.system.Dictionaries;
-import com.fh.entity.system.Menu;
-import com.fh.entity.system.Role;
-import com.fh.entity.system.User;
+import com.fh.service.system.project.ProjectManager;
+import com.fh.service.system.projectapply.ProjectApplyManager;
 import com.fh.service.system.role.RoleManager;
 import com.fh.service.system.user.UserManager;
+import com.fh.service.system.weeklyreport.WeeklyReportManager;
 import com.fh.util.AppUtil;
 import com.fh.util.Const;
 import com.fh.util.DateUtil;
@@ -80,7 +86,18 @@ public class LoginController extends BaseController {
 	private DictionariesManager dictionariesService;
 	@Resource(name = "principalService")
 	private PrincipalManager principalService;
+	
+	@Resource(name = "projectapplyService")
+	private ProjectApplyManager projectapplyService;
 
+	@Autowired
+	ProjectController projectController;
+	
+	@Resource(name="weeklyreportService")
+	private WeeklyReportManager weeklyreportService;
+	
+	@Resource(name="companyService")
+	private CompanyManager companyService;
 	/**
 	 * 访问登录页
 	 * 
@@ -439,8 +456,33 @@ public class LoginController extends BaseController {
 	public ModelAndView defaultPage() throws Exception {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
+		pd = this.getPageData();
+		
 		pd.put("userCount", Integer.parseInt(userService.getUserCount("1").get("userCount").toString()) - 1); // 系统用户数
 		pd.put("registerCount", Integer.parseInt(userService.getUserCount("2").get("userCount").toString())); // 会员数
+		
+		// 获取待审核用户
+		pd.put("checkCount", Integer.parseInt(userService.getUserCheckCount("2").get("userCheckCount").toString()));
+		
+		//获取待审批项目数量
+		Page page = new Page();
+		pd.put("STATUS", 0);
+		pd = projectController.getProjectCheckList(pd);
+		page.setPd(pd);
+		pd.put("proAppCheckCount", Integer.parseInt(projectapplyService.getProAppCheckCount(page).get("proAppCheckCount").toString()));
+		
+		// 获取待提交周报数量
+		pd.put("proReportCount", Integer.parseInt(weeklyreportService.proReportCount(page).get("proReportCount").toString()));
+		
+		// 获取库存
+		pd.put("stock" ,0);
+		if(pd.get("USER_ID") != null ){
+			pd.put("COMPANY_ID", pd.get("USER_ID"));
+			pd.put("stock", Integer.parseInt(companyService.findById(pd).get("STOCK").toString()));
+		}
+		
+		// 获取项目报备状态分布
+		
 		mv.addObject("pd", pd);
 		mv.setViewName("system/index/default");
 		mv.addObject("QX", Jurisdiction.getHC()); // 按钮权限

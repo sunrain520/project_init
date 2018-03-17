@@ -402,4 +402,12 @@
 		<include refid="tableName"></include> where TYPE = #{_parameter}
 	</select>
 	
+		<!-- 获取总数 -->
+	<select id="getUserCheckCount" parameterType="String" resultType="pd">
+		select 
+			count(USER_ID) userCheckCount
+		from 
+		<include refid="tableName"></include> where TYPE = #{_parameter} AND STATUS = 0
+	</select>
+	
 </mapper>

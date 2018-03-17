@@ -70,6 +70,13 @@ public interface ProjectManager{
 	 * @throws Exception
 	 */
 	public PageData findByName(PageData pd)throws Exception;
+
+	/**通过区域获取数据
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PageData> findListByArea(Page page)throws Exception;
 	
 }
 

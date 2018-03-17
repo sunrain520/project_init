@@ -95,5 +95,15 @@ public class ProjectApplyService implements ProjectApplyManager{
 		// TODO Auto-generated method stub
 		dao.update("ProjectApplyMapper.checkProjectApply", pd);
 	}
+	
+	/**通过NAME获取数据
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public PageData getProAppCheckCount(Page pd)throws Exception{
+		return (PageData)dao.findForObject("ProjectApplyMapper.getProAppCheckCount", pd);
+	}
+	
 }
 

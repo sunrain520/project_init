@@ -66,5 +66,11 @@ public interface ProjectApplyManager{
 	 */
 	public PageData findByName(PageData pd)throws Exception;
 
+	
+	/**获取总数
+	 * @param pd
+	 * @throws Exception
+	 */
+	public PageData getProAppCheckCount(Page page)throws Exception;
 }
 

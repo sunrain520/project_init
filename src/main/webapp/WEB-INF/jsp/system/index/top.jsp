@@ -5,7 +5,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 		<!-- bootstrap & fontawesome -->
 		<link rel="stylesheet" href="static/ace/css/bootstrap.css" />
-		<link rel="stylesheet" href="static/ace/css/font-awesome.css" />
+<!-- 		<link rel="stylesheet" href="static/ace/css/font-awesome.css" /> -->
+		<link rel="stylesheet" href="plugins/font-awesome-4.7.0/css/font-awesome.css" />
 		<!-- page specific plugin styles -->
 		<!-- text fonts -->
 		<link rel="stylesheet" href="static/ace/css/ace-fonts.css" />

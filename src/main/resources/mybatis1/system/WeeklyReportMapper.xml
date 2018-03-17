@@ -110,6 +110,13 @@
 		<if test="pd.USER_ID!= null and pd.USER_ID != ''">
 			and USER_ID = #{pd.USER_ID}
 		</if>
+		<if test="pd.PROJECT_LIST != null">
+			and PROJECT_ID in
+			<foreach collection="pd.PROJECT_LIST" index="index" item="custid"
+				open="(" separator="," close=")">
+				#{pd.PROJECT_LIST[${index}]}
+			</foreach>
+		</if>
 		ORDER BY  CREATE_TIME DESC
 	</select>
 	
@@ -140,6 +147,23 @@
 			<include refid="tableName"></include>
 		where 
 			PROJECT_NAME = #{NAME}
+	</select>
+	
+	<!-- 通过NAME获取数据 -->
+	<select id="proReportCount" parameterType="pd" resultType="pd" >
+		select 
+			COUNT(WEEKLYREPORT_ID) proReportCount
+		from 
+			<include refid="tableName"></include>
+		where 
+			1 = 1
+		<if test="pd.STATUS != null">
+			and STATUS = #{pd.STATUS}
+		</if>
+		<if test="pd.USER_ID!= null and pd.USER_ID != ''">
+			and USER_ID = #{pd.USER_ID}
+		</if>
+			
 	</select>
 	
 	
