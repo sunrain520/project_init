@@ -183,7 +183,6 @@ public class ProjectApplyController extends BaseEmailController {
 		}
 		
 		pd = projectController.getProjectCheckList(pd);
-		System.out.println("pd----"+JSON.toJSONString(pd));
 		
 		page.setPd(pd);
 		List<PageData> varList = projectapplyService.list(page); // 列出ProjectApply列表

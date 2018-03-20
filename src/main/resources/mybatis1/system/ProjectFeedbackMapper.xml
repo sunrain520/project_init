@@ -107,6 +107,16 @@
 				#{pd.PROJECT_LIST[${index}]}
 			</foreach>
 		</if>
+		<if test="pd.USER_ID!= null and pd.USER_ID != ''">
+			and USER_ID = #{pd.USER_ID}
+		</if>
+		<if test="pd.PROJECT_LIST != null">
+			and PROJECT_ID in
+			<foreach collection="pd.PROJECT_LIST" index="index" item="custid"
+				open="(" separator="," close=")">
+				#{pd.PROJECT_LIST[${index}]}
+			</foreach>
+		</if>
 	</select>
 	
 	<!-- 列表(全部) -->

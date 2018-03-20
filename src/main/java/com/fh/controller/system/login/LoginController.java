@@ -1,6 +1,7 @@
 package com.fh.controller.system.login;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -86,18 +87,22 @@ public class LoginController extends BaseController {
 	private DictionariesManager dictionariesService;
 	@Resource(name = "principalService")
 	private PrincipalManager principalService;
-	
+
 	@Resource(name = "projectapplyService")
 	private ProjectApplyManager projectapplyService;
 
 	@Autowired
 	ProjectController projectController;
-	
-	@Resource(name="weeklyreportService")
+
+	@Resource(name = "weeklyreportService")
 	private WeeklyReportManager weeklyreportService;
-	
-	@Resource(name="companyService")
+
+	@Resource(name = "companyService")
 	private CompanyManager companyService;
+
+	@Resource(name = "projectService")
+	private ProjectManager projectService;
+
 	/**
 	 * 访问登录页
 	 * 
@@ -457,36 +462,73 @@ public class LoginController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		
+
 		pd.put("userCount", Integer.parseInt(userService.getUserCount("1").get("userCount").toString()) - 1); // 系统用户数
 		pd.put("registerCount", Integer.parseInt(userService.getUserCount("2").get("userCount").toString())); // 会员数
-		
+
 		// 获取待审核用户
 		pd.put("checkCount", Integer.parseInt(userService.getUserCheckCount("2").get("userCheckCount").toString()));
-		
-		//获取待审批项目数量
+
+		// 获取待审批项目数量
 		Page page = new Page();
 		pd.put("STATUS", 0);
 		pd = projectController.getProjectCheckList(pd);
 		page.setPd(pd);
-		pd.put("proAppCheckCount", Integer.parseInt(projectapplyService.getProAppCheckCount(page).get("proAppCheckCount").toString()));
-		
+		pd.put("proAppCheckCount",
+				Integer.parseInt(projectapplyService.getProAppCheckCount(page).get("proAppCheckCount").toString()));
+
 		// 获取待提交周报数量
-		pd.put("proReportCount", Integer.parseInt(weeklyreportService.proReportCount(page).get("proReportCount").toString()));
-		
+		pd.put("proReportCount",
+				Integer.parseInt(weeklyreportService.proReportCount(page).get("proReportCount").toString()));
+
 		// 获取库存
-		pd.put("stock" ,0);
-		if(pd.get("USER_ID") != null ){
+		pd.put("stock", 0);
+		if (pd.get("USER_ID") != null) {
 			pd.put("COMPANY_ID", pd.get("USER_ID"));
 			pd.put("stock", Integer.parseInt(companyService.findById(pd).get("STOCK").toString()));
 		}
-		
+
 		// 获取项目报备状态分布
-		
+		List<PageData> varList = projectService.listProjectIndex(page);
+		pd = calProjectStatusNum(varList, pd);
+		System.out.println(JSON.toJSONString(pd));
+
 		mv.addObject("pd", pd);
 		mv.setViewName("system/index/default");
 		mv.addObject("QX", Jurisdiction.getHC()); // 按钮权限
 		return mv;
+	}
+
+	public PageData calProjectStatusNum(List<PageData> varList, PageData pd) {
+		List<String> statusX = Arrays.asList("待审批", "审批通过", "审批不通过", "未提交报备", "其他");
+		List<Integer> statusY = Arrays.asList(0, 0, 0, 0, 0);
+		if (varList.size() == 0 || varList == null) {
+			pd.put("statusX", statusX);
+			pd.put("statusY", statusY);
+			return pd;
+		}
+		for (PageData p : varList) {
+			if (p.get("STATUS") == null) {
+				statusY.set(3, statusY.get(3) + 1);
+				continue;
+			}
+			switch (p.get("STATUS").toString()) {
+			case "0":
+				statusY.set(0, statusY.get(0) + 1);
+				break;
+			case "1":
+				statusY.set(1, statusY.get(1) + 1);
+				break;
+			case "2":
+				statusY.set(2, statusY.get(2) + 1);
+				break;
+			default:
+				break;
+			}
+		}
+		pd.put("statusX", statusX);
+		pd.put("statusY", statusY);
+		return pd;
 	}
 
 	/**

@@ -70,6 +70,11 @@ public class ProjectService implements ProjectManager{
 		return (List<PageData>)dao.findForList("ProjectMapper.datalistProject", page);
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<PageData> listProjectIndex(Page page)throws Exception{
+		return (List<PageData>)dao.findForList("ProjectMapper.listProjectIndex", page);
+	}
+	
 	/**周报统计
 	 * @param page
 	 * @throws Exception

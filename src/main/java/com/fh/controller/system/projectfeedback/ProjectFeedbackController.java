@@ -111,6 +111,7 @@ public class ProjectFeedbackController extends BaseController {
 		}
 		
 		pd = projectController.getProjectCheckList(pd);
+		
 		page.setPd(pd);
 		List<PageData>	varList = projectfeedbackService.list(page);	//列出ProjectFeedback列表
 		mv.setViewName("system/projectfeedback/projectfeedback_list");

@@ -44,6 +44,9 @@ public interface ProjectManager{
 	
 	public List<PageData> listProject(Page page)throws Exception;
 	
+	//首页饼图
+	public List<PageData> listProjectIndex(Page page)throws Exception;
+	
 	public List<PageData> listProjectReport(Page page)throws Exception;
 	
 	/**列表(全部)

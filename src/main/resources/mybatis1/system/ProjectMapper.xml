@@ -186,6 +186,28 @@
 		</if>
 		order by po.CREATE_TIME desc
 	</select>
+	
+	<!-- 列表 -->
+	<select id="listProjectIndex" parameterType="page" resultType="pd">
+		select
+		po.PROJECT_NAME,
+		po.PROJECT_ID,
+		pa.STATUS
+		from
+		<include refid="tableName"></include> po  left join tb_projectapply pa on po.PROJECT_ID = pa.PROJECT_ID
+		where 1=1
+		<if test="pd.USER_ID!= null and pd.USER_ID != ''">
+			and po.USER_ID = #{pd.USER_ID}
+		</if>
+		<if test="pd.AREA != null">
+			and po.AREA_ID in
+			<foreach collection="pd.AREA" index="index" item="custid"
+				open="(" separator="," close=")">
+				#{pd.AREA[${index}]}
+			</foreach>
+		</if>
+		order by po.CREATE_TIME desc
+	</select>
 
 	<!-- 列表 -->
 	<select id="datalistProject" parameterType="page" resultType="pd">
@@ -196,6 +218,13 @@
 		where 1=1
 		<if test="pd.USER_ID!= null and pd.USER_ID != ''">
 			and USER_ID = #{pd.USER_ID}
+		</if>
+		<if test="pd.AREA != null">
+			and AREA_ID in
+			<foreach collection="pd.AREA" index="index" item="custid"
+				open="(" separator="," close=")">
+				#{pd.AREA[${index}]}
+			</foreach>
 		</if>
 		order by CREATE_TIME desc
 	</select>

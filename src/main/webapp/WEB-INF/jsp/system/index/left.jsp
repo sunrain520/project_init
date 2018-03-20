@@ -41,11 +41,10 @@
 					<li class="">
 						<a href="main/index">
 							<i class="menu-icon fa fa-tachometer"></i>
-							<span class="menu-text">后台首页</span>
+							<span class="menu-text">主页</span>
 						</a>
 						<b class="arrow"></b>
 					</li>
-
 
 				<c:forEach items="${menuList}" var="menu1">
 				<c:if test="${menu1.hasMenu && '1' == menu1.MENU_STATE}">

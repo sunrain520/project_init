@@ -268,7 +268,7 @@ setTimeout("top.hangge()",500);
 			        trigger: 'axis'
 			    },
 			    legend: {
-			        data:['新报备','审核通过','中标']
+			        data:['报备总数','审核通过','中标']
 			    },
 			    toolbox: {
 			        show : true,
@@ -364,7 +364,7 @@ setTimeout("top.hangge()",500);
 			    legend: {
 			        orient : 'vertical',
 			        x : 'left',
-			        data:['待审批','审批通过','审批不通过','报备失效','其他']
+			        data:['待审批','审批通过','审批不通过','未提交报备','其他']
 			    },
 			    toolbox: {
 			        show : true,
@@ -395,11 +395,11 @@ setTimeout("top.hangge()",500);
 			            radius : '55%',
 			            center: ['50%', '60%'],
 			            data:[
-			                {value:335, name:'待审批'},
-			                {value:310, name:'审批通过'},
-			                {value:234, name:'审批不通过'},
-			                {value:135, name:'报备失效'},
-			                {value:1548, name:'其他'}
+			                {value:${pd.statusY.get(0)}, name:'待审批'},
+			                {value:${pd.statusY.get(1)}, name:'审批通过'},
+			                {value:${pd.statusY.get(2)}, name:'审批不通过'},
+			                {value:${pd.statusY.get(3)}, name:'未提交报备'},
+			                {value:${pd.statusY.get(4)}, name:'其他'}
 			            ],
 			            color:['#2ec0e8','#52be7f','#ff7474','#ffd03e','#b2b2b2']
 			        }
