@@ -1,102 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="WeeklyReportMapper">
-	
+
 	<!--表名 -->
 	<sql id="tableName">
 		TB_WEEKLYREPORT
 	</sql>
-	
+
 	<!-- 字段 -->
 	<sql id="Field">
-		PROJECT_NAME,	
-		PROJECT_ID,	
-		PLAN,	
-		PROB,	
-		PROBLEM,	
-		HELP,	
-		USER_ID,	
-		USERNAME,	
-		STATUS,	
-		CREATE_TIME,	
+		PROJECT_NAME,
+		PROJECT_ID,
+		PLAN,
+		PROB,
+		PROBLEM,
+		HELP,
+		USER_ID,
+		USERNAME,
+		STATUS,
+		CREATE_TIME,
 		WEEKLYREPORT_ID
 	</sql>
-	
+
 	<!-- 字段值 -->
 	<sql id="FieldValue">
-		#{PROJECT_NAME},	
-		#{PROJECT_ID},	
-		#{PLAN},	
-		#{PROB},	
-		#{PROBLEM},	
-		#{HELP},	
-		#{USER_ID},	
-		#{USERNAME},	
+		#{PROJECT_NAME},
+		#{PROJECT_ID},
+		#{PLAN},
+		#{PROB},
+		#{PROBLEM},
+		#{HELP},
+		#{USER_ID},
+		#{USERNAME},
 		#{STATUS},
-		now(),	
+		now(),
 		#{WEEKLYREPORT_ID}
 	</sql>
-	
-	<!-- 新增-->
+
+	<!-- 新增 -->
 	<insert id="save" parameterType="pd">
-		insert into 
-	<include refid="tableName"></include>
+		insert into
+		<include refid="tableName"></include>
 		(
-	<include refid="Field"></include>
+		<include refid="Field"></include>
 		) values (
-	<include refid="FieldValue"></include>
+		<include refid="FieldValue"></include>
 		)
 	</insert>
-	
-	<!-- 删除-->
+
+	<!-- 删除 -->
 	<delete id="delete" parameterType="pd">
 		delete from
 		<include refid="tableName"></include>
-		where 
-			WEEKLYREPORT_ID = #{WEEKLYREPORT_ID}
+		where
+		WEEKLYREPORT_ID = #{WEEKLYREPORT_ID}
 	</delete>
-	
+
 	<!-- 修改 -->
 	<update id="edit" parameterType="pd">
 		update
 		<include refid="tableName"></include>
-		set 
-			PROJECT_NAME = #{PROJECT_NAME},
-			PROJECT_ID = #{PROJECT_ID},
-			PLAN = #{PLAN},
-			PROB = #{PROB},
-			PROBLEM = #{PROBLEM},
-			HELP = #{HELP},
-			STATUS = #{STATUS},
+		set
+		PROJECT_NAME = #{PROJECT_NAME},
+		PROJECT_ID = #{PROJECT_ID},
+		PLAN = #{PLAN},
+		PROB = #{PROB},
+		PROBLEM = #{PROBLEM},
+		HELP = #{HELP},
+		STATUS = #{STATUS},
 		WEEKLYREPORT_ID = WEEKLYREPORT_ID
-		where 
+		where
 		WEEKLYREPORT_ID = #{WEEKLYREPORT_ID}
 	</update>
-	
+
 	<!-- 通过ID获取数据 -->
 	<select id="findById" parameterType="pd" resultType="pd">
-		select 
+		select
 		<include refid="Field"></include>
-		from 
+		from
 		<include refid="tableName"></include>
-		where 
-			WEEKLYREPORT_ID = #{WEEKLYREPORT_ID}
+		where
+		WEEKLYREPORT_ID = #{WEEKLYREPORT_ID}
 	</select>
-	
+
 	<!-- 列表 -->
 	<select id="datalistPage" parameterType="page" resultType="pd">
 		select
 		<include refid="Field"></include>
-		from 
+		from
 		<include refid="tableName"></include>
 		where 1=1
 		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
 			and
-				(
-					PROJECT_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
-					 or 
-					USERNAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
-				)
+			(
+			PROJECT_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+			or
+			USERNAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+			)
 		</if>
 		<if test="pd.STATUS != null and pd.STATUS != ''">
 			and STATUS = #{pd.STATUS}
@@ -117,55 +117,75 @@
 				#{pd.PROJECT_LIST[${index}]}
 			</foreach>
 		</if>
-		ORDER BY  CREATE_TIME DESC
+		ORDER BY CREATE_TIME DESC
 	</select>
-	
+
+	<!-- 列表 -->
+	<select id="listProb" parameterType="page" resultType="pd">
+		SELECT PROJECT_ID,CREATE_TIME,PROB
+		FROM tb_weeklyreport a
+		WHERE NOT EXISTS (SELECT 1 FROM tb_weeklyreport WHERE
+		PROJECT_ID=a.PROJECT_ID AND CREATE_TIME>a.CREATE_TIME)
+		<if test="pd.USER_ID!= null and pd.USER_ID != ''">
+			and USER_ID = #{pd.USER_ID}
+		</if>
+		<if test="pd.PROJECT_LIST != null">
+			and PROJECT_ID in
+			<foreach collection="pd.PROJECT_LIST" index="index" item="custid"
+				open="(" separator="," close=")">
+				#{pd.PROJECT_LIST[${index}]}
+			</foreach>
+		</if>
+		ORDER BY CREATE_TIME DESC
+	</select>
+
 	<!-- 列表(全部) -->
 	<select id="listAll" parameterType="pd" resultType="pd">
 		select
 		<include refid="Field"></include>
-		from 
+		from
 		<include refid="tableName"></include>
 	</select>
-	
+
 	<!-- 批量删除 -->
 	<delete id="deleteAll" parameterType="String">
 		delete from
 		<include refid="tableName"></include>
-		where 
-			WEEKLYREPORT_ID in
-		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
-                 #{item}
+		where
+		WEEKLYREPORT_ID in
+		<foreach item="item" index="index" collection="array" open="("
+			separator="," close=")">
+			#{item}
 		</foreach>
 	</delete>
-	
+
 	<!-- 通过NAME获取数据 -->
-	<select id="findByName" parameterType="pd" resultType="pd" >
-		select 
-			<include refid="Field"></include>
-		from 
-			<include refid="tableName"></include>
-		where 
-			PROJECT_NAME = #{NAME}
+	<select id="findByName" parameterType="pd" resultType="pd">
+		select
+		<include refid="Field"></include>
+		from
+		<include refid="tableName"></include>
+		where
+		PROJECT_NAME = #{NAME}
 	</select>
-	
+
 	<!-- 通过NAME获取数据 -->
-	<select id="proReportCount" parameterType="pd" resultType="pd" >
-		select 
-			COUNT(WEEKLYREPORT_ID) proReportCount
-		from 
-			<include refid="tableName"></include>
-		where 
-			1 = 1
+	<select id="proReportCount" parameterType="pd" resultType="pd">
+		select
+		COUNT(WEEKLYREPORT_ID) proReportCount
+		from
+		<include refid="tableName"></include>
+		where
+		1 = 1
 		<if test="pd.STATUS != null">
 			and STATUS = #{pd.STATUS}
 		</if>
 		<if test="pd.USER_ID!= null and pd.USER_ID != ''">
 			and USER_ID = #{pd.USER_ID}
 		</if>
-			
+
 	</select>
-	
-	
+
+
 	<!-- kuang 767375210 -->
 </mapper>

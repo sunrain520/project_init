@@ -491,12 +491,87 @@ public class LoginController extends BaseController {
 		// 获取项目报备状态分布
 		List<PageData> varList = projectService.listProjectIndex(page);
 		pd = calProjectStatusNum(varList, pd);
-		System.out.println(JSON.toJSONString(pd));
+
+		// 获取项目成功率
+		List<PageData> probList = weeklyreportService.listProb(page);
+		pd = calProjectProbNum(probList, pd);
+
+		// 获取代理商列表
+		List<PageData> companyList = companyService.listIndex(page);
+		pd = calCompanyNum(companyList, varList, pd);
 
 		mv.addObject("pd", pd);
 		mv.setViewName("system/index/default");
 		mv.addObject("QX", Jurisdiction.getHC()); // 按钮权限
+		
 		return mv;
+	}
+
+	private PageData calCompanyNum(List<PageData> companyList, List<PageData> varList, PageData pd) {
+		List<String> comX = new ArrayList<>(companyList.size()); // 代理商
+		List<Integer> comall = new ArrayList<>(companyList.size()); // 总数
+		List<Integer> compass = new ArrayList<>(companyList.size()); // 通过
+		List<Integer> comlimit = new ArrayList<>(companyList.size()); // 中标
+
+		String comId = "";
+		for (int i = 0; i < companyList.size(); i++) {
+			comX.add(companyList.get(i).get("COMPANY_NAME").toString());
+			comall.add(i,0);
+			compass.add(i,0);
+			comlimit.add(i,0);
+			comId = companyList.get(i).get("COMPANY_ID").toString();
+			for (PageData p : varList) {
+				if (p.get("USER_ID").equals(comId)) {
+					comall.set(i, comall.get(i) + 1);
+				}
+
+				if (p.get("STATUS") != null  && p.get("STATUS").equals("1")) {
+					compass.set(i, compass.get(i) + 1);
+				}
+				if (p.get("PROJECT_TYPE").equals("中标")) {
+					comlimit.set(i, comlimit.get(i) + 1);
+				}
+			}
+		}
+
+		pd.put("comX", comX);
+		pd.put("comall", comall);
+		pd.put("compass", compass);
+		pd.put("comlimit", comlimit);
+		logger.info(JSON.toJSONString(pd));
+		return pd;
+	}
+
+	public PageData calProjectProbNum(List<PageData> varList, PageData pd) {
+		List<String> probX = Arrays.asList("0%-30%", "30%-50%", "50%-70%", "70%以上");
+		List<Integer> probY = Arrays.asList(0, 0, 0, 0);
+		if (varList.size() == 0 || varList == null) {
+			pd.put("probX", probX);
+			pd.put("probY", probY);
+			return pd;
+		}
+		for (PageData p : varList) {
+			if (Integer.parseInt(p.get("PROB").toString()) <= 30) {
+				probY.set(0, probY.get(0) + 1);
+				continue;
+			}
+			if (Integer.parseInt(p.get("PROB").toString()) <= 50) {
+				probY.set(1, probY.get(1) + 1);
+				continue;
+			}
+			if (Integer.parseInt(p.get("PROB").toString()) <= 70) {
+				probY.set(2, probY.get(2) + 1);
+				continue;
+			}
+			if (Integer.parseInt(p.get("PROB").toString()) > 70) {
+				probY.set(3, probY.get(3) + 1);
+				continue;
+			}
+		}
+
+		pd.put("probX", probX);
+		pd.put("probY", probY);
+		return pd;
 	}
 
 	public PageData calProjectStatusNum(List<PageData> varList, PageData pd) {

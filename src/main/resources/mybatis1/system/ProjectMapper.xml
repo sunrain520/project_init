@@ -192,7 +192,9 @@
 		select
 		po.PROJECT_NAME,
 		po.PROJECT_ID,
-		pa.STATUS
+		pa.STATUS,
+		po.PROJECT_TYPE,
+		po.USER_ID
 		from
 		<include refid="tableName"></include> po  left join tb_projectapply pa on po.PROJECT_ID = pa.PROJECT_ID
 		where 1=1

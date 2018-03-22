@@ -1,178 +1,187 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="CompanyMapper">
-	
+
 	<!--表名 -->
 	<sql id="tableName">
 		TB_COMPANY
 	</sql>
-	
+
 	<!-- 字段 -->
 	<sql id="Field">
-		COMPANY_NAME,	
-		REGISTERED_CAPITAL,	
-		CREDIT_CODE,	
-		ADDR,	
-		WEB_SITES,	
-		PROVINCE_ID,	
-		PROVINCE_NAME,	
-		LICENSE,	
-		BUSINESS_SCOPE,	
-		BILLING,	
-		LEGAL_PERSON,	
-		LEGAL_PHONE,	
-		LEGAL_NO,	
-		NAME,	
-		PHONE,	
-		EMAIL,	
-		REGTIME,	
+		COMPANY_NAME,
+		REGISTERED_CAPITAL,
+		CREDIT_CODE,
+		ADDR,
+		WEB_SITES,
+		PROVINCE_ID,
+		PROVINCE_NAME,
+		LICENSE,
+		BUSINESS_SCOPE,
+		BILLING,
+		LEGAL_PERSON,
+		LEGAL_PHONE,
+		LEGAL_NO,
+		NAME,
+		PHONE,
+		EMAIL,
+		REGTIME,
 		STOCK,
 		COMPANY_ID
 	</sql>
-	
+
 	<!-- 字段值 -->
 	<sql id="FieldValue">
-		#{COMPANY_NAME},	
-		#{REGISTERED_CAPITAL},	
-		#{CREDIT_CODE},	
-		#{ADDR},	
-		#{WEB_SITES},	
-		#{PROVINCE_ID},	
-		#{PROVINCE_NAME},	
-		#{LICENSE},	
-		#{BUSINESS_SCOPE},	
-		#{BILLING},	
-		#{LEGAL_PERSON},	
-		#{LEGAL_PHONE},	
-		#{LEGAL_NO},	
-		#{NAME},	
-		#{PHONE},	
-		#{EMAIL},	
-		now(),	
+		#{COMPANY_NAME},
+		#{REGISTERED_CAPITAL},
+		#{CREDIT_CODE},
+		#{ADDR},
+		#{WEB_SITES},
+		#{PROVINCE_ID},
+		#{PROVINCE_NAME},
+		#{LICENSE},
+		#{BUSINESS_SCOPE},
+		#{BILLING},
+		#{LEGAL_PERSON},
+		#{LEGAL_PHONE},
+		#{LEGAL_NO},
+		#{NAME},
+		#{PHONE},
+		#{EMAIL},
+		now(),
 		0,
 		#{COMPANY_ID}
 	</sql>
-	
-	<!-- 新增-->
+
+	<!-- 新增 -->
 	<insert id="save" parameterType="pd">
-		insert into 
-	<include refid="tableName"></include>
+		insert into
+		<include refid="tableName"></include>
 		(
-	<include refid="Field"></include>
+		<include refid="Field"></include>
 		) values (
-	<include refid="FieldValue"></include>
+		<include refid="FieldValue"></include>
 		)
 	</insert>
-	
-	<!-- 删除-->
+
+	<!-- 删除 -->
 	<delete id="delete" parameterType="pd">
 		delete from
 		<include refid="tableName"></include>
-		where 
-			COMPANY_ID = #{COMPANY_ID}
+		where
+		COMPANY_ID = #{COMPANY_ID}
 	</delete>
-	
+
 	<!-- 修改 -->
 	<update id="edit" parameterType="pd">
 		update
 		<include refid="tableName"></include>
-		set 
-			COMPANY_NAME = #{COMPANY_NAME},
-			REGISTERED_CAPITAL = #{REGISTERED_CAPITAL},
-			CREDIT_CODE = #{CREDIT_CODE},
-			ADDR = #{ADDR},
-			WEB_SITES = #{WEB_SITES},
-			PROVINCE_ID = #{PROVINCE_ID},
-			PROVINCE_NAME = #{PROVINCE_NAME},
-			LICENSE = #{LICENSE},
-			BUSINESS_SCOPE = #{BUSINESS_SCOPE},
-			BILLING = #{BILLING},
-			LEGAL_PERSON = #{LEGAL_PERSON},
-			LEGAL_PHONE = #{LEGAL_PHONE},
-			LEGAL_NO = #{LEGAL_NO},
-			NAME = #{NAME},
-			PHONE = #{PHONE},
-			EMAIL = #{EMAIL},
-			STOCK = #{STOCK},
-			REGTIME = #{REGTIME},
+		set
+		COMPANY_NAME = #{COMPANY_NAME},
+		REGISTERED_CAPITAL = #{REGISTERED_CAPITAL},
+		CREDIT_CODE = #{CREDIT_CODE},
+		ADDR = #{ADDR},
+		WEB_SITES = #{WEB_SITES},
+		PROVINCE_ID = #{PROVINCE_ID},
+		PROVINCE_NAME = #{PROVINCE_NAME},
+		LICENSE = #{LICENSE},
+		BUSINESS_SCOPE = #{BUSINESS_SCOPE},
+		BILLING = #{BILLING},
+		LEGAL_PERSON = #{LEGAL_PERSON},
+		LEGAL_PHONE = #{LEGAL_PHONE},
+		LEGAL_NO = #{LEGAL_NO},
+		NAME = #{NAME},
+		PHONE = #{PHONE},
+		EMAIL = #{EMAIL},
+		STOCK = #{STOCK},
+		REGTIME = #{REGTIME},
 		COMPANY_ID = COMPANY_ID
-		where 
+		where
 		COMPANY_ID = #{COMPANY_ID}
 	</update>
-	
+
 	<!-- 通过ID获取数据 -->
 	<select id="findById" parameterType="pd" resultType="pd">
-		select 
+		select
 		<include refid="Field"></include>
-		from 
+		from
 		<include refid="tableName"></include>
-		where 
-			COMPANY_ID = #{COMPANY_ID}
+		where
+		COMPANY_ID = #{COMPANY_ID}
 	</select>
-	
+
 	<!-- 列表 -->
 	<select id="datalistPage" parameterType="page" resultType="pd">
 		select
 		<include refid="Field"></include>
-		from 
+		from
 		<include refid="tableName"></include>
 		where 1=1
 		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
 			and
-				(
-					COMPANY_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
-					 or 
-					ADDR LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
-					 or 
-					PROVINCE_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
-					 or 
-					BUSINESS_SCOPE LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
-					 or 
-					LEGAL_PERSON LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
-					 or 
-					NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
-				)
+			(
+			COMPANY_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+			or
+			ADDR LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+			or
+			PROVINCE_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+			or
+			BUSINESS_SCOPE LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+			or
+			LEGAL_PERSON LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+			or
+			NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+			)
 		</if>
 	</select>
-	
+
 	<!-- 列表(全部) -->
 	<select id="listAll" parameterType="pd" resultType="pd">
 		select
 		<include refid="Field"></include>
-		from 
+		from
 		<include refid="tableName"></include>
 	</select>
-	
+
+	<!-- 列表(全部) -->
+	<select id="listIndex" parameterType="pd" resultType="pd">
+		select
+		COMPANY_ID,COMPANY_NAME
+		from
+		<include refid="tableName"></include>
+	</select>
+
 	<!-- 批量删除 -->
 	<delete id="deleteAll" parameterType="String">
 		delete from
 		<include refid="tableName"></include>
-		where 
-			COMPANY_ID in
-		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
-                 #{item}
+		where
+		COMPANY_ID in
+		<foreach item="item" index="index" collection="array" open="("
+			separator="," close=")">
+			#{item}
 		</foreach>
 	</delete>
-	
+
 	<!-- 通过NAME获取数据 -->
-	<select id="findByName" parameterType="pd" resultType="pd" >
-		select 
-			<include refid="Field"></include>
-		from 
-			<include refid="tableName"></include>
-		where 
-			NAME = #{NAME}
+	<select id="findByName" parameterType="pd" resultType="pd">
+		select
+		<include refid="Field"></include>
+		from
+		<include refid="tableName"></include>
+		where
+		NAME = #{NAME}
 	</select>
-	
+
 	<!-- 通过NAME获取数据 -->
-	<update id="updateStock" parameterType="pd"  >
-		update 
-			<include refid="tableName"></include>
-			set STOCK = #{STOCK}
-		where 
-			COMPANY_ID = #{COMPANY_ID}
+	<update id="updateStock" parameterType="pd">
+		update
+		<include refid="tableName"></include>
+		set STOCK = #{STOCK}
+		where
+		COMPANY_ID = #{COMPANY_ID}
 	</update>
-	
-	
+
+
 	<!-- kuang 767375210 -->
 </mapper>

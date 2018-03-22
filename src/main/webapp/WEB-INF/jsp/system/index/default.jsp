@@ -140,23 +140,24 @@ setTimeout("top.hangge()",500);
 					</div>
 					
 					<div class="space-12"></div>
-					<div class="row">
-						<div class="col-sm-12 widget-container-span ui-sortable">
-							<div class="widget-box transparent">
-								<div class="widget-header">
-									<h4 class="lighter">项目报备记录</h4>
-
-								</div>
-
-								<div class="widget-body">
-									<div class="widget-main padding-6 no-padding-left no-padding-right">
-										<div id="reportHistory" style="width: 100%;height:300px;"></div>
+					<c:if test="${QX.reportChat == 1 }">
+						<div class="row">
+							<div class="col-sm-12 widget-container-span ui-sortable">
+								<div class="widget-box transparent">
+									<div class="widget-header">
+										<h4 class="lighter">项目报备记录</h4>
+	
+									</div>
+	
+									<div class="widget-body">
+										<div class="widget-main padding-6 no-padding-left no-padding-right">
+											<div id="reportHistory" style="width: 100%;height:300px;"></div>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					
+					</c:if>
 					<!-- /.row -->
 				</div>
 				<!-- /.page-content -->
@@ -261,100 +262,6 @@ setTimeout("top.hangge()",500);
 		}
 	</script>
 	   <script type="text/javascript">
-	   // 项目报备记录
-	   var reportHistoryChart = echarts.init(document.getElementById('reportHistory'),"macarons");
-	   option = {
-			    tooltip : {
-			        trigger: 'axis'
-			    },
-			    legend: {
-			        data:['报备总数','审核通过','中标']
-			    },
-			    toolbox: {
-			        show : true,
-			        feature : {
-			            mark : {show: true},
-			            dataView : {show: true, readOnly: false},
-			            magicType : {show: true, type: ['line', 'bar']},
-			            restore : {show: true},
-			            saveAsImage : {show: true}
-			        }
-			    },
-			    calculable : true,
-			    xAxis : [
-			        {
-			        	name:"代理商",
-			        	nameLocation:'end',//坐标轴名称显示位置。
-			            type : 'category',
-			            data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
-			            axisLabel : {//坐标轴刻度标签的相关设置。
-			                interval:0,
-			                rotate:"45"
-			            }
-			        }
-			    ],
-			    yAxis : [
-			        {
-			        	name:"单位：个",
-			            type : 'value'
-			        }
-			    ],
-			    series : [
-			        {
-			            name:'新报备',
-			            type:'bar',
-			            data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
-			            markPoint : {
-			                data : [
-			                    {type : 'max', name: '最大值'},
-			                    {type : 'min', name: '最小值'}
-			                ]
-			            },
-			            markLine : {
-			                data : [
-			                    {type : 'average', name: '平均值'}
-			                ]
-			            }
-			        },
-			        {
-			            name:'审核通过',
-			            type:'bar',
-			            data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
-			            markPoint : {
-			                data : [
-			                    {name : '年最高', value : 182.2, xAxis: 7, yAxis: 183, symbolSize:18},
-			                    {name : '年最低', value : 2.3, xAxis: 11, yAxis: 3}
-			                ]
-			            },
-			            markLine : {
-			                data : [
-			                    {type : 'average', name : '平均值'}
-			                ]
-			            }
-			        },
-			        {
-			            name:'中标',
-			            type:'bar',
-			            data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 122.3],
-			            markPoint : {
-			                data : [
-			                    {name : '年最高', value : 182.2, xAxis: 7, yAxis: 183, symbolSize:18},
-			                    {name : '年最低', value : 2.3, xAxis: 11, yAxis: 3}
-			                ]
-			            },
-			            markLine : {
-			                data : [
-			                    {type : 'average', name : '平均值'}
-			                ]
-			            }
-			        }
-			        
-			    ]
-			};
-	   reportHistoryChart.setOption(option);                   
-	   </script>
-	   
-	   <script type="text/javascript">
 	   // 项目状态分布
 	   option = {
 			    tooltip : {
@@ -364,7 +271,7 @@ setTimeout("top.hangge()",500);
 			    legend: {
 			        orient : 'vertical',
 			        x : 'left',
-			        data:['待审批','审批通过','审批不通过','未提交报备','其他']
+			        data:arrList
 			    },
 			    toolbox: {
 			        show : true,
@@ -405,7 +312,9 @@ setTimeout("top.hangge()",500);
 			        }
 			    ]
 			};
-	   var projectTypeChart = echarts.init(document.getElementById('projectType'),"macarons");                    
+	   var projectTypeChart = echarts.init(document.getElementById('projectType'),"macarons"); 
+	   
+	   var arrList = new Array("${pd.statusX1}".replace('[','').replace(']','').split(','));
 	   projectTypeChart.setOption(option);  
 	   
 	   </script>
@@ -420,7 +329,7 @@ setTimeout("top.hangge()",500);
 			    legend: {
 			        orient : 'vertical',
 			        x : 'left',
-			        data:['0%-30%','30%-50%','50%-70%','70%以上']
+			        data:arrList1
 			    },
 			    toolbox: {
 			        show : true,
@@ -451,16 +360,17 @@ setTimeout("top.hangge()",500);
 			            radius : '55%',
 			            center: ['50%', '60%'],
 			            data:[
-			                {value:335, name:'0%-30%'},
-			                {value:310, name:'30%-50%'},
-			                {value:234, name:'50%-70%'},
-			                {value:135, name:'70%以上'},
+			                {value:${pd.probY.get(0)}, name:'0%-30%'},
+			                {value:${pd.probY.get(1)}, name:'30%-50%'},
+			                {value:${pd.probY.get(2)}, name:'50%-70%'},
+			                {value:${pd.probY.get(3)}, name:'70%以上'},
 			            ],
 			            color:['#2ec0e8','#ffd03e','#ff7474','#52be7f']
 			        }
 			    ]
 			};
-	   var projectRateChart = echarts.init(document.getElementById('projectRate'),"macarons");                    
+	   var projectRateChart = echarts.init(document.getElementById('projectRate'),"macarons");      
+	   var arrList1 = new Array("${pd.probX}".replace('[','').replace(']','').split(','));
 	   projectRateChart.setOption(option);  
 	   
 	   </script>
@@ -492,6 +402,76 @@ setTimeout("top.hangge()",500);
 	   function jzts(){
 	   	$("#jzts").show();
 	   }
+	   </script>
+	   <script type="text/javascript">
+	   var reportHistoryChart = echarts.init(document.getElementById('reportHistory'),"macarons");
+	   var comX = "${pd.comX}".replace('[','').replace(']','');
+	   var comall = "${pd.comall}".replace('[','').replace(']','');
+	   var compass = "${pd.compass}".replace('[','').replace(']','');
+	   var comlimit = "${pd.comlimit}".replace('[','').replace(']','');
+	   
+	   // 项目报备记录
+	   option = {
+			    tooltip : {
+			        trigger: 'axis'
+			    },
+			    legend: {
+			        data:['报备总数','审核通过','中标']
+			    },
+			    toolbox: {
+			        show : true,
+			        feature : {
+			            mark : {show: true},
+			            dataView : {show: true, readOnly: false},
+			            magicType : {show: true, type: ['line', 'bar']},
+			            restore : {show: true},
+			            saveAsImage : {show: true}
+			        }
+			    },
+			    calculable : true,
+			    xAxis : [
+			        {
+			        	name:"代理商",
+			        	nameLocation:'end',//坐标轴名称显示位置。
+			            type : 'category',
+			            data : comX.split(','),
+			            axisLabel : {//坐标轴刻度标签的相关设置。
+			                interval:0,
+			                rotate:"45"
+			            }
+			        }
+			    ],
+			    yAxis : [
+			        {
+			        	name:"单位：个",
+			            type : 'value'
+			        }
+			    ],
+			    series : [
+			        {
+			            name:'报备总数',
+			            type:'bar',
+			            data:comall.split(','),
+			            markPoint : {
+			                data : [
+			                    {type : 'max', name: '最大值'},
+			                    {type : 'min', name: '最小值'}
+			                ]
+			            },
+			        },
+			        {
+			            name:'审核通过',
+			            type:'bar',
+			            data:compass.split(','),
+			        },
+			        {
+			            name:'中标',
+			            type:'bar',
+			            data:comlimit.split(','),
+			        }
+			    ]
+			};
+	   reportHistoryChart.setOption(option);                   
 	   </script>
 <script type="text/javascript" src="static/ace/js/jquery.js"></script>
 </body>

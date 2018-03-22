@@ -53,6 +53,11 @@ public class CompanyService implements CompanyManager{
 		return (List<PageData>)dao.findForList("CompanyMapper.datalistPage", page);
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<PageData> listIndex(Page page)throws Exception{
+		return (List<PageData>)dao.findForList("CompanyMapper.listIndex", page);
+	}
+	
 	/**列表(全部)
 	 * @param pd
 	 * @throws Exception

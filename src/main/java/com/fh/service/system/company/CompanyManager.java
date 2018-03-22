@@ -36,6 +36,8 @@ public interface CompanyManager{
 	 */
 	public List<PageData> list(Page page)throws Exception;
 	
+	public List<PageData> listIndex(Page page)throws Exception;
+	
 	/**列表(全部)
 	 * @param pd
 	 * @throws Exception

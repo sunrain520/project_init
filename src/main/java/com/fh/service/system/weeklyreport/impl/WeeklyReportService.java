@@ -53,6 +53,11 @@ public class WeeklyReportService implements WeeklyReportManager{
 		return (List<PageData>)dao.findForList("WeeklyReportMapper.datalistPage", page);
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<PageData> listProb(Page page)throws Exception{
+		return (List<PageData>)dao.findForList("WeeklyReportMapper.listProb", page);
+	}
+	
 	/**列表(全部)
 	 * @param pd
 	 * @throws Exception
