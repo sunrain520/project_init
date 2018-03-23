@@ -520,6 +520,8 @@ public class ProjectController extends BaseController {
 				for (PageData data : varList) {
 					projectList.add(data.getString("PROJECT_ID"));
 				}
+			}else{
+				projectList.add("1");
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

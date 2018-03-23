@@ -177,7 +177,7 @@
 		<if test="pd.USER_ID!= null and pd.USER_ID != ''">
 			and po.USER_ID = #{pd.USER_ID}
 		</if>
-		<if test="pd.AREA != null">
+		<if test="pd.AREA != null and pd.AREA.size() > 0 ">
 			and po.AREA_ID in
 			<foreach collection="pd.AREA" index="index" item="custid"
 				open="(" separator="," close=")">
@@ -201,7 +201,7 @@
 		<if test="pd.USER_ID!= null and pd.USER_ID != ''">
 			and po.USER_ID = #{pd.USER_ID}
 		</if>
-		<if test="pd.AREA != null">
+		<if test="pd.AREA != null and pd.AREA.size() > 0 ">
 			and po.AREA_ID in
 			<foreach collection="pd.AREA" index="index" item="custid"
 				open="(" separator="," close=")">
@@ -221,7 +221,7 @@
 		<if test="pd.USER_ID!= null and pd.USER_ID != ''">
 			and USER_ID = #{pd.USER_ID}
 		</if>
-		<if test="pd.AREA != null">
+		<if test="pd.AREA != null and pd.AREA.size() > 0 ">
 			and AREA_ID in
 			<foreach collection="pd.AREA" index="index" item="custid"
 				open="(" separator="," close=")">
@@ -297,7 +297,7 @@
 		<include refid="tableName"></include>
 		where
 		1 = 1
-		<if test="pd.AREA != null">
+		<if test="pd.AREA != null and pd.AREA.size() > 0 ">
 			and AREA_ID in
 			<foreach collection="pd.AREA" index="index" item="custid"
 				open="(" separator="," close=")">

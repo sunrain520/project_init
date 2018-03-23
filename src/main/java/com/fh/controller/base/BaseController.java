@@ -69,6 +69,7 @@ public class BaseController {
 				// 获取区域负责人省份列表
 				List<String> areaList = (List<String>) session.getAttribute(Const.SESSION_USER_AREA); 
 				logger.info("区域列表"+JSON.toJSONString(areaList));
+				areaList.add("1");
 				pd.put("AREA", areaList);
 				
 				//需要过滤项目列表

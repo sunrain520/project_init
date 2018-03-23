@@ -57,7 +57,7 @@ public class TaskController extends BaseController {
 	 * @author sunrain
 	 * @date 2018年3月8日
 	 */
-	@Scheduled(cron = "1 * * * * ?")
+	@Scheduled(cron = "0 5 * * * ?")
 	public void statisticsReport() throws Exception {
 		logBefore(logger, "统计周报，自动生成需要添加的周报列表");
 		Page page = new Page();

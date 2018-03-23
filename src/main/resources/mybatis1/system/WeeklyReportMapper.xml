@@ -110,7 +110,7 @@
 		<if test="pd.USER_ID!= null and pd.USER_ID != ''">
 			and USER_ID = #{pd.USER_ID}
 		</if>
-		<if test="pd.PROJECT_LIST != null">
+		<if test="pd.PROJECT_LIST != null and pd.PROJECT_LIST.size() > 0 ">
 			and PROJECT_ID in
 			<foreach collection="pd.PROJECT_LIST" index="index" item="custid"
 				open="(" separator="," close=")">
@@ -129,7 +129,7 @@
 		<if test="pd.USER_ID!= null and pd.USER_ID != ''">
 			and USER_ID = #{pd.USER_ID}
 		</if>
-		<if test="pd.PROJECT_LIST != null">
+		<if test="pd.PROJECT_LIST != null and pd.PROJECT_LIST.size() > 0 ">
 			and PROJECT_ID in
 			<foreach collection="pd.PROJECT_LIST" index="index" item="custid"
 				open="(" separator="," close=")">
