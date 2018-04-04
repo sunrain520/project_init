@@ -24,6 +24,8 @@
   	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**/**"/>
+			<mvc:exclude-mapping path="/plugins/**" />
+			<mvc:exclude-mapping path="/login/**" />
 			<bean class="com.fh.interceptor.LoginHandlerInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>

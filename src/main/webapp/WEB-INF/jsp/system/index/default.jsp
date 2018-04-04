@@ -84,7 +84,7 @@ setTimeout("top.hangge()",500);
 							</c:if>
 							
 							<c:if test="${QX.feedBack == 1 }">
-							<a href="javascript:void(0)" onclick="siMenu('z41','lm40','新增项目','http://localhost:8080/MVNFHM/project/goAddProject.do')" class="btn btn-app btn-info btn-sm no-radius" style="width: 180px;">
+							<a href="javascript:void(0)" onclick="siMenu('z41','lm40','新增项目','project/goAddProject.do')" class="btn btn-app btn-info btn-sm no-radius" style="width: 180px;">
 								<i class="ace-icon fa fa-plus bigger-230"> </i>
 								新增项目
 								<span class="badge badge-warning badge-left"></span>

@@ -15,10 +15,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.fh.controller.base.BaseController;
+import com.fh.service.fhoa.fhfile.FhfileManager;
 import com.fh.service.information.pictures.PicturesManager;
 import com.fh.util.AppUtil;
 import com.fh.util.Const;
@@ -38,6 +43,25 @@ public class FileController {
 	@Resource(name = "picturesService")
 	private PicturesManager picturesService;
 
+	@Resource(name="fhfileService")
+	private FhfileManager fhfileService;
+	
+	/**去预览pdf文件页面
+	 * @param
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/loginViewPdf")
+	public ModelAndView goViewPdf()throws Exception{
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
+				.getRequest();
+		ModelAndView mv = new ModelAndView();
+		PageData pd = new PageData(request);
+		pd = fhfileService.findById(pd);
+		mv.setViewName("system/login/login_fhfile_view_pdf");
+		mv.addObject("pd", pd);
+		return mv;
+	}
+	
 	/**
 	 * 登录页面上传图片 不做权限控制
 	 * 

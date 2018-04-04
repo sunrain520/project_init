@@ -32,25 +32,12 @@
 				<!-- #section:basics/navbar.dropdown -->
 				<div class="navbar-buttons navbar-header pull-right" role="navigation">
 					<ul class="nav ace-nav">
-<!-- 						<li class="grey"> -->
-<!-- 							<a data-toggle="dropdown" class="dropdown-toggle" href="#"> -->
-<!-- 								<i class="ace-icon fa fa-tasks"></i> -->
-<!-- 								<span class="badge badge-grey">2</span> -->
-<!-- 							</a> -->
-
-<!-- 							<ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close"> -->
-<!-- 								<li class="dropdown-header"> -->
-<!-- 									<i class="ace-icon fa fa-check"></i> -->
-<!-- 									预留功能,待开发 -->
-<!-- 								</li> -->
-<!-- 								<li class="dropdown-footer"> -->
-<!-- 									<a href="javascript:"> -->
-<!-- 										预留功能,待开发 -->
-<!-- 										<i class="ace-icon fa fa-arrow-right"></i> -->
-<!-- 									</a> -->
-<!-- 								</li> -->
-<!-- 							</ul> -->
-<!-- 						</li> -->
+						<li class="light-blue">
+							<a  href="${basePath}file/loginViewPdf.do?FHFILE_ID=d63bef449c024649900841bb6b9fc189"  target="_blank">
+								<i class="ace-icon fa fa-tasks"></i> 帮助文档
+							</a>
+						</li>
+						
 						<c:if test="${QX.chat == 1 }">
 						<li title="即时聊天" class="purple"  onclick="creatw();"><!-- creatw()在 WebRoot\plugins\websocketInstantMsg\websocket.js中 -->
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">

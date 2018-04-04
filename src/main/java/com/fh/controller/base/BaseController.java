@@ -47,8 +47,6 @@ public class BaseController {
 
 		Session session = Jurisdiction.getSession();
 		User user = (User) session.getAttribute(Const.SESSION_USER); // 读取session中的用户信息(单独用户信息)
-		logger.info("login"+"1111");
-		logger.info("login"+JSON.toJSONString(user));
 		if (user != null) {
 			String USERNAME = user.getUSERNAME();
 			String USER_ID = user.getUSER_ID();

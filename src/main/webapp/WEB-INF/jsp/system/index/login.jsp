@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -220,11 +223,18 @@
 					<div style="float: left;margin-top:3px;margin-right:2px;">
 						<font color="white">记住密码</font>
 					</div>
-					<div style="float: left;">
+					<div style="float: left; ">
 						<input name="form-field-checkbox" id="saveid" type="checkbox"
 							onclick="savePaw();" style="padding-top:0px;" />
 					</div>
+					
+					<div style="float: left;margin-left: 10px; margin-top:3px">
+						<a href="${basePath}/MVNFHM/static/login/2018040409524340174.pdf" title="帮助文档" target="_blank"
+						 style="color: white;text-align: center;text-decoration:underline;"
+						> 《帮助文档》</a>
+					</div>
 				</div>
+				
 				<div class="form-actions">
 					<div style="width:86%;padding-left:8%;">
 
@@ -240,15 +250,16 @@
 						</div>
 						
 <%-- 						<c:if test="${pd.isZhuce == 'yes' }"> --%>
-						<span class="pull-right" style="padding-right:3%;"><a href="javascript:changepage(1);" class="btn btn-success">注册</a></span>
+						<span class="pull-right" style="padding-right: 2%;"><a href="javascript:changepage(1);" class="btn btn-success">注册</a></span>
 <%-- 						</c:if> --%>
-						<span class="pull-right"><a onclick="severCheck();" class="flip-link btn btn-info" id="to-recover">登录</a></span>
+						<span class="pull-right" style="margin-right: 20px;"><a onclick="severCheck();" class="flip-link btn btn-info" id="to-recover">登录</a></span>
 					</div>
 				</div>
+				
 			</form>
 			<div class="controls" style="position:fixed;bottom:0;left:0;right:0;">
 				<div class="main_input_box">
-					<font color="white"><span id="nameerr">Copyright@2018  版权所有</span></font>
+					<font color="white"><span id="nameerr">Copyright © 2002-2026 深圳金智凌轩视讯技术有限公司 版权所有 粤ICP备17085359号</span></font>
 				</div>
 			</div>
 		</div>
@@ -475,7 +486,7 @@
 			</form>
 			<div class="controls" style="position:fixed;bottom:0;left:0;right:0;">
 				<div class="main_input_box">
-					<font color="white"><span id="nameerr">Copyright@2018  版权所有</span></font>
+					<font color="white"><span id="nameerr">Copyright © 2002-2026 深圳金智凌轩视讯技术有限公司 版权所有 粤ICP备17085359号</span></font>
 				</div>
 			</div>
 		</div>
@@ -1123,6 +1134,7 @@
 	          
 	        $("#loginForm").ajaxSubmit(options);  
 	    }  
+	    
 	</script> 
 	
 	<!-- 软键盘控件start -->
