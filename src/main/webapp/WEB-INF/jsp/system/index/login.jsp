@@ -197,7 +197,7 @@
 			<form action="" method="post" name="loginForm1" id="loginForm1" >
 				<div class="control-group normal_text" style="width: 100%">
 					<h3>
-						项目备案管理系统
+						渠道备案管理系统
 <!-- 						<img src="static/login/logo.png" alt="Logo" /> -->
 					</h3>
 				</div>
@@ -270,7 +270,7 @@
 			<form action="" method="post" name="loginForm" id="loginForm" enctype="multipart/form-data">
 				<div class="control-group normal_text" style="width: 100%">
 					<h3>
-						项目备案管理系统注册
+						渠道备案管理系统注册
 <!-- 						<img src="static/login/logo.png" alt="Logo" /> -->
 					</h3>
 				</div>
