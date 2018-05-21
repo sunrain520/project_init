@@ -156,9 +156,9 @@
 		po.USERNAME,
 		po.PROJECT_ID,
 		po.PURCHASE_ORDER,
-		pa.STATUS
+		po.STATUS
 		from
-		<include refid="tableName"></include> po  left join tb_projectapply pa on po.PROJECT_ID = pa.PROJECT_ID
+		<include refid="tableName"></include> po 
 		where 1=1
 		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
 			and
@@ -177,6 +177,9 @@
 		<if test="pd.USER_ID!= null and pd.USER_ID != ''">
 			and po.USER_ID = #{pd.USER_ID}
 		</if>
+		<if test="pd.STATUS!= null and pd.STATUS != ''">
+			and po.STATUS = #{pd.STATUS}
+		</if>
 		<if test="pd.AREA != null and pd.AREA.size() > 0 ">
 			and po.AREA_ID in
 			<foreach collection="pd.AREA" index="index" item="custid"
@@ -184,7 +187,7 @@
 				#{pd.AREA[${index}]}
 			</foreach>
 		</if>
-		order by po.CREATE_TIME desc
+		order by po.STATUS asc, po.CREATE_TIME desc
 	</select>
 	
 	<!-- 列表 -->
@@ -192,7 +195,7 @@
 		select
 		po.PROJECT_NAME,
 		po.PROJECT_ID,
-		pa.STATUS,
+		po.STATUS,
 		po.PROJECT_TYPE,
 		po.USER_ID
 		from
@@ -220,6 +223,9 @@
 		where 1=1
 		<if test="pd.USER_ID!= null and pd.USER_ID != ''">
 			and USER_ID = #{pd.USER_ID}
+		</if>
+		<if test="pd.STATUS!= null and pd.STATUS != ''">
+			and STATUS = #{pd.STATUS}
 		</if>
 		<if test="pd.AREA != null and pd.AREA.size() > 0 ">
 			and AREA_ID in

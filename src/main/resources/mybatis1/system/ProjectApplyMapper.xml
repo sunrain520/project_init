@@ -65,10 +65,10 @@
 	<!-- 审核-->
 	<update id="checkProjectApply" parameterType="pd">
 		update
-		<include refid="tableName"></include>
+		tb_project
 		set STATUS = #{STATUS}
 		where 
-			PROJECTAPPLY_ID = #{PROJECTAPPLY_ID}
+			PROJECT_ID = #{PROJECT_ID}
 	</update>
 	
 	<!-- 修改 -->
@@ -104,40 +104,53 @@
 	<!-- 列表 -->
 	<select id="datalistPage" parameterType="page" resultType="pd">
 		select
-		<include refid="Field"></include>
+		pa.USER_ID,	
+		pa.USERNAME,	
+		pa.FILE_TYPE,	
+		pa.FILE_NAME,	
+		pa.PROJECT_NAME,	
+		pa.PROJECT_ID,	
+		pa.NUM,	
+		pa.NAME,	
+		pa.PHONE,	
+		pa.ADDR,	
+		pa.BID_DOCUMENT,	
+		pa.CREATE_TIME,	
+		po.STATUS,	
+		pa.PROJECTAPPLY_ID 
 		from 
-		<include refid="tableName"></include>
+		<include refid="tableName"></include> pa left join tb_project po on pa.PROJECT_ID = po.PROJECT_ID
 		where 1=1
 		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
 			and
 				(
-					PROJECT_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+					pa.PROJECT_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
 					 or 
-					NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
+					pa.NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
 					 or 
-					PHONE LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
+					pa.PHONE LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
 				)
 		</if>
 		<if test="pd.STATUS!= null and pd.STATUS != ''">
-			and STATUS = #{pd.STATUS}
+			and po.STATUS = #{pd.STATUS}
 		</if>
 		<if test="pd.lastStart!= null and pd.lastStart != ''">
-			and CREATE_TIME &gt;= #{pd.lastStart}
+			and pa.CREATE_TIME &gt;= #{pd.lastStart}
 		</if>
 		<if test="pd.lastEnd!= null and pd.lastEnd != ''">
-			and CREATE_TIME &lt;= #{pd.lastEnd}
+			and pa.CREATE_TIME &lt;= #{pd.lastEnd}
 		</if>
 		<if test="pd.USER_ID!= null and pd.USER_ID != ''">
-			and USER_ID = #{pd.USER_ID}
+			and pa.USER_ID = #{pd.USER_ID}
 		</if>
 		<if test="pd.PROJECT_LIST != null and pd.PROJECT_LIST.size() > 0  ">
-			and PROJECT_ID in
+			and pa.PROJECT_ID in
 			<foreach collection="pd.PROJECT_LIST" index="index" item="custid"
 				open="(" separator="," close=")">
 				#{pd.PROJECT_LIST[${index}]}
 			</foreach>
 		</if>
-		ORDER BY STATUS asc, CREATE_TIME DESC
+		ORDER BY po.STATUS asc, pa.CREATE_TIME DESC
 	</select>
 	
 	<!-- 列表(全部) -->
@@ -172,9 +185,9 @@
 	<!-- 获取总数 -->
 	<select id="getProAppCheckCount" parameterType="page" resultType="pd">
 		select 
-			count(PROJECTAPPLY_ID) proAppCheckCount
+			count(PROJECT_ID) proAppCheckCount
 		from 
-		<include refid="tableName"></include> where  STATUS = #{pd.STATUS}
+		tb_project where  STATUS = #{pd.STATUS}
 		<if test="pd.PROJECT_LIST != null and pd.PROJECT_LIST.size() > 0 ">
 			and PROJECT_ID in
 			<foreach collection="pd.PROJECT_LIST" index="index" item="custid"

@@ -44,14 +44,14 @@
 								</td>
 								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastStart" id="lastStart"  value="${pd.lastStart }" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="开始日期" title="开始日期"/></td>
 								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastEnd" id="lastEnd"  value="${pd.lastEnd }" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="结束日期" title="结束日期"/></td>
-								<td style="vertical-align:top;padding-left:2px;">
-								 	<select class="chosen-select form-control" name="STATUS" id="STATUS" data-placeholder="状态" style="vertical-align:top;width: 120px;">
-									<option value="">全部</option>
-									<option value="0" <c:if test="${pd.STATUS == '0' }">selected</c:if> >待审核</option>
-									<option value="1" <c:if test="${pd.STATUS == '1' }">selected</c:if> >通过</option>
-									<option value="2" <c:if test="${pd.STATUS == '2' }">selected</c:if> >拒绝</option>
-								  	</select>
-								</td>
+<!-- 								<td style="vertical-align:top;padding-left:2px;"> -->
+<!-- 								 	<select class="chosen-select form-control" name="STATUS" id="STATUS" data-placeholder="状态" style="vertical-align:top;width: 120px;"> -->
+<!-- 									<option value="">全部</option> -->
+<%-- 									<option value="0" <c:if test="${pd.STATUS == '0' }">selected</c:if> >待审核</option> --%>
+<%-- 									<option value="1" <c:if test="${pd.STATUS == '1' }">selected</c:if> >通过</option> --%>
+<%-- 									<option value="2" <c:if test="${pd.STATUS == '2' }">selected</c:if> >拒绝</option> --%>
+<!-- 								  	</select> -->
+<!-- 								</td> -->
 								<c:if test="${QX.cha == 1 }">
 								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
 								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="research();"  title="清空">
@@ -79,7 +79,7 @@
 									<th class="center">邮寄联系人电话</th>
 									<th class="center">邮寄地址</th>
 									<th class="center">招标文件</th>
-									<th class="center">状态</th>
+<!-- 									<th class="center">状态</th> -->
 									<th class="center">申请人</th>
 									<th class="center">申请时间</th>
 									<th class="center">操作</th>
@@ -113,11 +113,11 @@
 												</a>
 											</td>
 											
-											<td class='center' style="width: 60px;">
-												<c:if test="${var.STATUS == '0' }"><span class="label label-info arrowed-in">待审核</span></c:if>
-												<c:if test="${var.STATUS == '1' }"><span class="label label-success arrowed">通过</span></c:if>
-												<c:if test="${var.STATUS == '2' }"><span class="label label-warning arrowed-in">拒绝</span></c:if>
-											</td>
+<!-- 											<td class='center' style="width: 60px;"> -->
+<%-- 												<c:if test="${var.STATUS == '0' }"><span class="label label-info arrowed-in">待审核</span></c:if> --%>
+<%-- 												<c:if test="${var.STATUS == '1' }"><span class="label label-success arrowed">通过</span></c:if> --%>
+<%-- 												<c:if test="${var.STATUS == '2' }"><span class="label label-warning arrowed-in">拒绝</span></c:if> --%>
+<!-- 											</td> -->
 											<td class='center'>${var.USERNAME}</td>
 											<td class='center'>${var.CREATE_TIME}</td>
 											<td class="center">
@@ -125,11 +125,11 @@
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
 												</c:if>
 												<div class="hidden-sm hidden-xs btn-group">
-													<c:if test="${QX.applyCheck == 1 }">
-													<a class="btn btn-xs btn-info" title='申请授权审核' onclick="checkProjectApply('${var.PROJECTAPPLY_ID}');">
-														<i class="ace-icon fa fa-flag bigger-120" title="申请授权审核">审核</i>
-													</a>
-													</c:if>
+<%-- 													<c:if test="${QX.applyCheck == 1 }"> --%>
+<%-- 													<a class="btn btn-xs btn-info" title='申请授权审核' onclick="checkProjectApply('${var.PROJECTAPPLY_ID}');"> --%>
+<!-- 														<i class="ace-icon fa fa-flag bigger-120" title="申请授权审核">审核</i> -->
+<!-- 													</a> -->
+<%-- 													</c:if> --%>
 													<c:if test="${QX.edit == 1 }">
 													<a class="btn btn-xs btn-success" title="编辑" onclick="edit('${var.PROJECTAPPLY_ID}');">
 														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="编辑"></i>

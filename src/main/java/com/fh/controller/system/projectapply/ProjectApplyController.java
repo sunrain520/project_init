@@ -221,6 +221,7 @@ public class ProjectApplyController extends BaseEmailController {
 //		String USER_ID = user.getUSER_ID();
 //		pd.put("USER_ID", USER_ID);
 		Page page = new Page();
+		pd.put("STATUS", "1");
 		page.setPd(pd);
 		List<PageData>	projectList = projectService.listProject(page);	//列出Project列表
 		mv.addObject("projectList",projectList);

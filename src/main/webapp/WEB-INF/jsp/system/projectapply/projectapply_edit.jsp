@@ -94,8 +94,8 @@
 <%-- 								<input type="text" name="STATUS" id="STATUS" value="${pd.STATUS}" maxlength="20" placeholder="这里输入授权状态" title="授权状态" style="width:98%;"/> --%>
 								<select name="STATUS" id="STATUS" title="状态" style="width:100px;" <c:if test="${ msg eq 'save' }">disabled</c:if>  >
 								<option value="" >请选择</option>
-								<option value="0" <c:if test="${pd.STATUS == '0' || msg eq 'save' }">selected</c:if> >待审核</option>
-								<option value="1" <c:if test="${pd.STATUS == '1' }">selected</c:if> >通过</option>
+								<option value="0" <c:if test="${pd.STATUS == '0' }">selected</c:if> >待审核</option>
+								<option value="1" <c:if test="${pd.STATUS == '1' || msg eq 'save'  }">selected</c:if> >通过</option>
 								<option value="2" <c:if test="${pd.STATUS == '2' }">selected</c:if> >拒绝</option>
 								</select>
 								</td>

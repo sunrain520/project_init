@@ -58,7 +58,7 @@ setTimeout("top.hangge()",500);
 							</a>
 							</c:if>
 							<c:if test="${QX.applyCheck == 1 }">
-							<a href="javascript:void(0)" onclick="siMenu('z131','lm129','待审批项目','projectapply/list.do?STATUS=0')" class="btn btn-app btn-info btn-sm no-radius" style="width: 180px;">
+							<a href="javascript:void(0)" onclick="siMenu('z131','lm129','待审批项目','project/list.do?STATUS=0')" class="btn btn-app btn-info btn-sm no-radius" style="width: 180px;">
 								<i class="ace-icon fa fa-tasks bigger-230"></i>
 								待审批项目
 								<span class="badge badge-danger">+${pd.proAppCheckCount}</span>

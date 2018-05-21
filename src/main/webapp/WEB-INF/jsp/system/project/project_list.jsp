@@ -55,6 +55,14 @@
 <!-- 									<option value="">2</option> -->
 <!-- 								  	</select> -->
 <!-- 								</td> -->
+								<td style="vertical-align:top;padding-left:2px;">
+								 	<select class="chosen-select form-control" name="STATUS" id="STATUS" data-placeholder="状态" style="vertical-align:top;width: 120px;">
+									<option value="">全部</option>
+									<option value="0" <c:if test="${pd.STATUS == '0' }">selected</c:if> >待审核</option>
+									<option value="1" <c:if test="${pd.STATUS == '1' }">selected</c:if> >通过</option>
+									<option value="2" <c:if test="${pd.STATUS == '2' }">selected</c:if> >拒绝</option>
+								  	</select>
+								</td>
 								<c:if test="${QX.cha == 1 }">
 								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
 								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="research();"  title="清空">
@@ -153,6 +161,11 @@
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
 												</c:if>
 												<div class="hidden-sm hidden-xs btn-group">
+													<c:if test="${QX.applyCheck == 1 }">
+													<a class="btn btn-xs btn-info" title='申请授权审核' onclick="checkProjectApply('${var.PROJECT_ID}');">
+														<i class="ace-icon fa fa-flag bigger-120" title="申请授权审核">审核</i>
+													</a>
+													</c:if>
 													<c:if test="${QX.edit == 1 }">
 													<a class="btn btn-xs btn-success" title="编辑"  onclick="siMenu('z41','lm40','项目报备','<%=basePath%>project/goEditProject.do?PROJECT_ID=${var.PROJECT_ID}')" >
 														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="编辑"></i>
@@ -280,6 +293,7 @@
 			$("#nav-search-input").val("");
 			$("#lastStart").val("");
 			$("#lastEnd").val("");
+			$("#STATUS").val("");
 			tosearch();
 		}
 		
@@ -468,6 +482,29 @@
 				}
 			});
 			return flag;
+		}
+		
+		function checkProjectApply(Id){
+			layer.confirm('项目申请授权审核', {
+				  title:"",
+				  icon: 3,
+				  btn: ['通过','拒绝'], //按钮
+		          shadeClose: true, //点击遮罩关闭层 
+				  btnAlign: 'c'
+				}, function(){
+					top.jzts();
+					var url = "<%=basePath%>projectapply/checkProjectApply.do?PROJECT_ID="+Id+"&STATUS=1&tm="+new Date().getTime();
+					$.get(url,function(data){
+						nextPage(${page.currentPage});
+					});
+				}, function(){
+					top.jzts();
+					var url =  "<%=basePath%>projectapply/checkProjectApply.do?PROJECT_ID="+Id+"&STATUS=2&tm="+new Date().getTime();
+					$.get(url,function(data){
+						nextPage(${page.currentPage});
+					});
+				});
+			
 		}
 		
 		$(function() {
