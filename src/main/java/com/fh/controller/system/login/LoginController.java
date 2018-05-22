@@ -503,7 +503,7 @@ public class LoginController extends BaseController {
 		mv.addObject("pd", pd);
 		mv.setViewName("system/index/default");
 		mv.addObject("QX", Jurisdiction.getHC()); // 按钮权限
-		
+
 		return mv;
 	}
 
@@ -516,20 +516,19 @@ public class LoginController extends BaseController {
 		String comId = "";
 		for (int i = 0; i < companyList.size(); i++) {
 			comX.add(companyList.get(i).get("COMPANY_NAME").toString());
-			comall.add(i,0);
-			compass.add(i,0);
-			comlimit.add(i,0);
+			comall.add(i, 0);
+			compass.add(i, 0);
+			comlimit.add(i, 0);
 			comId = companyList.get(i).get("COMPANY_ID").toString();
 			for (PageData p : varList) {
 				if (p.get("USER_ID").equals(comId)) {
 					comall.set(i, comall.get(i) + 1);
-				}
-
-				if (p.get("STATUS") != null  && p.get("STATUS").equals("1")) {
-					compass.set(i, compass.get(i) + 1);
-				}
-				if (p.get("PROJECT_TYPE").equals("中标")) {
-					comlimit.set(i, comlimit.get(i) + 1);
+					if (p.get("STATUS") != null && p.get("STATUS").equals("1")) {
+						compass.set(i, compass.get(i) + 1);
+					}
+					if (p.get("PROJECT_TYPE").equals("中标")) {
+						comlimit.set(i, comlimit.get(i) + 1);
+					}
 				}
 			}
 		}
